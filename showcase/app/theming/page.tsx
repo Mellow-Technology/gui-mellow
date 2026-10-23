@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Alert } from "gui-mellow/Alert";
 import { CodeBlock } from "gui-mellow/CodeBlock";
 import { Prose } from "gui-mellow/Prose";
@@ -114,8 +115,8 @@ export default function ThemingPage() {
           <Prose>
             <p>
               The library&rsquo;s tokens live in a cascade layer, so any ordinary rule beats them, whatever
-              order the stylesheets load in. Fine for a handful of changes. The <a href="/tokens">tokens
-              page</a> lists them all.
+              order the stylesheets load in. Fine for a handful of changes. The <Link href="/tokens">tokens
+              page</Link> lists them all.
             </p>
           </Prose>
           <CodeBlock title="globals.css" language="css" code={css} />

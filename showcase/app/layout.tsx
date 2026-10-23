@@ -11,6 +11,7 @@ import {
   Nunito,
   Space_Grotesk,
 } from "next/font/google";
+import { ATTRIBUTION } from "gui-mellow/Credit";
 import { CursorEffects, CursorToggle } from "gui-mellow/CursorEffects";
 import { SiteFooter } from "gui-mellow/SiteFooter";
 import { SiteHeader } from "gui-mellow/SiteHeader";
@@ -18,6 +19,7 @@ import { PaletteToggle, ThemeScript, ThemeToggle } from "gui-mellow/ThemeToggle"
 import { firstDemo } from "../lib/catalog";
 import { palettes } from "../lib/palettes";
 import styles from "../lib/showcase.module.scss";
+import { GitHubLink } from "../lib/GitHubLink";
 import { ThemeEditor, ThemeEditorButton } from "../lib/ThemeEditor";
 import "gui-mellow/styles.scss";
 import "gui-mellow/styles/themes/solarpunk.scss";
@@ -72,8 +74,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           actions={
             <>
               <PaletteToggle palettes={palettes} className={styles.desktopOnly} />
-              <ThemeEditorButton className={styles.desktopOnly} />
               <ThemeToggle labels={{ light: "☀", dark: "☾", system: "Auto" }} />
+              <ThemeEditorButton className={styles.desktopOnly} />
+              <GitHubLink className={styles.desktopOnly} />
             </>
           }
         />
@@ -88,6 +91,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 { href: "/components", label: "Components" },
                 { href: "/tokens", label: "Tokens" },
                 { href: "/theming", label: "Theming" },
+                { href: ATTRIBUTION.url, label: "GitHub" },
               ],
             },
             {

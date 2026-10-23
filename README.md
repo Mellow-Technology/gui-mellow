@@ -313,6 +313,15 @@ bun start          # serve the export
 bun typecheck
 ```
 
+**GitHub Pages.** `.github/workflows/showcase.yml` builds the showcase and
+publishes it on every push to `main` (or by hand, from the Actions tab). In
+the repository's settings, under Pages, set the source to "GitHub Actions".
+The site is served from a subpath (`/gui-mellow`), which the workflow
+passes to the build as `PAGES_BASE_PATH`. `next/link` adds it to links by
+itself; for images and other files in `showcase/public`, use `asset()` from
+`showcase/lib/asset.ts`. To try a Pages build locally:
+`PAGES_BASE_PATH=/gui-mellow bun run build`.
+
 It imports the library through tsconfig paths, the same specifiers an app
 uses, and shares the root's `node_modules` so there's only one copy of React.
 

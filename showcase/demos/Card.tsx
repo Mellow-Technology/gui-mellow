@@ -1,19 +1,20 @@
 import { Card } from "gui-mellow/Card";
 import { Grid } from "gui-mellow/Grid";
 import { Example } from "../lib/Example";
+import { asset } from "../lib/asset";
 
 export default function CardDemo() {
   return (
     <>
       <Example title="With icons">
         <Grid min="220px" gap={5}>
-          <Card title="Painless" icon={<img src="/painless.png" alt="" />}>
+          <Card title="Painless" icon={<img src={asset("/painless.png")} alt="" />}>
             Set up in an afternoon, without a platform team.
           </Card>
-          <Card title="Distributed" icon={<img src="/distributed.png" alt="" />}>
+          <Card title="Distributed" icon={<img src={asset("/distributed.png")} alt="" />}>
             Nodes in many places, working as one.
           </Card>
-          <Card title="Bare metal" icon={<img src="/metal.png" alt="" />}>
+          <Card title="Bare metal" icon={<img src={asset("/metal.png")} alt="" />}>
             Your hardware, at full speed.
           </Card>
         </Grid>

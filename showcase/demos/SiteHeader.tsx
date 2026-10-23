@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "gui-mellow/Button";
 import { SiteHeader } from "gui-mellow/SiteHeader";
 import { Example } from "../lib/Example";
+import { asset } from "../lib/asset";
 
 export default function SiteHeaderDemo() {
   return (
@@ -14,7 +15,7 @@ export default function SiteHeaderDemo() {
         style={{ position: "relative" }}
         brand={
           <Link href="/">
-            <img src="/cloud-logo-color.png" alt="" width={56} height={34} />
+            <img src={asset("/cloud-logo-color.png")} alt="" width={56} height={34} />
             Community Cloud
           </Link>
         }
