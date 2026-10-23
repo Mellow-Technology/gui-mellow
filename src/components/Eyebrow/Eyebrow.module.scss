@@ -1,0 +1,10 @@
+@use "../../styles/mixins" as gm;
+
+.eyebrow {
+    @include gm.label;
+    color: var(--gm-color-text-faint);
+}
+
+.accent {
+    color: var(--gm-color-accent);
+}

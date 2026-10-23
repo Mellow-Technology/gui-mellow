@@ -1,0 +1,124 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gm-space-2);
+    border: var(--gm-border-width) solid transparent;
+    border-radius: var(--gm-radius-sm);
+    font-family: var(--gm-font-body);
+    font-weight: var(--gm-weight-bold);
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: var(--gm-cursor-pointer);
+    clip-path: var(--gm-clip-control);
+    transition:
+        background-color var(--gm-duration) var(--gm-ease),
+        border-color var(--gm-duration) var(--gm-ease),
+        color var(--gm-duration) var(--gm-ease),
+        box-shadow var(--gm-duration) var(--gm-ease),
+        transform var(--gm-duration) var(--gm-ease);
+
+    &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+
+    &[aria-busy="true"] {
+        opacity: 0.8;
+        cursor: progress;
+    }
+}
+
+.sm {
+    padding: 0.5rem 0.875rem;
+    font-size: var(--gm-text-sm);
+}
+
+.md {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.97rem;
+}
+
+.lg {
+    padding: 0.95rem 1.9rem;
+    font-size: var(--gm-text-md);
+    border-radius: var(--gm-radius-md);
+}
+
+// Filled and outlined buttons take the theme's control shadow, lifting on
+// hover and pressing in when clicked
+.primary,
+.secondary,
+.danger {
+    box-shadow: var(--gm-shadow-control);
+
+    &:hover:not(:disabled) {
+        box-shadow: var(--gm-shadow-control-hover);
+        transform: var(--gm-lift);
+    }
+
+    &:active:not(:disabled) {
+        box-shadow: none;
+        transform: var(--gm-press);
+    }
+}
+
+.primary {
+    background: var(--gm-color-primary);
+    color: var(--gm-color-on-primary);
+
+    &:hover:not(:disabled) {
+        background: var(--gm-color-primary-hover);
+        color: var(--gm-color-on-primary);
+    }
+}
+
+// For actions that destroy something, such as confirming a delete
+.danger {
+    background: var(--gm-color-danger);
+    color: #ffffff;
+
+    &:hover:not(:disabled) {
+        background: color-mix(in srgb, var(--gm-color-danger) 85%, #000000);
+        color: #ffffff;
+    }
+}
+
+.secondary {
+    background: transparent;
+    color: var(--gm-color-text);
+    border-color: var(--gm-color-border-strong);
+
+    &:hover:not(:disabled) {
+        background: var(--gm-color-surface-hover);
+        border-color: var(--gm-color-border-hover);
+        color: var(--gm-color-heading);
+    }
+}
+
+.ghost {
+    background: transparent;
+    color: var(--gm-color-text-muted);
+
+    &:hover:not(:disabled) {
+        background: var(--gm-color-surface-hover);
+        color: var(--gm-color-heading);
+    }
+}
+
+.spinner {
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

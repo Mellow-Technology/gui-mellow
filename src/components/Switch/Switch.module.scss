@@ -1,0 +1,78 @@
+@use "../../styles/mixins" as gm;
+
+.switch {
+    display: inline-flex;
+    align-items: flex-start;
+    // Only the switch and its text are clickable, even when a flex or grid
+    // parent would stretch it
+    width: fit-content;
+    max-width: 100%;
+    gap: var(--gm-space-3);
+    cursor: var(--gm-cursor-pointer);
+
+    &:has(:disabled) {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+}
+
+.input {
+    @include gm.visually-hidden;
+}
+
+.track {
+    position: relative;
+    width: 2.5rem;
+    height: 1.4rem;
+    flex: none;
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    border-radius: var(--gm-radius-pill);
+    background: var(--gm-color-surface-sunken);
+    transition:
+        background-color var(--gm-duration) var(--gm-ease),
+        border-color var(--gm-duration) var(--gm-ease);
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: calc(1.4rem - 6px);
+        height: calc(1.4rem - 6px);
+        border-radius: 50%;
+        background: var(--gm-color-text-muted);
+        transition:
+            transform var(--gm-duration) var(--gm-ease),
+            background-color var(--gm-duration) var(--gm-ease);
+    }
+
+    .input:checked + & {
+        border-color: var(--gm-color-primary);
+        background: var(--gm-color-primary);
+
+        &::after {
+            background: var(--gm-color-on-primary);
+            transform: translateX(1.1rem);
+        }
+    }
+
+    .input:focus-visible + & {
+        outline: 2px solid var(--gm-color-focus);
+        outline-offset: 2px;
+    }
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.label {
+    color: var(--gm-color-text);
+}
+
+.description {
+    font-size: var(--gm-text-sm);
+    color: var(--gm-color-text-faint);
+}

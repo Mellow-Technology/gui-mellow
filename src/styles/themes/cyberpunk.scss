@@ -1,0 +1,162 @@
+// Cyberpunk: a neon city at night, and a hazard-yellow HUD by day. Square
+// corners, buttons with cut-off corners, a notch of colour on every panel,
+// uppercase headlines split into red and cyan like a misaligned screen,
+// circuit traces for texture, and faint scanlines over the dark page.
+//
+// Opt in by importing it after the global stylesheet,
+//
+//     import "gui-mellow/styles/themes/cyberpunk.scss";
+//
+// then set `data-palette="cyberpunk"`. Font: point --font-cyber at a
+// next/font variable for Chakra Petch, or let it fall back by name.
+
+@use "sass:map";
+@use "sass:string";
+@use "../patterns";
+@use "../theme";
+
+@layer gm.tokens, gm.base;
+
+$-yellow: #fcee0a;
+$-cyan: #00f0ff;
+$-magenta: #ff2a6d;
+$-night: #07070d;
+
+// A targeting reticle, which locks on over links and buttons
+$-reticle: "<circle cx='16' cy='16' r='7'/><path d='M16 2v6M16 24v6M2 16h6M24 16h6'/>";
+$-brackets: "<circle cx='16' cy='16' r='4.5'/><path d='M16 6v5M16 21v5M6 16h5M21 16h5M3 9V3h6M23 3h6v6M29 23v6h-6M9 29H3v-6'/>";
+
+@function -cursor($shapes, $centre) {
+    @return patterns.svg-url(
+        "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='none' stroke-linecap='square'>" +
+            "<g stroke='#{$-night}' stroke-width='3.5'>#{$shapes}</g>" +
+            "<g stroke='#{$-magenta}' stroke-width='1.5'>#{$shapes}</g>" +
+            "<circle cx='16' cy='16' r='#{$centre}' fill='#{$-cyan}' stroke='#{$-night}'/></svg>"
+    );
+}
+
+@layer gm.tokens {
+    @include theme.palette(
+        "cyberpunk",
+        $light: (
+            "color-bg": #f4e81c,
+            "color-surface": #fbf27a,
+            "color-surface-hover": #fff8a8,
+            "color-surface-sunken": rgba(7, 7, 13, 0.07),
+            "color-overlay": rgba(244, 232, 28, 0.9),
+
+            "color-heading": $-night,
+            "color-text": #15151d,
+            "color-text-muted": #2a2a30,
+            "color-text-subtle": #34342f,
+            "color-text-faint": #45452f,
+
+            "color-primary": $-night,
+            "color-primary-hover": #23232e,
+            "color-on-primary": $-yellow,
+            "color-accent": #c4004a,
+            "color-on-accent": #ffffff,
+            "color-link": #005c7a,
+            "color-link-hover": #003a4f,
+            "color-focus": #c4004a,
+            "color-selection": rgba(0, 240, 255, 0.45),
+
+            "color-success": #00663a,
+            "color-warning": #7a4a00,
+            "color-danger": #c4004a,
+
+            "color-border-subtle": rgba(7, 7, 13, 0.14),
+            "color-border": rgba(7, 7, 13, 0.4),
+            "color-border-strong": $-night,
+            "color-border-hover": $-night,
+
+            "shadow-sm": 2px 2px 0 rgba(7, 7, 13, 0.4),
+            "shadow-lg": 6px 6px 0 $-night,
+            "glass-highlight": rgba(255, 255, 255, 0.4),
+            "pattern-color": rgba(7, 7, 13, 0.11),
+            "particle-colors": #{"7 7 13, 196 0 74, 0 92 122"},
+
+            "shadow-pop": 4px 4px 0 $-night,
+            "shadow-pop-hover": 6px 6px 0 #c4004a,
+            "display-shadow": (-0.035em 0 0 rgba(196, 0, 74, 0.75), 0.035em 0 0 rgba(0, 170, 200, 0.75)),
+            "scanline-color": transparent,
+        ),
+        $dark: (
+            "color-bg": $-night,
+            "color-surface": rgba(0, 240, 255, 0.035),
+            "color-surface-hover": rgba(0, 240, 255, 0.07),
+            "color-surface-sunken": rgba(0, 240, 255, 0.06),
+            "color-overlay": rgba(7, 7, 13, 0.86),
+
+            "color-heading": #f2fdff,
+            "color-text": #c8eef4,
+            "color-text-muted": #9cc6cf,
+            "color-text-subtle": #88b4be,
+            "color-text-faint": #6f9aa5,
+
+            "color-primary": $-yellow,
+            "color-primary-hover": #fff566,
+            "color-on-primary": $-night,
+            "color-accent": $-magenta,
+            "color-on-accent": #ffffff,
+            "color-link": $-cyan,
+            "color-link-hover": #8cf8ff,
+            "color-focus": $-cyan,
+            "color-selection": rgba(255, 42, 109, 0.4),
+
+            "color-success": #39ff9a,
+            "color-warning": $-yellow,
+            "color-danger": $-magenta,
+
+            "color-border-subtle": rgba(0, 240, 255, 0.1),
+            "color-border": rgba(0, 240, 255, 0.22),
+            "color-border-strong": rgba(0, 240, 255, 0.4),
+            "color-border-hover": $-cyan,
+
+            "shadow-sm": 0 0 6px rgba(0, 240, 255, 0.2),
+            "shadow-lg": 0 0 32px rgba(0, 240, 255, 0.18),
+            "glass-highlight": rgba(0, 240, 255, 0.2),
+            "pattern-color": rgba(0, 240, 255, 0.08),
+            "particle-colors": #{"0 240 255, 255 42 109, 252 238 10, 140 80 255"},
+
+            "shadow-pop-hover": (0 0 0 1px $-cyan, 0 0 28px rgba(0, 240, 255, 0.28)),
+            "display-shadow": (-0.035em 0 0 rgba(255, 42, 109, 0.85), 0.035em 0 0 rgba(0, 240, 255, 0.85)),
+            "scanline-color": rgba(0, 0, 0, 0.18),
+        ),
+        $tokens: (
+            "font-display": (var(--font-cyber, "Chakra Petch"), ui-sans-serif, system-ui, sans-serif),
+            "font-body": (var(--font-cyber, "Chakra Petch"), ui-sans-serif, system-ui, sans-serif),
+            "weight-heading": 700,
+            "heading-transform": uppercase,
+            "tracking-tight": 0.01em,
+            "tracking-label": 0.16em,
+            "radius-sm": 0px,
+            "radius-md": 0px,
+            "radius-lg": 0px,
+            "radius-pill": 2px,
+            "clip-control": string.unquote(
+                "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)"
+            ),
+            "notch": 14px,
+            // Clipped buttons would cut off an outside focus ring
+            "focus-offset": -4px,
+            "cursor-custom": (-cursor($-reticle, 1.75) 16 16, crosshair),
+            "cursor-custom-pointer": (-cursor($-brackets, 2.5) 16 16, pointer),
+            "cursor-effect": reticle,
+            "pattern": map.get(patterns.$circuit, image),
+            "pattern-size": map.get(patterns.$circuit, size),
+        )
+    );
+}
+
+// Scanlines over the whole page, when the palette is on <html>
+@layer gm.base {
+    :root[data-palette="cyberpunk"] body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: var(--gm-z-overlay);
+        pointer-events: none;
+        background: repeating-linear-gradient(transparent 0 2px, var(--gm-scanline-color) 2px 3px);
+    }
+}

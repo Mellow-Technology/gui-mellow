@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "paths": {
+      "gui-mellow": ["./src/index.ts"],
+      "gui-mellow/styles.scss": ["./src/styles/global.scss"],
+      "gui-mellow/theme": ["./src/theme.ts"],
+      "gui-mellow/*": ["./src/components/*/index.ts"]
+    }
+  },
+  "include": ["typings", "src", "showcase"],
+  "exclude": ["node_modules", "showcase/.next", "showcase/out"]
+}

@@ -1,0 +1,41 @@
+@use "sass:map";
+@use "../../styles/patterns";
+
+// The fade masks this element; the pattern masks its ::before, which paints
+// the colour. Nested masks multiply, so the two combine without
+// mask-composite.
+
+.pattern {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: var(--gm-pattern-color);
+        -webkit-mask-image: var(--gm-pattern);
+        mask-image: var(--gm-pattern);
+        -webkit-mask-size: var(--gm-pattern-size);
+        mask-size: var(--gm-pattern-size);
+    }
+}
+
+@each $name, $pattern in patterns.$all {
+    .#{$name} {
+        --gm-pattern: #{map.get($pattern, image)};
+        --gm-pattern-size: #{map.get($pattern, size)};
+    }
+}
+
+.radial {
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 20%, #000 30%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 20%, #000 30%, transparent 100%);
+}
+
+.bottom {
+    -webkit-mask-image: linear-gradient(#000 30%, transparent);
+    mask-image: linear-gradient(#000 30%, transparent);
+}

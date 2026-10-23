@@ -1,0 +1,76 @@
+@use "../../styles/mixins" as gm;
+
+.block {
+    @include gm.notch;
+    min-width: 0;
+    margin: 0;
+    border: var(--gm-border-width) solid var(--gm-color-border);
+    border-radius: var(--gm-radius-md);
+    background-color: var(--gm-color-surface);
+    box-shadow: var(--gm-shadow-pop);
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: var(--gm-space-3);
+    min-height: 2.5rem;
+    padding: 0.375rem 0.5rem 0.375rem 1rem;
+    border-bottom: var(--gm-border-width) solid var(--gm-color-border-subtle);
+    font-family: var(--gm-font-mono);
+    font-size: var(--gm-text-xs);
+    color: var(--gm-color-text-faint);
+}
+
+.title {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--gm-color-text-muted);
+}
+
+.language {
+    @include gm.label;
+}
+
+.copyButton {
+    padding: 0.25rem 0.625rem;
+    border: var(--gm-border-width) solid var(--gm-color-border);
+    border-radius: var(--gm-radius-sm);
+    background: var(--gm-color-bg);
+    font-family: var(--gm-font-mono);
+    font-size: var(--gm-text-xs);
+    color: var(--gm-color-text-muted);
+    cursor: var(--gm-cursor-pointer);
+    transition:
+        border-color var(--gm-duration) var(--gm-ease),
+        color var(--gm-duration) var(--gm-ease);
+
+    &:hover {
+        border-color: var(--gm-color-border-hover);
+        color: var(--gm-color-heading);
+    }
+}
+
+.pre {
+    margin: 0;
+    padding: var(--gm-space-4) 1.125rem;
+    overflow-x: auto;
+    font-family: var(--gm-font-mono);
+    font-size: 0.84rem;
+    line-height: 1.7;
+    tab-size: 2;
+    color: var(--gm-color-text);
+
+    code {
+        font: inherit;
+    }
+}
+
+.wrap {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}

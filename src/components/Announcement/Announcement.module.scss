@@ -1,0 +1,38 @@
+@use "../../styles/mixins" as gm;
+
+.announcement {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gm-space-3);
+    padding: 0.6rem var(--gm-gutter);
+    border-bottom: var(--gm-border-width) solid var(--gm-color-border-subtle);
+    background: color-mix(in srgb, var(--gm-color-primary) 10%, var(--gm-color-bg));
+    font-size: var(--gm-text-sm);
+    text-align: center;
+}
+
+.label {
+    @include gm.label;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--gm-radius-sm);
+    background: var(--gm-color-accent);
+    color: var(--gm-color-on-accent);
+    font-weight: var(--gm-weight-bold);
+}
+
+.message {
+    color: var(--gm-color-text);
+}
+
+.link {
+    display: inline-flex;
+    gap: var(--gm-space-2);
+    color: var(--gm-color-link);
+
+    &:hover .message {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+    }
+}

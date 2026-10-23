@@ -1,0 +1,63 @@
+@use "../../styles/mixins" as gm;
+
+.footer {
+    border-top: var(--gm-border-width) solid var(--gm-color-border-subtle);
+}
+
+.inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--gm-space-7);
+    max-width: calc(var(--gm-container) + 2 * var(--gm-gutter));
+    margin-inline: auto;
+    padding: 3.25rem var(--gm-gutter);
+}
+
+.about {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gm-space-3);
+}
+
+.brand {
+    color: var(--gm-color-heading);
+    font-family: var(--gm-font-display);
+    font-weight: var(--gm-weight-bold);
+}
+
+.fineprint {
+    font-size: 0.84rem;
+    color: var(--gm-color-text-faint);
+}
+
+.columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gm-space-7) var(--gm-space-8);
+}
+
+.column ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.column a {
+    font-size: 0.9rem;
+    color: var(--gm-color-text-subtle);
+
+    &:hover {
+        color: var(--gm-color-heading);
+    }
+}
+
+.heading {
+    @include gm.label;
+    margin-bottom: 0.875rem;
+    color: var(--gm-color-text-faint);
+}

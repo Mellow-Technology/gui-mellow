@@ -1,0 +1,107 @@
+.hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+    padding-block: var(--gm-space-9) var(--gm-space-8);
+}
+
+.page {
+    min-height: 420px;
+}
+
+.full {
+    min-height: calc(100svh - var(--gm-header-height));
+}
+
+// The photograph, washed towards the page colour and masked so it dissolves
+// into the page over its lower half
+.image {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-size: cover;
+    background-position: center 35%;
+    filter: saturate(0.85);
+    mask-image: linear-gradient(180deg, #000 0%, #000 45%, rgba(0, 0, 0, 0.4) 75%, transparent 100%);
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(
+                180deg,
+                color-mix(in srgb, var(--gm-color-bg) 66%, transparent) 0%,
+                color-mix(in srgb, var(--gm-color-bg) 52%, transparent) 45%,
+                color-mix(in srgb, var(--gm-color-bg) 88%, transparent) 100%
+            ),
+            radial-gradient(
+                ellipse 90% 120% at 50% 30%,
+                transparent 40%,
+                color-mix(in srgb, var(--gm-color-bg) 70%, transparent) 100%
+            );
+    }
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gm-space-4);
+    width: 100%;
+    max-width: calc(var(--gm-container) + 2 * var(--gm-gutter));
+    margin-inline: auto;
+    padding-inline: var(--gm-gutter);
+}
+
+.center .inner {
+    align-items: center;
+    text-align: center;
+}
+
+.badge {
+    margin-bottom: var(--gm-space-4);
+}
+
+.title {
+    max-width: 20ch;
+    font-size: var(--gm-text-4xl);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    text-shadow: var(--gm-display-shadow);
+
+    .full & {
+        font-size: var(--gm-text-5xl);
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+    }
+
+    // Emphasis carries the accent, for the one phrase that matters
+    em {
+        padding-inline: 0.08em;
+        margin-inline: -0.08em;
+        background: var(--gm-highlight);
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+        font-style: italic;
+        color: var(--gm-color-accent);
+    }
+}
+
+.subtitle {
+    max-width: 60ch;
+    margin-top: var(--gm-space-2);
+    font-size: clamp(var(--gm-text-lg), 1rem + 0.6vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--gm-color-text-muted);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.875rem;
+    margin-top: var(--gm-space-5);
+}

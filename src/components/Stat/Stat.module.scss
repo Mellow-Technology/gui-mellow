@@ -1,0 +1,66 @@
+@use "../../styles/mixins" as gm;
+
+.stat {
+    @include gm.surface;
+    padding: 1.85rem 1.6rem 1.75rem;
+}
+
+.label {
+    @include gm.label;
+    color: var(--gm-color-text-faint);
+    margin-bottom: 0.875rem;
+}
+
+.figures {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+}
+
+.figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gm-space-2);
+}
+
+.value {
+    font-family: var(--gm-font-display);
+    font-size: 2.5rem;
+    font-weight: var(--gm-weight-bold);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--gm-color-heading);
+}
+
+.total .value {
+    color: var(--gm-color-text-muted);
+}
+
+.unit {
+    @include gm.label;
+    color: var(--gm-color-text-faint);
+}
+
+.separator {
+    font-size: var(--gm-text-sm);
+    color: var(--gm-color-text-faint);
+}
+
+.meter {
+    height: 4px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2px;
+    background: var(--gm-color-border);
+}
+
+.statMeter {
+    margin-top: 1.25rem;
+}
+
+.fill {
+    height: 100%;
+    background: var(--gm-color-primary);
+    transition: width 0.4s var(--gm-ease);
+}

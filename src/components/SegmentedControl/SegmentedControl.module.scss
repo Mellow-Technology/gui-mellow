@@ -1,0 +1,63 @@
+@use "../../styles/mixins" as gm;
+
+.control {
+    display: inline-flex;
+    gap: 2px;
+    margin: 0;
+    padding: 3px;
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    border-radius: var(--gm-radius-pill);
+    background: var(--gm-color-surface);
+    min-width: 0;
+    // Scrolls sideways rather than overflowing a narrow screen
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.legend,
+.input {
+    @include gm.visually-hidden;
+}
+
+.option {
+    display: flex;
+}
+
+.segment {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gm-space-2);
+    border-radius: var(--gm-radius-pill);
+    color: var(--gm-color-text-subtle);
+    font-weight: var(--gm-weight-medium);
+    white-space: nowrap;
+    cursor: var(--gm-cursor-pointer);
+    transition:
+        background-color var(--gm-duration) var(--gm-ease),
+        color var(--gm-duration) var(--gm-ease);
+
+    &:hover {
+        color: var(--gm-color-text);
+    }
+
+    .input:checked + & {
+        background: var(--gm-color-primary);
+        color: var(--gm-color-on-primary);
+    }
+
+    .input:focus-visible + & {
+        outline: 2px solid var(--gm-color-focus);
+        outline-offset: 1px;
+    }
+}
+
+.sm .segment {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+}
+
+.md .segment {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.875rem;
+}

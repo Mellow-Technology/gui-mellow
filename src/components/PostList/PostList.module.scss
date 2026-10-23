@@ -1,0 +1,45 @@
+@use "../../styles/mixins" as gm;
+
+.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: var(--gm-border-width) solid var(--gm-color-border-subtle);
+}
+
+.item {
+    display: grid;
+    grid-template-columns: 8.75rem minmax(0, 1fr);
+    gap: var(--gm-space-6);
+    align-items: baseline;
+    padding: 1.75rem var(--gm-space-2);
+    border-bottom: var(--gm-border-width) solid var(--gm-color-border-subtle);
+    color: inherit;
+    transition: background-color var(--gm-duration) var(--gm-ease);
+
+    &:hover {
+        background: var(--gm-color-surface-hover);
+        color: inherit;
+    }
+
+    @include gm.below(sm) {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--gm-space-2);
+    }
+}
+
+.meta {
+    font-family: var(--gm-font-mono);
+    font-size: var(--gm-text-xs);
+    color: var(--gm-color-text-faint);
+}
+
+.title {
+    font-size: var(--gm-text-2xl);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--gm-space-2);
+}
+
+.description {
+    color: var(--gm-color-text-subtle);
+}

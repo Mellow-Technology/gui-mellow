@@ -1,0 +1,19 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gm-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    border-radius: var(--gm-radius-pill);
+    color: var(--gm-color-text-muted);
+    font-family: var(--gm-font-mono);
+    font-size: var(--gm-text-xs);
+    line-height: 1.5;
+}

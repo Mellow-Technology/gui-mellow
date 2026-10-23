@@ -1,0 +1,293 @@
+// The theming machinery: default token values, and mixins that write them
+// out as custom properties. Emits no CSS by itself, so palettes can @use it.
+//
+// A palette is an alternative set of tokens with its own light and dark
+// variants, applied with `data-palette="name"` on <html> or any element:
+//
+//     @use "gui-mellow/styles/theme";
+//
+//     @layer gm.tokens {
+//       @include theme.palette("ocean", $light: (…), $dark: (…), $tokens: (…));
+//     }
+//
+// See themes/_solarpunk.scss for a complete one.
+
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
+@use "patterns";
+
+$rainbow: string.unquote("255 0 0, 255 154 0, 208 222 33, 77 220 74, 63 218 216, 47 201 226, 28 127 238, 95 21 242, 186 12 248, 251 7 217");
+
+$light-defaults: (
+    // Surfaces
+    "color-bg": #f8f9fb,
+    "color-surface": #ffffff,
+    "color-surface-hover": #f1f3f6,
+    "color-surface-sunken": rgba(10, 13, 16, 0.04),
+    "color-overlay": rgba(248, 249, 251, 0.84),
+
+    // Text, strongest to quietest
+    "color-heading": oklch(0.2 0.015 240),
+    "color-text": oklch(0.3 0.014 240),
+    "color-text-muted": oklch(0.42 0.014 240),
+    "color-text-subtle": oklch(0.5 0.012 240),
+    "color-text-faint": oklch(0.56 0.012 240),
+
+    // Brand
+    "color-primary": #0568e2,
+    "color-primary-hover": #0457bd,
+    "color-on-primary": #ffffff,
+    "color-accent": #d4163a,
+    "color-on-accent": #ffffff,
+    "color-link": #0560cf,
+    "color-link-hover": #04479a,
+    "color-focus": #0560cf,
+    "color-selection": rgba(5, 104, 226, 0.22),
+
+    // Status
+    "color-success": oklch(0.55 0.15 150),
+    "color-warning": #a86400,
+    "color-danger": #d4163a,
+
+    // Borders, quietest to loudest
+    "color-border-subtle": rgba(10, 13, 16, 0.07),
+    "color-border": rgba(10, 13, 16, 0.11),
+    "color-border-strong": rgba(10, 13, 16, 0.2),
+    "color-border-hover": rgba(10, 13, 16, 0.3),
+
+    // Depth
+    "shadow-sm": 0 1px 2px rgba(10, 13, 16, 0.06),
+    "shadow-lg": 0 12px 32px rgba(10, 13, 16, 0.12),
+    "glass-highlight": rgba(255, 255, 255, 0.7),
+    "pattern-color": rgba(10, 13, 16, 0.07),
+
+    // Shape effects, off by default. "pop" shadows sit under surfaces such
+    // as cards (a hard offset block, or a glow), "control" ones under
+    // buttons; "display" is a text shadow on hero and banner titles, and
+    // "highlight" a background behind their emphasised words.
+    "shadow-pop": none,
+    "shadow-pop-hover": none,
+    "shadow-control": none,
+    "shadow-control-hover": none,
+    "display-shadow": none,
+    "highlight": none,
+
+    // ParticleField colours, as "r g b" triples
+    "particle-colors": $rainbow,
+);
+
+$dark-defaults: (
+    "color-bg": #0a0d10,
+    "color-surface": rgba(255, 255, 255, 0.018),
+    "color-surface-hover": rgba(255, 255, 255, 0.032),
+    "color-surface-sunken": rgba(255, 255, 255, 0.055),
+    "color-overlay": rgba(10, 13, 16, 0.82),
+
+    "color-heading": oklch(0.97 0.006 240),
+    "color-text": oklch(0.9 0.008 240),
+    "color-text-muted": oklch(0.75 0.012 240),
+    "color-text-subtle": oklch(0.68 0.012 240),
+    "color-text-faint": oklch(0.58 0.012 240),
+
+    "color-primary": #0568e2,
+    "color-primary-hover": #2b82ea,
+    "color-on-primary": #ffffff,
+    "color-accent": #ff3552,
+    "color-on-accent": #ffffff,
+    "color-link": #3d92ee,
+    "color-link-hover": #6db0f7,
+    "color-focus": #3d92ee,
+    "color-selection": rgba(5, 104, 226, 0.35),
+
+    "color-success": oklch(0.82 0.16 150),
+    "color-warning": #ffb020,
+    "color-danger": #ff3552,
+
+    "color-border-subtle": rgba(255, 255, 255, 0.07),
+    "color-border": rgba(255, 255, 255, 0.09),
+    "color-border-strong": rgba(255, 255, 255, 0.16),
+    "color-border-hover": rgba(255, 255, 255, 0.24),
+
+    "shadow-sm": 0 1px 2px rgba(0, 0, 0, 0.3),
+    "shadow-lg": 0 12px 32px rgba(0, 0, 0, 0.5),
+    "glass-highlight": rgba(255, 255, 255, 0.18),
+    "pattern-color": rgba(255, 255, 255, 0.05),
+    "shadow-pop": none,
+    "shadow-pop-hover": none,
+    "shadow-control": none,
+    "shadow-control-hover": none,
+    "display-shadow": none,
+    "highlight": none,
+    "particle-colors": $rainbow,
+);
+
+// Everything that doesn't change between themes
+$token-defaults: (
+    // Fonts. Point --font-display / --font-body / --font-mono at next/font
+    // variables, set on <html>, to use self-hosted fonts.
+    "font-display": (var(--font-display, "Space Grotesk"), ui-sans-serif, system-ui, sans-serif),
+    "font-body": (var(--font-body, "IBM Plex Sans"), ui-sans-serif, system-ui, sans-serif),
+    "font-mono": (var(--font-mono, "IBM Plex Mono"), ui-monospace, "SF Mono", Menlo, monospace),
+
+    // Type scale
+    "text-xs": 0.75rem,
+    "text-sm": 0.875rem,
+    "text-md": 1rem,
+    "text-lg": 1.125rem,
+    "text-xl": 1.375rem,
+    "text-2xl": clamp(1.5rem, 1.2rem + 1.2vw, 1.75rem),
+    "text-3xl": clamp(1.75rem, 1.3rem + 2vw, 2.375rem),
+    "text-4xl": clamp(2rem, 1.3rem + 3.2vw, 3.25rem),
+    "text-5xl": clamp(2.75rem, 1.6rem + 5vw, 4.75rem),
+
+    "leading-tight": 1.12,
+    "leading-snug": 1.35,
+    "leading": 1.6,
+    "tracking-tight": -0.025em,
+    "tracking-label": 0.08em,
+    "weight-medium": 500,
+    "weight-bold": 600,
+    "weight-heading": 600,
+    "heading-transform": none,
+
+    // Spacing
+    "space-1": 0.25rem,
+    "space-2": 0.5rem,
+    "space-3": 0.75rem,
+    "space-4": 1rem,
+    "space-5": 1.5rem,
+    "space-6": 2rem,
+    "space-7": 3rem,
+    "space-8": 4rem,
+    "space-9": 6rem,
+
+    // Shape
+    "border-width": 1px,
+    "radius-sm": 6px,
+    "radius-md": 10px,
+    "radius-lg": 14px,
+    "radius-pill": 999px,
+    // Corners cut off buttons, as a clip-path; and the size of the
+    // triangular notch coloured into a surface's top right corner
+    "clip-control": none,
+    "notch": 0px,
+    // Transforms for surfaces and buttons on hover, and buttons pressed
+    "lift": none,
+    "press": none,
+    // Rotation of badges, for a stuck-on look
+    "tilt": 0deg,
+    "focus-offset": 2px,
+
+    // Layout
+    "container": 1180px,
+    "container-narrow": 800px,
+    "gutter": clamp(1rem, 4vw, 2rem),
+    "header-height": 68px,
+
+    // Motion
+    "duration": 0.2s,
+    "ease": cubic-bezier(0.2, 0, 0, 1),
+
+    // Background texture, as used by Hero and Pattern; see _patterns.scss
+    "pattern": map.get(patterns.$grid, image),
+    "pattern-size": map.get(patterns.$grid, size),
+
+    // Cursors, used only while CursorEffects runs: a `cursor` value for the
+    // page and one for links and buttons, and the effect it draws
+    // (ripple, fireflies, comic, reticle or sparkle; none for nothing)
+    "cursor-custom": auto,
+    "cursor-custom-pointer": pointer,
+    "cursor-effect": ripple,
+
+    // Stacking
+    "z-header": 50,
+    "z-overlay": 100,
+);
+
+@mixin properties($map) {
+    @each $name, $value in $map {
+        --gm-#{$name}: #{meta.inspect($value)};
+    }
+}
+
+/// One colour scheme's values, merged over the defaults so every colour is
+/// declared: an element pinned to a scheme mustn't inherit any of the other's.
+@mixin scheme($scheme, $light: (), $dark: ()) {
+    color-scheme: $scheme;
+    @if $scheme == dark {
+        @include properties(map.merge($dark-defaults, $dark));
+    } @else {
+        @include properties(map.merge($light-defaults, $light));
+    }
+}
+
+/// The default theme: light unless the OS prefers dark, and pinned by
+/// `data-theme` on any element.
+@mixin default-theme($light: (), $dark: (), $tokens: ()) {
+    :root {
+        @include properties(map.merge($token-defaults, $tokens));
+        @include scheme(light, $light, $dark);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            @include scheme(dark, $light, $dark);
+        }
+    }
+
+    [data-theme="light"] {
+        @include scheme(light, $light, $dark);
+    }
+
+    [data-theme="dark"] {
+        @include scheme(dark, $light, $dark);
+    }
+
+    // The cursors in use: the system's, until CursorEffects sets
+    // data-cursor on <html> and the theme's custom ones take over
+    :root {
+        --gm-cursor: auto;
+        --gm-cursor-pointer: pointer;
+    }
+
+    :root[data-cursor] {
+        --gm-cursor: var(--gm-cursor-custom);
+        --gm-cursor-pointer: var(--gm-cursor-custom-pointer);
+    }
+
+    // Lets a subtree return to the default inside another palette
+    @include palette("default", $light, $dark, map.merge($token-defaults, $tokens));
+}
+
+/// A named palette with its own light and dark variants. Selectors outrank
+/// the default theme's, so load order doesn't matter, and `data-theme` still
+/// pins light or dark within it.
+@mixin palette($name, $light: (), $dark: (), $tokens: ()) {
+    $p: '[data-palette="#{$name}"]';
+
+    :root#{$p},
+    #{$p} {
+        @include properties($tokens);
+        @include scheme(light, $light, $dark);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root#{$p},
+        #{$p} {
+            @include scheme(dark, $light, $dark);
+        }
+    }
+
+    :root#{$p}[data-theme="light"],
+    #{$p}[data-theme="light"],
+    #{$p} [data-theme="light"]:not([data-palette]) {
+        @include scheme(light, $light, $dark);
+    }
+
+    :root#{$p}[data-theme="dark"],
+    #{$p}[data-theme="dark"],
+    #{$p} [data-theme="dark"]:not([data-palette]) {
+        @include scheme(dark, $light, $dark);
+    }
+}

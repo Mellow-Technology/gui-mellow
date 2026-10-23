@@ -1,0 +1,116 @@
+@use "../../styles/mixins" as gm;
+
+.scroller {
+    max-width: 100%;
+    overflow-x: auto;
+    border: var(--gm-border-width) solid var(--gm-color-border);
+    border-radius: var(--gm-radius-sm);
+    background: var(--gm-color-surface);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.94rem;
+
+    th {
+        @include gm.label;
+        padding: 0.6rem 0.75rem;
+        border-bottom: 2px solid var(--gm-color-accent);
+        color: var(--gm-color-text-faint);
+        font-weight: var(--gm-weight-bold);
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: 0.625rem 0.75rem;
+        vertical-align: top;
+        border-bottom: var(--gm-border-width) solid var(--gm-color-border-subtle);
+        border-right: var(--gm-border-width) solid var(--gm-color-border-subtle);
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+}
+
+.caption {
+    padding: 0.75rem;
+    caption-side: top;
+    text-align: left;
+    color: var(--gm-color-text-muted);
+    font-size: var(--gm-text-sm);
+}
+
+.table .numeric {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+.table .start {
+    text-align: left;
+}
+
+.table .center {
+    text-align: center;
+}
+
+.table .end {
+    text-align: right;
+}
+
+// A sortable heading: the whole label is the button
+.sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: inherit;
+    cursor: var(--gm-cursor-pointer);
+
+    &:hover {
+        color: var(--gm-color-heading);
+    }
+}
+
+// Both carets, faint, until sorted; then only the one pointing the sort's way
+.arrow {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+
+    &::before,
+    &::after {
+        content: "";
+        border-inline: 3.5px solid transparent;
+        opacity: 0.35;
+    }
+
+    &::before {
+        border-bottom: 4px solid currentColor;
+    }
+
+    &::after {
+        border-top: 4px solid currentColor;
+    }
+
+    &[data-direction="ascending"]::before,
+    &[data-direction="descending"]::after {
+        opacity: 1;
+    }
+
+    &[data-direction="ascending"]::after,
+    &[data-direction="descending"]::before {
+        opacity: 0;
+    }
+}

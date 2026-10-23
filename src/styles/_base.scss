@@ -1,0 +1,116 @@
+// A small reset and element defaults. Layered, so any unlayered style in the
+// app, including the components' own modules, takes precedence.
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+html {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+
+body {
+    min-height: 100dvh;
+    background: var(--gm-color-bg);
+    color: var(--gm-color-text);
+    font-family: var(--gm-font-body);
+    font-size: var(--gm-text-md);
+    line-height: var(--gm-leading);
+    -webkit-font-smoothing: antialiased;
+}
+
+// A subtree forced to another theme or palette needs its own background and
+// text, or it inherits the page's. Not the root, whose background would stop
+// the body's reaching the canvas and hide anything placed behind the body.
+[data-theme]:not(:root),
+[data-palette]:not(:root) {
+    background-color: var(--gm-color-bg);
+    color: var(--gm-color-text);
+}
+
+// The theme's cursors, while CursorEffects runs
+:root[data-cursor] body {
+    cursor: var(--gm-cursor);
+}
+
+:root[data-cursor] :any-link {
+    cursor: var(--gm-cursor-pointer);
+}
+
+:root[data-cursor] :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"]), textarea) {
+    cursor: text;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--gm-font-display);
+    font-weight: var(--gm-weight-heading);
+    line-height: var(--gm-leading-tight);
+    text-transform: var(--gm-heading-transform);
+    letter-spacing: var(--gm-tracking-tight);
+    color: var(--gm-color-heading);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+}
+
+p {
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+a {
+    color: var(--gm-color-link);
+    text-decoration: none;
+
+    &:hover {
+        color: var(--gm-color-link-hover);
+    }
+}
+
+:focus-visible {
+    outline: 2px solid var(--gm-color-focus);
+    outline-offset: var(--gm-focus-offset);
+}
+
+::selection {
+    background-color: var(--gm-color-selection);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

@@ -1,0 +1,87 @@
+@use "../../styles/mixins" as gm;
+
+.drawer {
+    --gm-drawer-accent: var(--gm-color-primary);
+    --gm-drawer-width: min(420px, calc(100vw - 2rem));
+
+    @include gm.glass(var(--gm-radius-lg), 82%);
+    position: fixed;
+    top: var(--gm-space-4);
+    bottom: var(--gm-space-4);
+    z-index: var(--gm-z-overlay);
+    width: var(--gm-drawer-width);
+    padding: 1.125rem 1.25rem;
+    overflow-y: auto;
+    visibility: hidden;
+    transition:
+        transform 0.36s cubic-bezier(0.23, 1, 0.32, 1),
+        visibility 0s 0.36s;
+}
+
+.right {
+    right: 0;
+    border-right: none;
+    border-left: 2px solid var(--gm-drawer-accent);
+    border-radius: var(--gm-radius-lg) 0 0 var(--gm-radius-lg);
+    transform: translateX(100%);
+}
+
+.left {
+    left: 0;
+    border-left: none;
+    border-right: 2px solid var(--gm-drawer-accent);
+    border-radius: 0 var(--gm-radius-lg) var(--gm-radius-lg) 0;
+    transform: translateX(-100%);
+}
+
+.open {
+    visibility: visible;
+    transform: none;
+    transition: transform 0.36s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--gm-space-3);
+    margin-bottom: var(--gm-space-4);
+    padding-bottom: var(--gm-space-4);
+    border-bottom: var(--gm-border-width) solid
+        color-mix(in srgb, var(--gm-drawer-accent) 50%, transparent);
+}
+
+.title {
+    font-size: var(--gm-text-xl);
+}
+
+.subtitle {
+    margin-top: var(--gm-space-1);
+    font-size: var(--gm-text-sm);
+    font-weight: var(--gm-weight-bold);
+    color: color-mix(in srgb, var(--gm-drawer-accent) 65%, var(--gm-color-text));
+}
+
+.close {
+    width: 2rem;
+    height: 2rem;
+    flex: none;
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    border-radius: 50%;
+    background: transparent;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: var(--gm-cursor-pointer);
+
+    &:hover {
+        background: var(--gm-color-surface-hover);
+    }
+}
+
+.body {
+    color: var(--gm-color-text-muted);
+
+    > * + * {
+        margin-top: var(--gm-space-3);
+    }
+}

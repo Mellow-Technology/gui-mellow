@@ -1,0 +1,109 @@
+// Shared by the components' modules, and available to apps:
+//
+//     @use "gui-mellow/styles/mixins" as gm;
+//
+// Media queries can't read custom properties, so breakpoints live here.
+
+@use "sass:map";
+
+$breakpoints: (
+    sm: 560px,
+    md: 760px,
+    lg: 900px,
+    xl: 1180px,
+) !default;
+
+/// Below a breakpoint, e.g. `@include below(md) { … }`.
+@mixin below($name) {
+    @media (max-width: #{map.get($breakpoints, $name) - 0.02px}) {
+        @content;
+    }
+}
+
+/// At or above a breakpoint.
+@mixin above($name) {
+    @media (min-width: map.get($breakpoints, $name)) {
+        @content;
+    }
+}
+
+/// The small monospaced, uppercase label used for eyebrows, column headings
+/// and table heads.
+@mixin label {
+    font-family: var(--gm-font-mono);
+    font-size: var(--gm-text-xs);
+    font-weight: 400;
+    letter-spacing: var(--gm-tracking-label);
+    text-transform: uppercase;
+    line-height: 1.4;
+}
+
+/// The corner notch, a triangle of --gm-notch in the top right. Nothing
+/// shows while the token is 0.
+@mixin notch {
+    background-image: linear-gradient(
+        225deg,
+        var(--gm-color-primary) calc(var(--gm-notch) * 0.7071),
+        transparent 0
+    );
+    background-repeat: no-repeat;
+}
+
+/// A bordered panel, carrying the theme's pop shadow and notch.
+@mixin surface($radius: var(--gm-radius-lg)) {
+    @include notch;
+    border: var(--gm-border-width) solid var(--gm-color-border);
+    border-radius: $radius;
+    background-color: var(--gm-color-surface);
+    box-shadow: var(--gm-shadow-pop);
+    transition:
+        border-color var(--gm-duration) var(--gm-ease),
+        background-color var(--gm-duration) var(--gm-ease),
+        box-shadow var(--gm-duration) var(--gm-ease),
+        transform var(--gm-duration) var(--gm-ease);
+}
+
+/// A surface that's hovered, or otherwise asking for attention.
+@mixin surface-hover {
+    border-color: var(--gm-color-border-hover);
+    background-color: var(--gm-color-surface-hover);
+    box-shadow: var(--gm-shadow-pop-hover);
+    transform: var(--gm-lift);
+}
+
+/// Smoked glass, for controls floating over imagery or maps. Positions
+/// nothing: callers set their own `position`.
+@mixin glass($radius: var(--gm-radius-lg), $opacity: 58%) {
+    border-radius: $radius;
+    background-color: color-mix(in srgb, var(--gm-color-bg) $opacity, transparent);
+    -webkit-backdrop-filter: blur(22px) saturate(145%);
+    backdrop-filter: blur(22px) saturate(145%);
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    box-shadow:
+        var(--gm-shadow-lg),
+        inset 0 1px 0 var(--gm-glass-highlight);
+}
+
+/// Hidden visually but still read by assistive technology.
+@mixin visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/// Makes a link's click area cover its nearest positioned ancestor, so a
+/// whole card is clickable while only its title is the link.
+@mixin stretched-link {
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+    }
+}

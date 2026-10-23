@@ -1,0 +1,44 @@
+.chip {
+    --gm-chip-color: var(--gm-color-primary);
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gm-space-2);
+    height: 2.25rem;
+    padding: 0 0.875rem;
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    border-radius: var(--gm-radius-pill);
+    background: var(--gm-color-surface);
+    color: var(--gm-color-text);
+    font-size: var(--gm-text-sm);
+    font-weight: var(--gm-weight-medium);
+    white-space: nowrap;
+    cursor: var(--gm-cursor-pointer);
+    transition:
+        background-color var(--gm-duration) var(--gm-ease),
+        border-color var(--gm-duration) var(--gm-ease);
+
+    &:hover:not(:disabled) {
+        border-color: var(--gm-color-border-hover);
+        background: var(--gm-color-surface-hover);
+    }
+
+    &[aria-pressed="true"] {
+        border-color: var(--gm-chip-color);
+        background: color-mix(in srgb, var(--gm-chip-color) 16%, var(--gm-color-surface));
+        color: var(--gm-color-heading);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.swatch {
+    width: 10px;
+    height: 10px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--gm-chip-color);
+}

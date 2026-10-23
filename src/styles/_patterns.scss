@@ -1,0 +1,128 @@
+// Repeating background patterns, drawn as SVG tiles. They're applied as
+// masks over a fill of --gm-pattern-color, so one tile serves every theme.
+//
+// Each pattern is a map of `image` (a url()) and `size`. Use them through
+// the Pattern component, or in your own modules:
+//
+//     @use "gui-mellow/styles/patterns";
+//     .texture { @include patterns.apply(patterns.$hex); }
+
+@use "sass:map";
+@use "sass:string";
+
+@function -replace($text, $find, $with) {
+    $at: string.index($text, $find);
+    @if not $at {
+        @return $text;
+    }
+    @return string.slice($text, 1, $at - 1) + $with +
+        -replace(string.slice($text, $at + string.length($find)), $find, $with);
+}
+
+/// An SVG as a data URL. Write attributes in single quotes.
+@function svg-url($svg) {
+    @each $find, $with in ("%": "%25", "<": "%3C", ">": "%3E", "#": "%23") {
+        $svg: -replace($svg, $find, $with);
+    }
+    @return url("data:image/svg+xml,#{$svg}");
+}
+
+$-open: "<svg xmlns='http://www.w3.org/2000/svg'";
+
+$grid: (
+    image: svg-url($-open + " width='64' height='64'><path d='M0 .5H64M.5 0V64' fill='none' stroke='black'/></svg>"),
+    size: 64px 64px,
+);
+
+$dots: (
+    image: svg-url($-open + " width='24' height='24'><circle cx='12' cy='12' r='1.25'/></svg>"),
+    size: 24px 24px,
+);
+
+// Pointy-topped hexagons: one whole cell, and the edge joining the row below
+$hex: (
+    image: svg-url($-open + " width='49' height='84'><path d='M24.5 0 49 14v28L24.5 56 0 42V14zm0 56v28' fill='none' stroke='black'/></svg>"),
+    size: 49px 84px,
+);
+
+// Scattered leaves with their midribs, and a sprig
+$-leaf: "<path d='M0 0C6-8 18-8 24 0 18 8 6 8 0 0Zm3 0h18'/>";
+$leaves: (
+    image: svg-url(
+        $-open + " width='96' height='96'><g fill='none' stroke='black' stroke-linecap='round'>" +
+            "<g transform='translate(8 30) rotate(-35)'>#{$-leaf}</g>" +
+            "<g transform='translate(50 62) rotate(20)'>#{$-leaf}</g>" +
+            "<g transform='translate(62 14) rotate(150)'>#{$-leaf}</g>" +
+            "<g transform='translate(14 86) rotate(-80)'>#{$-leaf}</g>" +
+            "<g transform='translate(74 38) rotate(70) scale(.6)'>#{$-leaf}</g>" +
+            "<path d='M30 50q8 2 12 9'/></g></svg>"
+    ),
+    // Drawn larger than the 96px tile, for airier foliage
+    size: 128px 128px,
+);
+
+// Ben-Day dots, as in pop-art print
+$halftone: (
+    image: svg-url($-open + " width='14' height='14'><circle cx='3.5' cy='3.5' r='2.4'/><circle cx='10.5' cy='10.5' r='2.4'/></svg>"),
+    size: 14px 14px,
+);
+
+// Circuit-board traces and vias. Traces leaving one edge re-enter at the
+// opposite one, so the tile repeats seamlessly.
+$circuit: (
+    image: svg-url(
+        $-open + " width='80' height='80'><g fill='none' stroke='black'>" +
+            "<path d='M0 16h24l8 8h16l8-8h24M40 24v20l-8 8v28M32 0v5M56 0v16M56 80V68l8-8h16M0 60h9M64 31v14'/>" +
+            "<circle cx='32' cy='8' r='3'/><circle cx='12' cy='60' r='3'/><circle cx='64' cy='28' r='3'/><circle cx='64' cy='48' r='3'/>" +
+            "</g></svg>"
+    ),
+    size: 80px 80px,
+);
+
+// Sakura: notched petals, as whole blossoms and drifting loose
+$-petal: "<path d='M0 0C-5-3-7-10-3.5-15L0-12.5 3.5-15C7-10 5-3 0 0Z'/>";
+
+@function -blossom($x, $y, $scale: 1, $turn: 0) {
+    $blossom: "<g transform='translate(#{$x} #{$y}) rotate(#{$turn}) scale(#{$scale})'><circle r='1.6'/>";
+    @for $i from 0 to 5 {
+        $blossom: $blossom + "<g transform='rotate(#{$i * 72}) translate(0 -2.5)'>#{$-petal}</g>";
+    }
+    @return $blossom + "</g>";
+}
+
+@function -loose-petal($x, $y, $turn, $scale: 0.7) {
+    @return "<g transform='translate(#{$x} #{$y}) rotate(#{$turn}) scale(#{$scale})'>#{$-petal}</g>";
+}
+
+$petals: (
+    image: svg-url(
+        $-open + " width='120' height='120'>" +
+            -blossom(28, 30) +
+            -blossom(86, 84, 0.8, 20) +
+            -loose-petal(86, 28, 40) +
+            -loose-petal(22, 94, -60) +
+            -loose-petal(58, 62, 110, 0.55) +
+            -loose-petal(110, 50, -20, 0.5) +
+            "</svg>"
+    ),
+    size: 150px 150px,
+);
+
+$all: (
+    grid: $grid,
+    dots: $dots,
+    hex: $hex,
+    leaves: $leaves,
+    halftone: $halftone,
+    circuit: $circuit,
+    petals: $petals,
+);
+
+/// Paint a pattern on this element, in --gm-pattern-color.
+@mixin apply($pattern) {
+    background-color: var(--gm-pattern-color);
+    -webkit-mask-image: map.get($pattern, image);
+    mask-image: map.get($pattern, image);
+    -webkit-mask-size: map.get($pattern, size);
+    mask-size: map.get($pattern, size);
+}

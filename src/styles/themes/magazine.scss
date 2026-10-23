@@ -1,0 +1,153 @@
+// Magazine: pop-art print. Newsprint cream, ink-black outlines, red, blue
+// and a highlighter yellow; heavy uppercase headlines, Ben-Day dots, and
+// panels that sit on hard offset shadows, jumping up when hovered and
+// pressing flat when clicked. At night the ink and paper swap.
+//
+// Opt in by importing it after the global stylesheet,
+//
+//     import "gui-mellow/styles/themes/magazine.scss";
+//
+// then set `data-palette="magazine"`. Font: point --font-magazine at a
+// next/font variable for Archivo (variable weight), or let it fall back by name.
+
+@use "sass:map";
+@use "../patterns";
+@use "../theme";
+
+@layer gm.tokens, gm.base;
+
+$-ink: #161616;
+$-paper: #fff8e8;
+$-red: #e3192b;
+$-blue: #1747d6;
+$-yellow: #ffd60a;
+$-pink: #ff4f9a;
+
+$-night-ink: #f8f1de;
+$-night-paper: #17131f;
+
+// A chunky comic arrow on a hard shadow: yellow, and red over links
+@function -arrow($fill) {
+    $arrow: "M4 3v22l6-6 4 9 4-2-4-9h8Z";
+    @return patterns.svg-url(
+        "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' stroke-linejoin='round'>" +
+            "<path d='#{$arrow}' transform='translate(3 3)' fill='#{$-ink}'/>" +
+            "<path d='#{$arrow}' fill='#{$fill}' stroke='#{$-ink}' stroke-width='2'/></svg>"
+    );
+}
+
+@layer gm.tokens {
+    @include theme.palette(
+        "magazine",
+        $light: (
+            "color-bg": $-paper,
+            "color-surface": #ffffff,
+            "color-surface-hover": #fffdf6,
+            "color-surface-sunken": rgba(22, 22, 22, 0.05),
+            "color-overlay": rgba(255, 248, 232, 0.9),
+
+            "color-heading": $-ink,
+            "color-text": #222222,
+            "color-text-muted": #3b3b3b,
+            "color-text-subtle": #474747,
+            "color-text-faint": #5c5c5c,
+
+            "color-primary": $-red,
+            "color-primary-hover": #c40f20,
+            "color-on-primary": #ffffff,
+            "color-accent": $-blue,
+            "color-on-accent": #ffffff,
+            "color-link": $-blue,
+            "color-link-hover": #0d2f99,
+            "color-focus": $-blue,
+            "color-selection": rgba(255, 214, 10, 0.6),
+
+            "color-success": #0f7a3a,
+            "color-warning": #9c5a00,
+            "color-danger": $-red,
+
+            "color-border-subtle": rgba(22, 22, 22, 0.16),
+            "color-border": $-ink,
+            "color-border-strong": $-ink,
+            "color-border-hover": $-ink,
+
+            "shadow-sm": 2px 2px 0 $-ink,
+            "shadow-lg": 6px 6px 0 $-ink,
+            "glass-highlight": rgba(255, 255, 255, 0.8),
+            "pattern-color": rgba(227, 25, 43, 0.15),
+            "particle-colors": #{"227 25 43, 23 71 214, 255 214 10, 255 79 154"},
+
+            "shadow-pop": 5px 5px 0 $-ink,
+            "shadow-pop-hover": 9px 9px 0 $-red,
+            "shadow-control": 3px 3px 0 $-ink,
+            "shadow-control-hover": 5px 5px 0 $-ink,
+            "display-shadow": 0.05em 0.05em 0 $-yellow,
+            "highlight": $-yellow,
+        ),
+        $dark: (
+            "color-bg": $-night-paper,
+            "color-surface": #221c2c,
+            "color-surface-hover": #2b2438,
+            "color-surface-sunken": rgba(248, 241, 222, 0.06),
+            "color-overlay": rgba(23, 19, 31, 0.9),
+
+            "color-heading": #fffaf0,
+            "color-text": $-night-ink,
+            "color-text-muted": #ded6c0,
+            "color-text-subtle": #cbc3ad,
+            "color-text-faint": #b0a892,
+
+            "color-primary": #ff3d5a,
+            "color-primary-hover": #ff6178,
+            "color-on-primary": #ffffff,
+            "color-accent": $-yellow,
+            "color-on-accent": $-night-paper,
+            "color-link": #66c7ff,
+            "color-link-hover": #9bdbff,
+            "color-focus": $-yellow,
+            "color-selection": rgba(255, 79, 154, 0.45),
+
+            "color-success": #5fdc8a,
+            "color-warning": $-yellow,
+            "color-danger": #ff3d5a,
+
+            "color-border-subtle": rgba(248, 241, 222, 0.16),
+            "color-border": $-night-ink,
+            "color-border-strong": $-night-ink,
+            "color-border-hover": $-night-ink,
+
+            "shadow-sm": 2px 2px 0 #000000,
+            "shadow-lg": 6px 6px 0 #000000,
+            "glass-highlight": rgba(248, 241, 222, 0.16),
+            "pattern-color": rgba(255, 79, 154, 0.14),
+            "particle-colors": #{"255 61 90, 102 199 255, 255 214 10, 255 79 154"},
+
+            "shadow-pop": 5px 5px 0 $-yellow,
+            "shadow-pop-hover": 9px 9px 0 $-pink,
+            "shadow-control": 3px 3px 0 $-night-ink,
+            "shadow-control-hover": 5px 5px 0 $-night-ink,
+            "display-shadow": 0.05em 0.05em 0 $-pink,
+            "highlight": rgba(255, 79, 154, 0.35),
+        ),
+        $tokens: (
+            "font-display": (var(--font-magazine, "Archivo"), Impact, "Arial Black", sans-serif),
+            "font-body": (var(--font-magazine, "Archivo"), ui-sans-serif, system-ui, sans-serif),
+            "weight-heading": 900,
+            "heading-transform": uppercase,
+            "tracking-tight": -0.01em,
+            "leading-tight": 1.05,
+            "border-width": 2px,
+            "radius-sm": 4px,
+            "radius-md": 4px,
+            "radius-lg": 6px,
+            "lift": translate(-3px, -3px),
+            "press": translate(3px, 3px),
+            "tilt": -2deg,
+            "cursor-custom": (-arrow($-yellow) 4 3, auto),
+            "cursor-custom-pointer": (-arrow($-red) 4 3, pointer),
+            "cursor-effect": comic,
+            "pattern": map.get(patterns.$halftone, image),
+            "pattern-size": map.get(patterns.$halftone, size),
+        )
+    );
+}

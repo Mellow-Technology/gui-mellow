@@ -1,0 +1,90 @@
+.accordion {
+    border: var(--gm-border-width) solid var(--gm-color-border);
+    border-radius: var(--gm-radius-md);
+    background: var(--gm-color-surface);
+
+    .disclosure {
+        border: none;
+        border-radius: 0;
+        background: none;
+    }
+
+    .disclosure + .disclosure {
+        border-top: var(--gm-border-width) solid var(--gm-color-border-subtle);
+    }
+}
+
+.disclosure {
+    border: var(--gm-border-width) solid var(--gm-color-border);
+    border-radius: var(--gm-radius-md);
+    background: var(--gm-color-surface);
+    interpolate-size: allow-keywords;
+
+    // Animates open and closed where supported
+    &::details-content {
+        block-size: 0;
+        overflow: hidden;
+        transition:
+            block-size var(--gm-duration) var(--gm-ease),
+            content-visibility var(--gm-duration) allow-discrete;
+    }
+
+    &[open]::details-content {
+        block-size: auto;
+    }
+}
+
+.summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gm-space-4);
+    padding: var(--gm-space-4) 1.25rem;
+    font-family: var(--gm-font-display);
+    font-size: 1.1rem;
+    font-weight: var(--gm-weight-bold);
+    letter-spacing: -0.015em;
+    color: var(--gm-color-heading);
+    cursor: var(--gm-cursor-pointer);
+    list-style: none;
+
+    &::-webkit-details-marker {
+        display: none;
+    }
+}
+
+.marker {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    flex: none;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1.5px;
+        background: var(--gm-color-text-faint);
+        transition: transform var(--gm-duration) var(--gm-ease);
+    }
+
+    &::after {
+        transform: rotate(90deg);
+    }
+
+    [open] > .summary > &::after {
+        transform: rotate(0);
+    }
+}
+
+.content {
+    padding: 0 1.25rem 1.25rem;
+    color: var(--gm-color-text-muted);
+
+    > * + * {
+        margin-top: var(--gm-space-3);
+    }
+}

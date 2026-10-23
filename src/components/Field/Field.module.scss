@@ -1,0 +1,78 @@
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gm-space-2);
+}
+
+.label {
+    font-size: 0.94rem;
+    color: var(--gm-color-text-muted);
+}
+
+.required {
+    margin-left: 0.25em;
+    color: var(--gm-color-accent);
+}
+
+.control {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    border-radius: var(--gm-radius-sm);
+    background: var(--gm-color-surface);
+    color: var(--gm-color-text);
+    font-size: 0.94rem;
+    transition:
+        border-color var(--gm-duration) var(--gm-ease),
+        box-shadow var(--gm-duration) var(--gm-ease);
+
+    &::placeholder {
+        color: var(--gm-color-text-faint);
+    }
+
+    &:hover:not(:disabled) {
+        border-color: var(--gm-color-border-hover);
+    }
+
+    &:focus-visible {
+        outline: none;
+        border-color: var(--gm-color-link);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--gm-color-link) 22%, transparent);
+    }
+
+    &[aria-invalid="true"] {
+        border-color: var(--gm-color-danger);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+.textarea {
+    min-height: 8rem;
+    resize: vertical;
+}
+
+.select {
+    appearance: none;
+    padding-right: 2.25rem;
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+        linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position:
+        right 1.1rem center,
+        right 0.8rem center;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+    cursor: var(--gm-cursor-pointer);
+}
+
+.message {
+    font-size: var(--gm-text-sm);
+    color: var(--gm-color-text-faint);
+}
+
+.error {
+    color: var(--gm-color-danger);
+}

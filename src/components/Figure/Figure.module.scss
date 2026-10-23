@@ -1,0 +1,21 @@
+.figure {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gm-space-3);
+}
+
+.media {
+    overflow: hidden;
+    border: var(--gm-border-width) solid var(--gm-color-border);
+    border-radius: var(--gm-radius-md);
+
+    > * {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.caption {
+    font-size: var(--gm-text-sm);
+    color: var(--gm-color-text-faint);
+}

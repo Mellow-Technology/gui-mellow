@@ -1,0 +1,24 @@
+// Design tokens, after community-cloud.technology.
+//
+// The light theme applies by default, the dark one when the visitor's OS
+// asks for it, and `data-theme="light" | "dark"` on any element pins a theme
+// for that element and everything inside it.
+//
+// Re-theme by passing maps to the global stylesheet; they're merged over
+// these defaults:
+//
+//     @use "gui-mellow/styles/global" with (
+//       $light: ("color-primary": #e31d2d),
+//       $dark: ("color-primary": #ff4b57),
+//       $tokens: ("radius-md": 4px),
+//     );
+//
+// Or override a property directly in unlayered CSS, which always beats these.
+
+@use "theme";
+
+$light: () !default;
+$dark: () !default;
+$tokens: () !default;
+
+@include theme.default-theme($light, $dark, $tokens);

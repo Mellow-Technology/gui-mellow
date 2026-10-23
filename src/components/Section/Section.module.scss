@@ -1,0 +1,26 @@
+.section {
+    padding-block: var(--gm-space-7);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gm-space-3);
+    max-width: 62ch;
+    margin-bottom: var(--gm-space-6);
+}
+
+.center {
+    align-items: center;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.title {
+    font-size: var(--gm-text-3xl);
+}
+
+.description {
+    font-size: var(--gm-text-lg);
+    color: var(--gm-color-text-muted);
+}

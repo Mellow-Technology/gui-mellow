@@ -1,0 +1,69 @@
+// Long content scrolls inside its panel rather than widening a flex or
+// grid parent
+.tabs {
+    min-width: 0;
+}
+
+.list {
+    display: flex;
+    gap: var(--gm-space-1);
+    border-bottom: var(--gm-border-width) solid var(--gm-color-border);
+    overflow-x: auto;
+    scrollbar-width: none;
+    // Brings a tab scrolled into view clear of the edge
+    scroll-padding-inline: var(--gm-space-6);
+}
+
+.tab {
+    flex: none;
+    position: relative;
+    padding: 0.7rem 0.9rem;
+    border: 0;
+    background: none;
+    font-weight: var(--gm-weight-medium);
+    font-size: 0.94rem;
+    white-space: nowrap;
+    color: var(--gm-color-text-subtle);
+    cursor: var(--gm-cursor-pointer);
+    transition: color var(--gm-duration) var(--gm-ease);
+
+    // The indicator, drawn inside the list so its scrolling doesn't clip it
+    &::after {
+        content: "";
+        position: absolute;
+        inset: auto 0.5rem 0;
+        height: 2px;
+        border-radius: 2px 2px 0 0;
+        background: transparent;
+        transition: background-color var(--gm-duration) var(--gm-ease);
+    }
+
+    &:hover:not(:disabled) {
+        color: var(--gm-color-heading);
+    }
+
+    &[aria-selected="true"] {
+        color: var(--gm-color-heading);
+
+        &::after {
+            background: var(--gm-color-primary);
+        }
+    }
+
+    &:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
+
+    &:focus-visible {
+        outline-offset: -2px;
+    }
+}
+
+.panel {
+    padding-top: var(--gm-space-5);
+
+    &:focus-visible {
+        outline-offset: 4px;
+    }
+}

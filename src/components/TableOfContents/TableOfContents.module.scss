@@ -1,0 +1,25 @@
+.toc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: var(--gm-border-width) solid var(--gm-color-border-strong);
+}
+
+.link {
+    display: block;
+    margin-left: -1px;
+    padding: 0.25rem 0.75rem;
+    border-left: 2px solid transparent;
+    color: var(--gm-color-text-faint);
+    font-size: 0.85rem;
+    line-height: 1.4;
+
+    &:hover {
+        color: var(--gm-color-text);
+    }
+
+    &[aria-current="location"] {
+        border-left-color: var(--gm-color-accent);
+        color: var(--gm-color-heading);
+    }
+}

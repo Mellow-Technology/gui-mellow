@@ -1,0 +1,64 @@
+@use "../../styles/mixins" as gm;
+
+.terminal {
+    @include gm.notch;
+    border: var(--gm-border-width) solid var(--gm-color-border);
+    border-radius: var(--gm-radius-md);
+    background-color: var(--gm-color-surface);
+    box-shadow: var(--gm-shadow-pop);
+    overflow: hidden;
+}
+
+.titleBar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0.625rem 0.875rem;
+    border-bottom: var(--gm-border-width) solid var(--gm-color-border-subtle);
+}
+
+.light {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--gm-color-border-strong);
+}
+
+.label {
+    margin-left: 6px;
+    font-family: var(--gm-font-mono);
+    font-size: var(--gm-text-xs);
+    color: var(--gm-color-text-faint);
+}
+
+.body {
+    margin: 0;
+    padding: var(--gm-space-4) 1.125rem;
+    overflow-x: auto;
+    font-family: var(--gm-font-mono);
+    font-size: 0.84rem;
+    line-height: 1.9;
+    color: var(--gm-color-text);
+
+    code {
+        font: inherit;
+    }
+}
+
+.line {
+    display: block;
+}
+
+.blank {
+    display: block;
+    height: 0.9em;
+}
+
+.prompt {
+    color: var(--gm-color-accent);
+    user-select: none;
+}
+
+.comment {
+    color: var(--gm-color-text-faint);
+}

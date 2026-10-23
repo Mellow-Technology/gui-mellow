@@ -1,0 +1,49 @@
+.testimonial {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gm-space-4);
+}
+
+.rating {
+    color: var(--gm-color-warning);
+    letter-spacing: 0.1em;
+}
+
+.unrated {
+    color: var(--gm-color-border-strong);
+}
+
+.quote {
+    font-family: var(--gm-font-display);
+    font-size: var(--gm-text-xl);
+    line-height: var(--gm-leading-snug);
+    letter-spacing: -0.015em;
+    color: var(--gm-color-heading);
+    text-wrap: pretty;
+
+    &::before {
+        content: "\201C";
+    }
+
+    &::after {
+        content: "\201D";
+    }
+}
+
+.caption {
+    display: flex;
+    align-items: center;
+    gap: var(--gm-space-3);
+    font-size: var(--gm-text-sm);
+}
+
+.author {
+    display: block;
+    font-weight: var(--gm-weight-bold);
+    color: var(--gm-color-heading);
+}
+
+.authorTitle {
+    display: block;
+    color: var(--gm-color-text-faint);
+}

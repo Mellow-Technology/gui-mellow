@@ -1,0 +1,23 @@
+// Import once, from the app's root layout:
+//
+//     import "gui-mellow/styles.scss";
+//
+// Components carry their own styles; this provides only the tokens they read
+// and a minimal reset. To re-theme, @use this file from a stylesheet of your
+// own with token maps; see _tokens.scss.
+
+@use "sass:meta";
+
+$light: () !default;
+$dark: () !default;
+$tokens: () !default;
+
+@layer gm.tokens, gm.base;
+
+@layer gm.tokens {
+    @include meta.load-css("tokens", $with: ("light": $light, "dark": $dark, "tokens": $tokens));
+}
+
+@layer gm.base {
+    @include meta.load-css("base");
+}

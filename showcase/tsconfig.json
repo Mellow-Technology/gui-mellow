@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "gui-mellow": ["../src/index.ts"],
+      "gui-mellow/styles.scss": ["../src/styles/global.scss"],
+      "gui-mellow/theme": ["../src/theme.ts"],
+      "gui-mellow/*": ["../src/components/*/index.ts"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
+  "exclude": ["node_modules", ".next", "out"]
+}

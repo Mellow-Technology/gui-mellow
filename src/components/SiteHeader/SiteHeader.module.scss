@@ -1,0 +1,165 @@
+@use "../../styles/mixins" as gm;
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: var(--gm-z-header);
+    border-bottom: var(--gm-border-width) solid var(--gm-color-border-subtle);
+    background: var(--gm-color-overlay);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+}
+
+.inner {
+    display: flex;
+    align-items: center;
+    gap: var(--gm-space-6);
+    height: var(--gm-header-height);
+    max-width: calc(var(--gm-container) + 2 * var(--gm-gutter));
+    margin-inline: auto;
+    padding-inline: var(--gm-gutter);
+}
+
+.brand {
+    display: flex;
+    flex: none;
+    align-items: center;
+
+    a {
+        display: flex;
+        align-items: center;
+        gap: var(--gm-space-3);
+        color: var(--gm-color-heading);
+        font-family: var(--gm-font-display);
+        font-weight: var(--gm-weight-bold);
+    }
+}
+
+.nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--gm-space-4);
+}
+
+.links {
+    display: flex;
+    gap: var(--gm-space-1) var(--gm-space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9rem;
+}
+
+.link {
+    color: var(--gm-color-text-subtle);
+    transition: color var(--gm-duration) var(--gm-ease);
+
+    &:hover,
+    &[aria-current="page"] {
+        color: var(--gm-color-heading);
+    }
+}
+
+.toggle {
+    display: none;
+}
+
+@include gm.below(md) {
+    .inner {
+        gap: var(--gm-space-3);
+    }
+
+    .nav {
+        order: 1;
+        flex: none;
+    }
+
+    .brand {
+        flex: 1;
+    }
+
+    .toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--gm-space-2);
+        height: 2.25rem;
+        padding: 0 var(--gm-space-3);
+        border: var(--gm-border-width) solid var(--gm-color-border-strong);
+        border-radius: var(--gm-radius-sm);
+        background: transparent;
+        font-size: var(--gm-text-sm);
+        cursor: var(--gm-cursor-pointer);
+    }
+
+    .links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        padding: var(--gm-space-4) var(--gm-gutter) var(--gm-space-6);
+        border-bottom: var(--gm-border-width) solid var(--gm-color-border-subtle);
+        background: var(--gm-color-bg);
+        box-shadow: var(--gm-shadow-lg);
+        font-family: var(--gm-font-display);
+        font-size: var(--gm-text-2xl);
+    }
+
+    .open {
+        display: flex;
+    }
+
+    .link {
+        display: block;
+        padding-block: var(--gm-space-2);
+        color: var(--gm-color-text);
+    }
+}
+
+// Three bars that fold into a cross
+.toggleIcon {
+    position: relative;
+    width: 14px;
+    height: 1.5px;
+    background: currentColor;
+    transition: background-color var(--gm-duration) var(--gm-ease);
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: currentColor;
+        transition: transform var(--gm-duration) var(--gm-ease);
+    }
+
+    &::before {
+        transform: translateY(-4.5px);
+    }
+
+    &::after {
+        transform: translateY(4.5px);
+    }
+
+    [aria-expanded="true"] > & {
+        background: transparent;
+
+        &::before {
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            transform: rotate(-45deg);
+        }
+    }
+}

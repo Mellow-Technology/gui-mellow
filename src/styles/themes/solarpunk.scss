@@ -1,0 +1,110 @@
+// Solarpunk: parchment, leaf and copper by day; deep forest, sprout green
+// and sun gold by night. Rounder, softer, with a serif that looks hand-set,
+// and leaves where the default theme has a grid.
+//
+// Opt in by importing it after the global stylesheet,
+//
+//     import "gui-mellow/styles/themes/solarpunk.scss";
+//
+// then set `data-palette="solarpunk"` on <html> (PaletteToggle does this) or
+// on any element. Fonts: point --font-solar-display and --font-solar-body at
+// next/font variables, or let them fall back to Fraunces and Figtree by name.
+
+@use "sass:map";
+@use "../patterns";
+@use "../theme";
+
+@layer gm.tokens, gm.base;
+
+@layer gm.tokens {
+    @include theme.palette(
+        "solarpunk",
+        $light: (
+            "color-bg": #f5f0e1,
+            "color-surface": #fffbef,
+            "color-surface-hover": #efe7cf,
+            "color-surface-sunken": rgba(64, 86, 38, 0.07),
+            "color-overlay": rgba(245, 240, 225, 0.85),
+
+            "color-heading": #1d3a22,
+            "color-text": #2e3b28,
+            "color-text-muted": #4a5741,
+            "color-text-subtle": #5b6750,
+            "color-text-faint": #6b745e,
+
+            "color-primary": #2e7a4b,
+            "color-primary-hover": #23633c,
+            "color-on-primary": #fffbef,
+            "color-accent": #ad5a17,
+            "color-on-accent": #fffbef,
+            "color-link": #23698a,
+            "color-link-hover": #17506b,
+            "color-focus": #23698a,
+            "color-selection": rgba(232, 178, 60, 0.35),
+
+            "color-success": #3a8a3d,
+            "color-warning": #9a6400,
+            "color-danger": #b4402b,
+
+            "color-border-subtle": rgba(46, 59, 40, 0.08),
+            "color-border": rgba(46, 59, 40, 0.13),
+            "color-border-strong": rgba(46, 59, 40, 0.24),
+            "color-border-hover": rgba(46, 59, 40, 0.36),
+
+            "shadow-sm": 0 1px 2px rgba(64, 52, 20, 0.08),
+            "shadow-lg": 0 14px 36px rgba(64, 52, 20, 0.14),
+            "glass-highlight": rgba(255, 251, 239, 0.8),
+            "pattern-color": rgba(46, 122, 75, 0.13),
+            "particle-colors": #{"46 122 75, 120 170 60, 232 178 60, 173 90 23, 35 105 138"},
+        ),
+        $dark: (
+            "color-bg": #0e1913,
+            "color-surface": rgba(236, 218, 160, 0.03),
+            "color-surface-hover": rgba(236, 218, 160, 0.055),
+            "color-surface-sunken": rgba(236, 218, 160, 0.07),
+            "color-overlay": rgba(14, 25, 19, 0.84),
+
+            "color-heading": #f4edd3,
+            "color-text": #e2dbc0,
+            "color-text-muted": #bdb79c,
+            "color-text-subtle": #a7a287,
+            "color-text-faint": #8e8b73,
+
+            "color-primary": #5cbf7a,
+            "color-primary-hover": #7ad394,
+            "color-on-primary": #0e1913,
+            "color-accent": #f2b544,
+            "color-on-accent": #0e1913,
+            "color-link": #72c6d6,
+            "color-link-hover": #a0dbe6,
+            "color-focus": #72c6d6,
+            "color-selection": rgba(242, 181, 68, 0.3),
+
+            "color-success": #7fd38b,
+            "color-warning": #f2b544,
+            "color-danger": #ef7b5c,
+
+            "color-border-subtle": rgba(236, 218, 160, 0.07),
+            "color-border": rgba(236, 218, 160, 0.1),
+            "color-border-strong": rgba(236, 218, 160, 0.18),
+            "color-border-hover": rgba(236, 218, 160, 0.28),
+
+            "shadow-sm": 0 1px 2px rgba(0, 0, 0, 0.35),
+            "shadow-lg": 0 14px 36px rgba(0, 0, 0, 0.5),
+            "glass-highlight": rgba(244, 237, 211, 0.16),
+            "pattern-color": rgba(92, 191, 122, 0.09),
+            "particle-colors": #{"92 191 122, 160 210 90, 242 181 68, 255 214 120, 114 198 214"},
+        ),
+        $tokens: (
+            "font-display": (var(--font-solar-display, "Fraunces"), Georgia, serif),
+            "font-body": (var(--font-solar-body, "Figtree"), ui-sans-serif, system-ui, sans-serif),
+            "tracking-tight": -0.015em,
+            "radius-sm": 10px,
+            "radius-md": 16px,
+            "radius-lg": 22px,
+            "cursor-effect": fireflies,
+            "pattern": map.get(patterns.$leaves, image),
+            "pattern-size": map.get(patterns.$leaves, size),
+        )
+    );
+}
