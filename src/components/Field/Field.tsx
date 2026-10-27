@@ -8,6 +8,11 @@ interface FieldOwnProps {
   hint?: ReactNode;
   /** An error message; marks the control invalid. */
   error?: ReactNode;
+  /**
+   * Hides the label visually, keeping it for screen readers, for when
+   * something nearby already says what the control is.
+   */
+  hideLabel?: boolean;
   /** Styles the whole field: label, control and message. */
   className?: string;
 }
@@ -30,12 +35,22 @@ export interface FieldProps extends FieldOwnProps {
  * Label, control and message, laid out together. TextField and SelectField
  * cover most needs; use this directly to wrap a control of your own.
  */
-export function Field({ label, hint, error, required, htmlFor, messageId, className, children }: FieldProps) {
+export function Field({
+  label,
+  hint,
+  error,
+  hideLabel = false,
+  required,
+  htmlFor,
+  messageId,
+  className,
+  children,
+}: FieldProps) {
   const message = error || hint;
 
   return (
     <div className={cx(styles.field, className)}>
-      <label className={styles.label} htmlFor={htmlFor}>
+      <label className={cx(styles.label, hideLabel && styles.hidden)} htmlFor={htmlFor}>
         {label}
         {required && (
           <span className={styles.required} aria-hidden>
@@ -81,9 +96,9 @@ export type TextFieldProps = InputProps | TextareaProps;
  * A labelled text input, or a textarea when `multiline`. Takes the usual
  * input attributes: name, type, value, onChange, placeholder and so on.
  */
-export function TextField({ label, hint, error, className, controlClassName, ...control }: TextFieldProps) {
+export function TextField({ label, hint, error, hideLabel, className, controlClassName, ...control }: TextFieldProps) {
   const { controlId, messageId, aria } = useFieldIds(control.id, hint, error);
-  const field = { label, hint, error, className, required: control.required, htmlFor: controlId, messageId };
+  const field = { label, hint, error, hideLabel, className, required: control.required, htmlFor: controlId, messageId };
 
   if (control.multiline) {
     const { multiline: _, ...textarea } = control;
@@ -127,6 +142,7 @@ export function SelectField({
   label,
   hint,
   error,
+  hideLabel,
   className,
   controlClassName,
   options,
@@ -140,6 +156,7 @@ export function SelectField({
       label={label}
       hint={hint}
       error={error}
+      hideLabel={hideLabel}
       className={className}
       required={select.required}
       htmlFor={controlId}

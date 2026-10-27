@@ -1,4 +1,8 @@
+@use "../../styles/mixins" as gm;
+
 .field {
+    // Holds the label when it's visually hidden
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--gm-space-2);
@@ -7,6 +11,10 @@
 .label {
     font-size: 0.94rem;
     color: var(--gm-color-text-muted);
+}
+
+.hidden {
+    @include gm.visually-hidden;
 }
 
 .required {

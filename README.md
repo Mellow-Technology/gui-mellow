@@ -214,10 +214,10 @@ the server.
 | Group | Components | Mostly from |
 | --- | --- | --- |
 | Layout | Container, Stack, Grid, Section, Split, SidebarLayout ● (toggle only) | community-cloud-hq, code-hq, stl-urgent-dental |
-| Page | Hero, CtaBanner, Announcement, Alert, SiteHeader ● (nav only), SiteFooter, Credit | community-cloud-hq, code-hq, stl-urgent-dental |
-| Content | Card, MediaCard, FeatureGrid/Feature, Steps, PairList, PostList, Accordion/Disclosure, Testimonial, LogoCloud, Prose, Figure, Table ● (when sortable), Terminal, CodeBlock ● (copy button only), Tabs ● | all four |
+| Page | Hero, PageHeader, CtaBanner, Announcement, Alert, SiteHeader ● (nav only), SiteFooter, Credit | community-cloud-hq, code-hq, stl-urgent-dental |
+| Content | Card, MediaCard, FeatureGrid/Feature, Steps, PairList, DetailList, PostList, Accordion/Disclosure, Testimonial, LogoCloud, Prose, Figure, Table ● (when sortable), Terminal, CodeBlock ● (copy button only), Tabs ● | all four |
 | Indicators | Badge, Tag/TagList, StatusDot, Stat/Meter, Avatar, Eyebrow | community-cloud-hq, code-hq |
-| Controls | Button, Chip, SegmentedControl, Field (TextField, SelectField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
+| Controls | Button, Chip, SegmentedControl, Field (TextField, SelectField), RepeatingField ● (ListField, KeyValueField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
 | Navigation | TableOfContents ●, Pager, Drawer ●, Dialog/ConfirmDialog ● | community-cloud-hq, a-bright-blue-dot |
 | Effects | ParticleField ●, Pattern, CursorEffects ●, CursorToggle ● | community-cloud-hq |
 
@@ -230,6 +230,12 @@ A few details worth knowing:
   server.
 - **TextField and SelectField** take `className` for the whole field and
   `controlClassName` for just the input, textarea or select.
+- **RepeatingField** is controlled: pass `rows` and `onChange`. ListField
+  and KeyValueField cover lists of values and key/value pairs; for other
+  rows, pass `newRow` and `renderRow`. `reorderable` adds move buttons.
+- **Switch, TextField and SelectField** take `hideLabel` for when the
+  surroundings already say what the control is, such as a column heading.
+  The label is still required, and still read by screen readers.
 - **Badge** sets its text in capitals; `uppercase={false}` keeps the case,
   for IDs and hashes.
 - **Dialog** is the native `<dialog>`, so focus trapping, the inert page and

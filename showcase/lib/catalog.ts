@@ -25,6 +25,7 @@ export const demos: DemoInfo[] = [
   entry("SidebarLayout", "Layout", "Sticky navigation beside content."),
 
   entry("Hero", "Page", "The opening of a page."),
+  entry("PageHeader", "Page", "An app page's title, actions and way back."),
   entry("CtaBanner", "Page", "A closing call to action."),
   entry("Announcement", "Page", "A slim bar for news."),
   entry("Alert", "Page", "A notice set into the page."),
@@ -37,6 +38,7 @@ export const demos: DemoInfo[] = [
   entry("FeatureGrid", "Content", "Features divided by hairlines."),
   entry("Steps", "Content", "A numbered sequence."),
   entry("PairList", "Content", "Rows setting one thing against another."),
+  entry("DetailList", "Content", "Labelled facts about one thing."),
   entry("PostList", "Content", "Linked entries, such as blog posts."),
   entry("Accordion", "Content", "Expanding sections, without JavaScript."),
   entry("Testimonial", "Content", "A quotation, and who said it."),
@@ -59,6 +61,7 @@ export const demos: DemoInfo[] = [
   entry("Chip", "Controls", "Compact toggles, for filters."),
   entry("SegmentedControl", "Controls", "One of a few options."),
   entry("Field", "Controls", "Labelled inputs, textareas and selects."),
+  entry("RepeatingField", "Controls", "Rows of fields to add, remove and reorder."),
   entry("Switch", "Controls", "An on/off setting."),
   entry("ThemeToggle", "Controls", "Light, dark or the system's; and palettes."),
 

@@ -1,0 +1,87 @@
+@use "../../styles/mixins" as gm;
+
+.field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gm-space-3);
+    min-width: 0;
+    padding: 0;
+    border: none;
+}
+
+// Matches Field's label
+.legend {
+    margin-bottom: var(--gm-space-2);
+    padding: 0;
+    font-size: 0.94rem;
+    color: var(--gm-color-text-muted);
+}
+
+// One grid for every row, so the columns line up with their headings
+.rows {
+    display: grid;
+    grid-template-columns: repeat(var(--gm-repeating-columns), minmax(0, 1fr)) auto;
+    gap: var(--gm-space-3);
+
+    // The buttons move under each row's fields, which keep their columns
+    @include gm.below(sm) {
+        grid-template-columns: repeat(var(--gm-repeating-columns), minmax(0, 1fr));
+        row-gap: var(--gm-space-2);
+    }
+}
+
+.row {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 1 / -1;
+    align-items: center;
+
+    @include gm.below(sm) {
+        padding-bottom: var(--gm-space-2);
+        border-bottom: var(--gm-border-width) solid var(--gm-color-border-subtle);
+    }
+}
+
+.columns {
+    @include gm.label;
+    color: var(--gm-color-text-faint);
+
+    @include gm.below(sm) {
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+}
+
+.controls {
+    display: flex;
+    gap: var(--gm-space-1);
+
+    @include gm.below(sm) {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+    }
+}
+
+.icon {
+    padding-inline: 0.625rem;
+
+    &[aria-disabled="true"] {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+}
+
+.hidden {
+    @include gm.visually-hidden;
+}
+
+.empty,
+.message {
+    font-size: var(--gm-text-sm);
+    color: var(--gm-color-text-faint);
+}
+
+.error {
+    color: var(--gm-color-danger);
+}
