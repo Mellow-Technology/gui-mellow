@@ -31,6 +31,7 @@ function useSearch(text: string) {
 
 export default function ComboboxDemo() {
   const [region, setRegion] = useState("sea");
+  const [chosenRegions, setRegions] = useState(["fra", "lon"]);
   const [project, setProject] = useState("");
   const [search, setSearch] = useState("");
   const { found, loading } = useSearch(search);
@@ -39,6 +40,20 @@ export default function ComboboxDemo() {
     <>
       <Example title="Filtered as you type" description="Arrow keys move, Enter chooses, Escape closes.">
         <ComboboxField label="Region" options={regions} value={region} onChange={setRegion} hint={`Chosen: ${region}`} />
+      </Example>
+      <Example
+        title="Several at once"
+        description="With multiple: choosing again unchooses, and Backspace removes the last."
+      >
+        <ComboboxField
+          multiple
+          label="Regions"
+          placeholder="Add a region"
+          options={regions}
+          value={chosenRegions}
+          onChange={setRegions}
+          hint={`Chosen: ${chosenRegions.join(", ") || "none"}`}
+        />
       </Example>
       <Example title="Searched elsewhere" description="Matches fetched as the text changes, with filter={false}.">
         <ComboboxField

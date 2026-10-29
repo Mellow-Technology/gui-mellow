@@ -235,6 +235,11 @@ A few details worth knowing:
   that happens elsewhere, pass `onInputChange`, `filter={false}` and the
   matches as `options`, with `loading` while they're on their way. Only an
   option can be chosen, so leaving the input puts the chosen label back.
+  `multiple` chooses several, shown as tags, with `value` and `onChange`
+  taking arrays; choosing an option again unchooses it. With `name`, each
+  value is submitted as its own hidden input. The list opens in the top
+  layer (as a popover), so containers that clip their overflow, and
+  dialogs, don't cut it off.
 - **RepeatingField** is controlled: pass `rows` and `onChange`. ListField
   and KeyValueField cover lists of values and key/value pairs; for other
   rows, pass `newRow` and `renderRow`. `reorderable` adds move buttons.
