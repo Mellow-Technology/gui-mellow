@@ -1,0 +1,181 @@
+.combobox {
+    position: relative;
+}
+
+.input {
+    padding-right: 2.25rem;
+    // The same chevron as SelectField's, so it reads as a choice
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+        linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position:
+        right 1.1rem center,
+        right 0.8rem center;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+}
+
+// Shown in the top layer, as a popover, and placed by the component
+// against the window, so no container's overflow cuts it off
+.list {
+    position: fixed;
+    inset: auto;
+    max-height: 18rem;
+    margin: 0;
+    padding: var(--gm-space-1);
+    overflow-y: auto;
+    list-style: none;
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    border-radius: var(--gm-radius-sm);
+    // The surface is see-through in some themes, so it's laid over the
+    // page's background, as the input it hangs from is
+    background:
+        linear-gradient(var(--gm-color-surface), var(--gm-color-surface)),
+        var(--gm-color-bg);
+    box-shadow: var(--gm-shadow-lg);
+    color: var(--gm-color-text);
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: var(--gm-space-2) var(--gm-space-3);
+    border-radius: var(--gm-radius-sm);
+    cursor: var(--gm-cursor-pointer);
+
+    &[aria-selected="true"] .label {
+        font-weight: 600;
+    }
+
+    &[aria-disabled="true"] {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+// In multiple mode, a box before each option, ticked when it's chosen
+.check {
+    position: relative;
+    padding-left: calc(var(--gm-space-3) + 1.5rem);
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: var(--gm-space-3);
+        top: calc(var(--gm-space-2) + 0.2rem);
+        width: 1rem;
+        height: 1rem;
+        border: var(--gm-border-width) solid var(--gm-color-border-strong);
+        border-radius: 0.2rem;
+        background: var(--gm-color-surface);
+    }
+
+    &[aria-selected="true"]::before {
+        border-color: var(--gm-color-link);
+        background: var(--gm-color-link);
+    }
+
+    &[aria-selected="true"]::after {
+        content: "";
+        position: absolute;
+        left: calc(var(--gm-space-3) + 0.34rem);
+        top: calc(var(--gm-space-2) + 0.32rem);
+        width: 0.3rem;
+        height: 0.55rem;
+        border: solid var(--gm-color-bg);
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+}
+
+// The box that holds the tags and the input, styled as the input would be
+.multiple {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gm-space-1);
+    min-height: 2.75rem;
+    padding-block: 0.375rem;
+    cursor: text;
+
+    &:focus-within {
+        border-color: var(--gm-color-link);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--gm-color-link) 22%, transparent);
+    }
+
+    &[data-disabled] {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+.text {
+    flex: 1 1 6rem;
+    min-width: 6rem;
+    padding: 0.25rem 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+
+    &::placeholder {
+        color: var(--gm-color-text-faint);
+    }
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    max-width: 100%;
+    padding: 0.125rem 0.25rem 0.125rem 0.6rem;
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    border-radius: var(--gm-radius-pill);
+    background: color-mix(in srgb, var(--gm-color-link) 10%, transparent);
+    font-size: var(--gm-text-sm);
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.remove {
+    display: inline-grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--gm-color-text-muted);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: var(--gm-cursor-pointer);
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+        outline: none;
+        background: color-mix(in srgb, var(--gm-color-text) 12%, transparent);
+        color: var(--gm-color-text);
+    }
+}
+
+.active {
+    background: color-mix(in srgb, var(--gm-color-link) 14%, transparent);
+}
+
+.label {
+    font-size: 0.94rem;
+    color: var(--gm-color-text);
+}
+
+.description {
+    font-size: var(--gm-text-sm);
+    color: var(--gm-color-text-faint);
+}
+
+.empty {
+    padding: var(--gm-space-2) var(--gm-space-3);
+    font-size: var(--gm-text-sm);
+    color: var(--gm-color-text-faint);
+}

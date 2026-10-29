@@ -315,7 +315,7 @@ function toScss(edits: Edits, name: string, palette: string) {
 
 function readStored(): Edits {
   try {
-    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as Edits | null;
+    const stored = JSON.parse(sessionStorage.getItem(STORAGE_KEY) ?? "null") as Edits | null;
     return stored ? { ...noEdits, ...stored } : noEdits;
   } catch {
     return noEdits;
@@ -324,7 +324,7 @@ function readStored(): Edits {
 
 /**
  * A panel for trying out theme tokens on the live site. Edits are written
- * into a stylesheet of their own, kept for the visit in localStorage, and
+ * into a stylesheet of their own, kept for the visit in sessionStorage, and
  * can be exported as a palette.
  */
 export function ThemeEditor() {
@@ -373,7 +373,7 @@ export function ThemeEditor() {
   useEffect(() => {
     if (!loaded) return;
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(edits));
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(edits));
     } catch {
       // Edits still apply for this page
     }
