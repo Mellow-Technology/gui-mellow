@@ -45,6 +45,7 @@ export const loaders: Record<string, () => Promise<{ default: ComponentType }>> 
   SegmentedControl: () => import("../demos/SegmentedControl"),
   Field: () => import("../demos/Field"),
   RepeatingField: () => import("../demos/RepeatingField"),
+  Combobox: () => import("../demos/Combobox"),
   Switch: () => import("../demos/Switch"),
   ThemeToggle: () => import("../demos/ThemeToggle"),
   TableOfContents: () => import("../demos/TableOfContents"),

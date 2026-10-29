@@ -217,7 +217,7 @@ the server.
 | Page | Hero, PageHeader, CtaBanner, Announcement, Alert, SiteHeader ● (nav only), SiteFooter, Credit | community-cloud-hq, code-hq, stl-urgent-dental |
 | Content | Card, MediaCard, FeatureGrid/Feature, Steps, PairList, DetailList, PostList, Accordion/Disclosure, Testimonial, LogoCloud, Prose, Figure, Table ● (when sortable), Terminal, CodeBlock ● (copy button only), Tabs ● | all four |
 | Indicators | Badge, Tag/TagList, StatusDot, Stat/Meter, Avatar, Eyebrow | community-cloud-hq, code-hq |
-| Controls | Button, Chip, SegmentedControl, Field (TextField, SelectField), RepeatingField ● (ListField, KeyValueField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
+| Controls | Button, Chip, SegmentedControl, Field (TextField, SelectField), ComboboxField ●, RepeatingField ● (ListField, KeyValueField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
 | Navigation | TableOfContents ●, Pager, Drawer ●, Dialog/ConfirmDialog ● | community-cloud-hq, a-bright-blue-dot |
 | Effects | ParticleField ●, Pattern, CursorEffects ●, CursorToggle ● | community-cloud-hq |
 
@@ -230,6 +230,11 @@ A few details worth knowing:
   server.
 - **TextField and SelectField** take `className` for the whole field and
   `controlClassName` for just the input, textarea or select.
+- **ComboboxField** suggests options as you type and chooses one, with the
+  arrow keys, Enter and Escape. It filters `options` itself; for a search
+  that happens elsewhere, pass `onInputChange`, `filter={false}` and the
+  matches as `options`, with `loading` while they're on their way. Only an
+  option can be chosen, so leaving the input puts the chosen label back.
 - **RepeatingField** is controlled: pass `rows` and `onChange`. ListField
   and KeyValueField cover lists of values and key/value pairs; for other
   rows, pass `newRow` and `renderRow`. `reorderable` adds move buttons.

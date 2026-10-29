@@ -11,6 +11,7 @@ export * from "./components/Button";
 export * from "./components/Card";
 export * from "./components/Chip";
 export * from "./components/CodeBlock";
+export * from "./components/Combobox";
 export * from "./components/Credit";
 export * from "./components/Container";
 export * from "./components/CtaBanner";

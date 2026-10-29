@@ -1,0 +1,74 @@
+// Holds the list under the input
+.combobox {
+    position: relative;
+}
+
+.input {
+    padding-right: 2.25rem;
+    // The same chevron as SelectField's, so it reads as a choice
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+        linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position:
+        right 1.1rem center,
+        right 0.8rem center;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+}
+
+.list {
+    position: absolute;
+    z-index: 20;
+    inset-inline: 0;
+    top: calc(100% + var(--gm-space-1));
+    max-height: 18rem;
+    margin: 0;
+    padding: var(--gm-space-1);
+    overflow-y: auto;
+    list-style: none;
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    border-radius: var(--gm-radius-sm);
+    background: var(--gm-color-surface);
+    box-shadow: var(--gm-shadow-lg);
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: var(--gm-space-2) var(--gm-space-3);
+    border-radius: var(--gm-radius-sm);
+    cursor: var(--gm-cursor-pointer);
+
+    &[aria-selected="true"] .label {
+        font-weight: 600;
+    }
+
+    &[aria-disabled="true"] {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.active {
+    background: color-mix(in srgb, var(--gm-color-link) 14%, transparent);
+}
+
+.label {
+    font-size: 0.94rem;
+    color: var(--gm-color-text);
+}
+
+.description {
+    font-size: var(--gm-text-sm);
+    color: var(--gm-color-text-faint);
+}
+
+.empty {
+    padding: var(--gm-space-2) var(--gm-space-3);
+    font-size: var(--gm-text-sm);
+    color: var(--gm-color-text-faint);
+}

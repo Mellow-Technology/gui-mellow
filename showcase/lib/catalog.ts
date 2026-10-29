@@ -61,6 +61,7 @@ export const demos: DemoInfo[] = [
   entry("Chip", "Controls", "Compact toggles, for filters."),
   entry("SegmentedControl", "Controls", "One of a few options."),
   entry("Field", "Controls", "Labelled inputs, textareas and selects."),
+  entry("Combobox", "Controls", "A text input that suggests options as you type."),
   entry("RepeatingField", "Controls", "Rows of fields to add, remove and reorder."),
   entry("Switch", "Controls", "An on/off setting."),
   entry("ThemeToggle", "Controls", "Light, dark or the system's; and palettes."),
