@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 import { cx } from "../../utils";
 import styles from "./Pattern.module.scss";
 
-export type PatternName = "grid" | "dots" | "hex" | "leaves" | "halftone" | "circuit" | "petals";
+export type PatternName = "grid" | "dots" | "hex" | "leaves" | "halftone" | "circuit" | "petals" | "bolts";
 
 export interface PatternProps extends ComponentProps<"div"> {
   /** A pattern by name, or `theme` for the theme's own (a grid by default). */

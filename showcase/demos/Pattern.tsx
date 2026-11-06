@@ -3,7 +3,7 @@ import { Pattern, type PatternName } from "gui-mellow/Pattern";
 import { Section } from "gui-mellow/Section";
 import { Example } from "../lib/Example";
 
-const names: PatternName[] = ["grid", "hex", "dots", "leaves", "halftone", "circuit", "petals"];
+const names: PatternName[] = ["grid", "hex", "dots", "leaves", "halftone", "circuit", "petals", "bolts"];
 
 const tile = {
   position: "relative",
@@ -35,7 +35,7 @@ export default function PatternDemo() {
       </Example>
       <Example
         title="The theme's pattern"
-        description='pattern="theme", the default, uses --gm-pattern: a grid normally, leaves in solarpunk, halftone dots in magazine, circuits in cyberpunk and petals in kawaii.'
+        description='pattern="theme", the default, uses --gm-pattern: a grid normally, leaves in solarpunk, halftone dots in magazine, circuits in cyberpunk, petals in kawaii and lightning bolts in ranger.'
       >
         <div style={tile}>
           <Pattern fade="none" />

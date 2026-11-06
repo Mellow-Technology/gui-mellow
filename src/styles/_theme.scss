@@ -195,7 +195,7 @@ $token-defaults: (
 
     // Cursors, used only while CursorEffects runs: a `cursor` value for the
     // page and one for links and buttons, and the effect it draws
-    // (ripple, fireflies, comic, reticle or sparkle; none for nothing)
+    // (ripple, fireflies, comic, reticle, sparkle or laser; none for nothing)
     "cursor-custom": auto,
     "cursor-custom-pointer": pointer,
     "cursor-effect": ripple,

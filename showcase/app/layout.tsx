@@ -3,12 +3,14 @@ import Link from "next/link";
 import {
   Archivo,
   Chakra_Petch,
+  Exo_2,
   Figtree,
   Fraunces,
   Fredoka,
   IBM_Plex_Mono,
   IBM_Plex_Sans,
   Nunito,
+  Orbitron,
   Space_Grotesk,
 } from "next/font/google";
 import { ATTRIBUTION } from "gui-mellow/Credit";
@@ -26,6 +28,7 @@ import "gui-mellow/styles/themes/solarpunk.scss";
 import "gui-mellow/styles/themes/magazine.scss";
 import "gui-mellow/styles/themes/cyberpunk.scss";
 import "gui-mellow/styles/themes/kawaii.scss";
+import "gui-mellow/styles/themes/ranger.scss";
 
 const display = Space_Grotesk({ variable: "--font-display", subsets: ["latin"], weight: ["500", "600"] });
 const body = IBM_Plex_Sans({ variable: "--font-body", subsets: ["latin"], weight: ["400", "500", "600"] });
@@ -43,6 +46,8 @@ const cyber = Chakra_Petch({
 });
 const kawaiiDisplay = Fredoka({ variable: "--font-kawaii-display", subsets: ["latin"], preload: false });
 const kawaiiBody = Nunito({ variable: "--font-kawaii-body", subsets: ["latin"], preload: false });
+const rangerDisplay = Orbitron({ variable: "--font-ranger-display", subsets: ["latin"], preload: false });
+const rangerBody = Exo_2({ variable: "--font-ranger-body", subsets: ["latin"], preload: false });
 
 export const metadata: Metadata = {
   title: { default: "GUI Mellow", template: "%s · gui-mellow" },
@@ -53,7 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={[display, body, mono, solarDisplay, solarBody, magazine, cyber, kawaiiDisplay, kawaiiBody]
+      className={[display, body, mono, solarDisplay, solarBody, magazine, cyber, kawaiiDisplay, kawaiiBody, rangerDisplay, rangerBody]
         .map((font) => font.variable)
         .join(" ")}
       suppressHydrationWarning

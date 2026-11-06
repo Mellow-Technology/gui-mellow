@@ -108,6 +108,34 @@ $petals: (
     size: 150px 150px,
 );
 
+// Lightning bolts, solid and outlined, with sparks between them
+$-bolt: "<path d='M7 0h10l-5 9h7L5 26l3.5-12H2z'/>";
+
+@function -bolt($x, $y, $turn, $scale: 1, $outline: false) {
+    $paint: if($outline, " fill='none' stroke='black' stroke-width='#{1.5 / $scale}' stroke-linejoin='round'", "");
+    @return "<g transform='translate(#{$x} #{$y}) rotate(#{$turn}) scale(#{$scale})'#{$paint}>#{$-bolt}</g>";
+}
+
+@function -spark($x, $y) {
+    @return "<path d='M#{$x} #{$y - 3.5}l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z'/>";
+}
+
+$bolts: (
+    image: svg-url(
+        $-open + " width='120' height='120'>" +
+            -bolt(14, 10, -12) +
+            -bolt(70, 56, 14, 1.25) +
+            -bolt(86, 8, 22, 0.7, true) +
+            -bolt(22, 72, -24, 0.85, true) +
+            -spark(58, 26) +
+            -spark(108, 104) +
+            -spark(50, 108) +
+            -spark(8, 50) +
+            "</svg>"
+    ),
+    size: 140px 140px,
+);
+
 $all: (
     grid: $grid,
     dots: $dots,
@@ -116,6 +144,7 @@ $all: (
     halftone: $halftone,
     circuit: $circuit,
     petals: $petals,
+    bolts: $bolts,
 );
 
 /// Paint a pattern on this element, in --gm-pattern-color.

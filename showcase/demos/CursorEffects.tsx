@@ -34,6 +34,7 @@ export default function CursorEffectsDemo() {
             ["Magazine", "A chunky comic arrow; red over links", "Comic starbursts: POW! BAM! ZAP!"],
             ["Cyberpunk", "A targeting reticle, locking on over links", "Trailing brackets with a coordinate readout, locking on to buttons"],
             ["Kawaii", "A magic wand; a heart over links", "Twinkling sparkles, and sparkles and hearts on click"],
+            ["Ranger", "A HUD arrow; a lightning bolt over links", "Thruster exhaust, and twin laser beams that strike with sparks and lightning"],
           ]}
         />
       </Example>

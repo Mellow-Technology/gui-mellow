@@ -6,4 +6,5 @@ export const palettes: Segment<string>[] = [
   { value: "magazine", label: "Pop" },
   { value: "cyberpunk", label: "Cyber" },
   { value: "kawaii", label: "Kawaii" },
+  { value: "ranger", label: "Ranger" },
 ];

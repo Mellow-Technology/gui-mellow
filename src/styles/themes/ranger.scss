@@ -1,0 +1,195 @@
+// Ranger: a mecha in the hangar by day, and a space battle by night. White
+// armour plating trimmed in blue, red and hazard yellow; then deep space,
+// with laser blue and red. Chamfered armour-plate buttons with a bevel, panels
+// that sit on a hard edge and lift when hovered, heavy uppercase headlines
+// with a laser glow, a hazard stripe across the top of the page, and
+// lightning bolts for texture.
+//
+// Opt in by importing it after the global stylesheet,
+//
+//     import "gui-mellow/styles/themes/ranger.scss";
+//
+// then set `data-palette="ranger"`. Fonts: point --font-ranger-display and
+// --font-ranger-body at next/font variables, or let them fall back to
+// Orbitron and Exo 2 by name.
+
+@use "sass:map";
+@use "sass:string";
+@use "../patterns";
+@use "../theme";
+
+@layer gm.tokens, gm.base;
+
+$-navy: #0d1b33;
+$-blue: #1546c9;
+$-red: #d7141f;
+$-yellow: #ffc400;
+
+$-space: #05070f;
+$-laser-blue: #38b6ff;
+$-laser-red: #ff3b30;
+
+// An angular HUD arrow, and a lightning bolt striking links and buttons
+$-arrow: patterns.svg-url(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' stroke-linejoin='miter'>" +
+        "<path d='M3 2v22l6-6 4.5 10 4-1.8L13 16.5h8.5z' fill='#{$-yellow}' stroke='#{$-space}' stroke-width='2'/>" +
+        "<path d='M6 8v9' stroke='#{$-red}' stroke-width='2'/></svg>"
+);
+$-strike: patterns.svg-url(
+    "<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' stroke-linejoin='round'>" +
+        "<path d='M19 1h11l-7 10h7L8 31l5-14H6z' fill='#{$-yellow}' stroke='#{$-space}' stroke-width='2'/>" +
+        "<path d='M20 4h5l-4 6' fill='none' stroke='white' stroke-width='1.5' opacity='.8'/></svg>"
+);
+
+// Armour plating: every corner chamfered
+$-chamfer: 7px;
+
+@layer gm.tokens {
+    @include theme.palette(
+        "ranger",
+        $light: (
+            "color-bg": #e9edf2,
+            "color-surface": #f8fafc,
+            "color-surface-hover": #ffffff,
+            "color-surface-sunken": rgba(13, 27, 51, 0.06),
+            "color-overlay": rgba(233, 237, 242, 0.9),
+
+            "color-heading": $-navy,
+            "color-text": #1c2a40,
+            "color-text-muted": #33435a,
+            "color-text-subtle": #415167,
+            "color-text-faint": #4f5e74,
+
+            "color-primary": $-blue,
+            "color-primary-hover": #0f37a3,
+            "color-on-primary": #ffffff,
+            "color-accent": $-red,
+            "color-on-accent": #ffffff,
+            "color-link": #1042b8,
+            "color-link-hover": #0a2f85,
+            "color-focus": $-blue,
+            "color-selection": rgba(255, 196, 0, 0.45),
+
+            "color-success": #0b7a3d,
+            "color-warning": #8a5a00,
+            "color-danger": #c4121c,
+
+            "color-border-subtle": rgba(13, 27, 51, 0.1),
+            "color-border": rgba(13, 27, 51, 0.2),
+            "color-border-strong": rgba(13, 27, 51, 0.42),
+            "color-border-hover": $-navy,
+
+            "shadow-sm": 0 1px 0 rgba(13, 27, 51, 0.2),
+            "shadow-lg": 0 16px 40px rgba(13, 27, 51, 0.18),
+            "glass-highlight": rgba(255, 255, 255, 0.75),
+            "pattern-color": rgba(21, 70, 201, 0.1),
+            "particle-colors": #{"21 70 201, 215 20 31, 230 170 0"},
+
+            // Panels sit on a hard edge, like plating, which turns blue as
+            // they lift
+            "shadow-pop": 0 4px 0 rgba(13, 27, 51, 0.16),
+            "shadow-pop-hover": 0 6px 0 $-blue,
+            // Inset, so the chamfered clip doesn't cut it off: a bevel
+            "shadow-control": (inset 0 -3px 0 rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.3)),
+            "shadow-control-hover": (inset 0 -4px 0 rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.4)),
+            "display-shadow": 0.045em 0.045em 0 rgba(215, 20, 31, 0.85),
+            "highlight": linear-gradient(transparent 62%, rgba(255, 196, 0, 0.75) 62%),
+
+            "hazard-dark": $-navy,
+        ),
+        $dark: (
+            "color-bg": $-space,
+            "color-surface": #0c1222,
+            "color-surface-hover": #121a30,
+            "color-surface-sunken": rgba(108, 196, 255, 0.06),
+            "color-overlay": rgba(5, 7, 15, 0.88),
+
+            "color-heading": #eef4ff,
+            "color-text": #c9d6ec,
+            "color-text-muted": #a3b3cf,
+            "color-text-subtle": #8e9fbd,
+            "color-text-faint": #7889a8,
+
+            "color-primary": $-laser-blue,
+            "color-primary-hover": #6cc8ff,
+            "color-on-primary": $-space,
+            "color-accent": $-laser-red,
+            "color-on-accent": #ffffff,
+            "color-link": #6cc4ff,
+            "color-link-hover": #a6dcff,
+            "color-focus": $-yellow,
+            "color-selection": rgba(56, 182, 255, 0.35),
+
+            "color-success": #45e08a,
+            "color-warning": $-yellow,
+            "color-danger": #ff4a3d,
+
+            "color-border-subtle": rgba(108, 196, 255, 0.1),
+            "color-border": rgba(108, 196, 255, 0.2),
+            "color-border-strong": rgba(108, 196, 255, 0.38),
+            "color-border-hover": $-laser-blue,
+
+            "shadow-sm": 0 1px 0 rgba(0, 0, 0, 0.5),
+            "shadow-lg": 0 20px 50px rgba(0, 0, 0, 0.6),
+            "glass-highlight": rgba(108, 196, 255, 0.18),
+            "pattern-color": rgba(108, 196, 255, 0.08),
+            "particle-colors": #{"56 182 255, 255 59 48, 255 196 0"},
+
+            "shadow-pop": 0 4px 0 #18223d,
+            "shadow-pop-hover": (0 6px 0 #1d5f99, 0 0 28px rgba(56, 182, 255, 0.25)),
+            "shadow-control": (inset 0 -3px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35)),
+            "shadow-control-hover": (inset 0 -4px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45)),
+            "display-shadow": (0.04em 0.04em 0 rgba(255, 59, 48, 0.9), 0 0 0.35em rgba(56, 182, 255, 0.55)),
+            "highlight": linear-gradient(transparent 62%, rgba(255, 196, 0, 0.4) 62%),
+
+            "hazard-dark": $-space,
+        ),
+        $tokens: (
+            "font-display": (var(--font-ranger-display, "Orbitron"), ui-sans-serif, system-ui, sans-serif),
+            "font-body": (var(--font-ranger-body, "Exo 2"), ui-sans-serif, system-ui, sans-serif),
+            "weight-heading": 800,
+            "heading-transform": uppercase,
+            "tracking-tight": 0.01em,
+            "tracking-label": 0.18em,
+            "border-width": 2px,
+            "radius-sm": 2px,
+            "radius-md": 3px,
+            "radius-lg": 4px,
+            "radius-pill": 3px,
+            "clip-control": string.unquote(
+                "polygon(#{$-chamfer} 0, calc(100% - #{$-chamfer}) 0, 100% #{$-chamfer}, " +
+                    "100% calc(100% - #{$-chamfer}), calc(100% - #{$-chamfer}) 100%, #{$-chamfer} 100%, " +
+                    "0 calc(100% - #{$-chamfer}), 0 #{$-chamfer})"
+            ),
+            "notch": 12px,
+            "lift": translateY(-2px),
+            "press": translateY(2px),
+            "focus-offset": -4px,
+            "duration": 0.15s,
+            "ease": cubic-bezier(0.3, 0, 0, 1),
+            "cursor-custom": ($-arrow 3 2, auto),
+            "cursor-custom-pointer": ($-strike 8 31, pointer),
+            "cursor-effect": laser,
+            "pattern": map.get(patterns.$bolts, image),
+            "pattern-size": map.get(patterns.$bolts, size),
+            "hazard-light": $-yellow,
+        )
+    );
+}
+
+// A hazard stripe across the top of the page, when the palette is on <html>
+@layer gm.base {
+    :root[data-palette="ranger"] body::before {
+        content: "";
+        position: fixed;
+        inset: 0 0 auto;
+        height: 5px;
+        z-index: var(--gm-z-overlay);
+        pointer-events: none;
+        background: repeating-linear-gradient(
+            -45deg,
+            var(--gm-hazard-light) 0 10px,
+            var(--gm-hazard-dark) 10px 20px
+        );
+    }
+}

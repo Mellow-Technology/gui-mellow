@@ -9,7 +9,7 @@ import {
 import type { CursorEffect, CursorEffectFactory, CursorTheme } from "./effects/types";
 import styles from "./CursorEffects.module.scss";
 
-export type CursorEffectName = "ripple" | "fireflies" | "comic" | "reticle" | "sparkle";
+export type CursorEffectName = "ripple" | "fireflies" | "comic" | "reticle" | "sparkle" | "laser";
 
 // Each effect is its own chunk, so a page loads only the one its theme uses
 const effects: Record<CursorEffectName, () => Promise<{ default: CursorEffectFactory }>> = {
@@ -18,6 +18,7 @@ const effects: Record<CursorEffectName, () => Promise<{ default: CursorEffectFac
   comic: () => import("./effects/comic"),
   reticle: () => import("./effects/reticle"),
   sparkle: () => import("./effects/sparkle"),
+  laser: () => import("./effects/laser"),
 };
 
 function isEffectName(name: string): name is CursorEffectName {
@@ -60,8 +61,8 @@ export interface CursorEffectsProps {
 /**
  * The theme's custom cursors, and an effect drawn around the pointer:
  * ripples in the default theme, fireflies in solarpunk, comic bursts in
- * magazine, a targeting reticle in cyberpunk, sparkles in kawaii. Render it
- * once, in the root layout, to opt in.
+ * magazine, a targeting reticle in cyberpunk, sparkles in kawaii, laser
+ * fire in ranger. Render it once, in the root layout, to opt in.
  *
  * It stays off on touch screens and, apart from the cursors, for visitors
  * who prefer reduced motion. Visitors can switch it off with CursorToggle.
