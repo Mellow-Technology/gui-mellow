@@ -38,6 +38,8 @@ const fonts: [string, string][] = [
   ["Chakra Petch", "var(--font-cyber), sans-serif"],
   ["Fredoka", "var(--font-kawaii-display), sans-serif"],
   ["Nunito", "var(--font-kawaii-body), sans-serif"],
+  ["Orbitron", "var(--font-ranger-display), sans-serif"],
+  ["Exo 2", "var(--font-ranger-body), sans-serif"],
   ["System", "system-ui, sans-serif"],
 ];
 
@@ -224,7 +226,7 @@ const groups: { title: string; scheme?: boolean; controls: Control[] }[] = [
       {
         kind: "preset",
         label: "Cursor effect",
-        options: ["none", "ripple", "fireflies", "comic", "reticle", "sparkle"].map((effect) => ({
+        options: ["none", "ripple", "fireflies", "comic", "reticle", "sparkle", "laser"].map((effect) => ({
           label: effect[0]!.toUpperCase() + effect.slice(1),
           values: { "cursor-effect": effect },
         })),

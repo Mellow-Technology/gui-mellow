@@ -83,7 +83,7 @@ Plain CSS overrides also work. The tokens sit in a cascade layer
 
 **Palettes.** A palette is a whole alternative theme, with its own light and
 dark variants, applied with `data-palette` on `<html>` or any element. It's
-independent of `data-theme`, so light, dark and auto still work. Four ship
+independent of `data-theme`, so light, dark and auto still work. Five ship
 with the library, each opt-in, so apps that don't import one pay nothing:
 
 | Palette | Look | Font variable on `<html>` |
@@ -92,6 +92,7 @@ with the library, each opt-in, so apps that don't import one pay nothing:
 | `magazine` | Pop-art print: cream paper, ink outlines, red, blue and highlighter yellow. Heavy uppercase headlines, panels on hard offset shadows that jump on hover and press flat on click, tilted badges, Ben-Day dots. | `--font-magazine` (Archivo) |
 | `cyberpunk` | Neon on black at night, a hazard-yellow HUD by day. Square corners, cut-corner buttons, a coloured notch on panels, red/cyan split headlines, circuit traces, scanlines. | `--font-cyber` (Chakra Petch) |
 | `kawaii` | Sakura by day, with a cherry-red bow accent; black, lavender and hot pink by night. Big radii, chunky borders, candy buttons that bounce up on hover and squash down when pressed, cherry-blossom pattern. | `--font-kawaii-display` (Fredoka), `--font-kawaii-body` (Nunito) |
+| `ranger` | Mecha: white armour plating with blue, red and hazard yellow by day; a space battle in navy, laser blue and red by night. Chamfered armour-plate buttons with a bevel, panels on a hard edge that lift on hover, uppercase headlines with a laser glow, a hazard stripe along the top, lightning bolts. | `--font-ranger-display` (Orbitron), `--font-ranger-body` (Exo 2) |
 
 ```tsx
 import "gui-mellow/styles.scss";
@@ -148,7 +149,7 @@ surfaces and controls carry themselves. All are off in the default theme:
 | `tilt` | A rotation, for a stuck-on look | Badge |
 | `focus-offset` | The focus ring's offset; negative where controls are clipped | Everything focusable |
 | `cursor-custom`, `cursor-custom-pointer` | `cursor` values for the page, and for links and buttons | CursorEffects |
-| `cursor-effect` | Which effect CursorEffects draws: `ripple`, `fireflies`, `comic`, `reticle`, `sparkle` or `none` | CursorEffects |
+| `cursor-effect` | Which effect CursorEffects draws: `ripple`, `fireflies`, `comic`, `reticle`, `sparkle`, `laser` or `none` | CursorEffects |
 
 **Cursor effects.** Render `<CursorEffects />` once in the root layout to
 opt in. Each palette then brings its own cursor and an effect around the
@@ -162,6 +163,8 @@ pointer:
   readout, then lock on around links and buttons.
 - Kawaii: a magic wand (a heart over links), trailing sparkles, and
   sparkles and hearts on click.
+- Ranger: a HUD arrow (a lightning bolt over links), thruster exhaust, and
+  twin laser beams on click that strike with sparks and crackling lightning.
 
 The effects are drawn on one fixed canvas that only animates while
 something moves, and each effect's code loads only when its palette is in
@@ -171,11 +174,11 @@ off, remembered in `localStorage`. Pass `effect` to use one effect
 everywhere, or `enabled={false}` to wire it to a setting of your own.
 
 **Patterns.** Faint background textures (`grid`, `hex`, `dots`, `leaves`,
-`halftone`, `circuit` and `petals`) drawn as SVG tiles and painted in
+`halftone`, `circuit`, `petals` and `bolts`) drawn as SVG tiles and painted in
 `--gm-pattern-color`, so they follow the theme. Each theme picks one through
 the `--gm-pattern` and `--gm-pattern-size` tokens: a grid by default, leaves
 in solarpunk, halftone dots in magazine, circuits in cyberpunk, cherry
-blossoms in kawaii. `Hero` uses the theme's, or the one named by its
+blossoms in kawaii, lightning bolts in ranger. `Hero` uses the theme's, or the one named by its
 `pattern` prop. Put `<Pattern />`
 inside any positioned element to texture it. In your own modules,
 `@use "gui-mellow/styles/patterns"` gives `patterns.apply(patterns.$hex)` and
