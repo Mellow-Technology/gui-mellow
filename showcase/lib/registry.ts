@@ -56,4 +56,5 @@ export const loaders: Record<string, () => Promise<{ default: ComponentType }>> 
   ParticleField: () => import("../demos/ParticleField"),
   Pattern: () => import("../demos/Pattern"),
   CursorEffects: () => import("../demos/CursorEffects"),
+  GlowTracker: () => import("../demos/GlowTracker"),
 };

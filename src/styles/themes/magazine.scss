@@ -41,10 +41,10 @@ $-night-paper: #17131f;
         "magazine",
         $light: (
             "color-bg": $-paper,
-            "color-surface": #ffffff,
-            "color-surface-hover": #fffdf6,
+            "color-surface": rgba(255, 255, 255, 0.78),
+            "color-surface-hover": rgba(255, 253, 246, 0.86),
             "color-surface-sunken": rgba(22, 22, 22, 0.05),
-            "color-overlay": rgba(255, 248, 232, 0.9),
+            "color-overlay": rgba(255, 248, 232, 0.8),
 
             "color-heading": $-ink,
             "color-text": #222222,
@@ -74,6 +74,9 @@ $-night-paper: #17131f;
             "shadow-sm": 2px 2px 0 $-ink,
             "shadow-lg": 6px 6px 0 $-ink,
             "glass-highlight": rgba(255, 255, 255, 0.8),
+            "glass-edge": $-ink,
+            "glass-sheen": rgba(255, 255, 255, 0.45),
+            "glass-shadow": theme.$no-shadow,
             "pattern-color": rgba(227, 25, 43, 0.15),
             "particle-colors": #{"227 25 43, 23 71 214, 255 214 10, 255 79 154"},
 
@@ -86,10 +89,10 @@ $-night-paper: #17131f;
         ),
         $dark: (
             "color-bg": $-night-paper,
-            "color-surface": #221c2c,
-            "color-surface-hover": #2b2438,
+            "color-surface": rgba(34, 28, 44, 0.78),
+            "color-surface-hover": rgba(43, 36, 56, 0.86),
             "color-surface-sunken": rgba(248, 241, 222, 0.06),
-            "color-overlay": rgba(23, 19, 31, 0.9),
+            "color-overlay": rgba(23, 19, 31, 0.8),
 
             "color-heading": #fffaf0,
             "color-text": $-night-ink,
@@ -119,6 +122,9 @@ $-night-paper: #17131f;
             "shadow-sm": 2px 2px 0 #000000,
             "shadow-lg": 6px 6px 0 #000000,
             "glass-highlight": rgba(248, 241, 222, 0.16),
+            "glass-edge": $-night-ink,
+            "glass-sheen": rgba(248, 241, 222, 0.06),
+            "glass-shadow": theme.$no-shadow,
             "pattern-color": rgba(255, 79, 154, 0.14),
             "particle-colors": #{"255 61 90, 102 199 255, 255 214 10, 255 79 154"},
 

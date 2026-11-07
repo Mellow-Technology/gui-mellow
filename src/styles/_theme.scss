@@ -12,6 +12,7 @@
 //
 // See themes/_solarpunk.scss for a complete one.
 
+@use "sass:color";
 @use "sass:map";
 @use "sass:meta";
 @use "sass:string";
@@ -19,20 +20,26 @@
 
 $rainbow: string.unquote("255 0 0, 255 154 0, 208 222 33, 77 220 74, 63 218 216, 47 201 226, 28 127 238, 95 21 242, 186 12 248, 251 7 217");
 
+/// A shadow that shows nothing, but unlike `none` can sit in a list of them.
+$no-shadow: 0 0 transparent;
+
 $light-defaults: (
     // Surfaces
     "color-bg": #f8f9fb,
-    "color-surface": #ffffff,
-    "color-surface-hover": #f1f3f6,
+    // Surface, its hover and overlay are see-through, for frosted glass, and
+    // made solid for visitors who ask for less transparency. Stay opaque
+    // enough to keep text readable over whatever they're above.
+    "color-surface": rgba(255, 255, 255, 0.78),
+    "color-surface-hover": rgba(241, 243, 246, 0.86),
     "color-surface-sunken": rgba(10, 13, 16, 0.04),
-    "color-overlay": rgba(248, 249, 251, 0.84),
+    "color-overlay": rgba(248, 249, 251, 0.78),
 
     // Text, strongest to quietest
     "color-heading": oklch(0.2 0.015 240),
     "color-text": oklch(0.3 0.014 240),
     "color-text-muted": oklch(0.42 0.014 240),
     "color-text-subtle": oklch(0.5 0.012 240),
-    "color-text-faint": oklch(0.56 0.012 240),
+    "color-text-faint": oklch(0.53 0.012 240),
 
     // Brand
     "color-primary": #0568e2,
@@ -59,17 +66,26 @@ $light-defaults: (
     // Depth
     "shadow-sm": 0 1px 2px rgba(10, 13, 16, 0.06),
     "shadow-lg": 0 12px 32px rgba(10, 13, 16, 0.12),
-    "glass-highlight": rgba(255, 255, 255, 0.7),
     "pattern-color": rgba(10, 13, 16, 0.07),
+
+    // Frosted glass: the bright top edge, the rim, the sheen from the top,
+    // the shadow, and how strongly `data-ambient` washes the page with colour
+    "glass-highlight": rgba(255, 255, 255, 0.7),
+    "glass-edge": rgba(255, 255, 255, 0.75),
+    "glass-sheen": rgba(255, 255, 255, 0.5),
+    "glass-shadow": (0 10px 30px -12px rgba(15, 23, 42, 0.22), 0 2px 6px -2px rgba(15, 23, 42, 0.08)),
+    "glass-ambient": 14%,
 
     // Shape effects, off by default. "pop" shadows sit under surfaces such
     // as cards (a hard offset block, or a glow), "control" ones under
     // buttons; "display" is a text shadow on hero and banner titles, and
-    // "highlight" a background behind their emphasised words.
-    "shadow-pop": none,
-    "shadow-pop-hover": none,
-    "shadow-control": none,
-    "shadow-control-hover": none,
+    // "highlight" a background behind their emphasised words. The shadows
+    // are layered with others, where `none` isn't valid, so to turn one off
+    // use $no-shadow.
+    "shadow-pop": $no-shadow,
+    "shadow-pop-hover": $no-shadow,
+    "shadow-control": $no-shadow,
+    "shadow-control-hover": $no-shadow,
     "display-shadow": none,
     "highlight": none,
 
@@ -79,16 +95,16 @@ $light-defaults: (
 
 $dark-defaults: (
     "color-bg": #0a0d10,
-    "color-surface": rgba(255, 255, 255, 0.018),
-    "color-surface-hover": rgba(255, 255, 255, 0.032),
+    "color-surface": rgba(16, 20, 25, 0.78),
+    "color-surface-hover": rgba(30, 36, 42, 0.86),
     "color-surface-sunken": rgba(255, 255, 255, 0.055),
-    "color-overlay": rgba(10, 13, 16, 0.82),
+    "color-overlay": rgba(10, 13, 16, 0.76),
 
     "color-heading": oklch(0.97 0.006 240),
     "color-text": oklch(0.9 0.008 240),
     "color-text-muted": oklch(0.75 0.012 240),
     "color-text-subtle": oklch(0.68 0.012 240),
-    "color-text-faint": oklch(0.58 0.012 240),
+    "color-text-faint": oklch(0.63 0.012 240),
 
     "color-primary": #0568e2,
     "color-primary-hover": #2b82ea,
@@ -111,12 +127,16 @@ $dark-defaults: (
 
     "shadow-sm": 0 1px 2px rgba(0, 0, 0, 0.3),
     "shadow-lg": 0 12px 32px rgba(0, 0, 0, 0.5),
-    "glass-highlight": rgba(255, 255, 255, 0.18),
     "pattern-color": rgba(255, 255, 255, 0.05),
-    "shadow-pop": none,
-    "shadow-pop-hover": none,
-    "shadow-control": none,
-    "shadow-control-hover": none,
+    "glass-highlight": rgba(255, 255, 255, 0.18),
+    "glass-edge": rgba(255, 255, 255, 0.1),
+    "glass-sheen": rgba(255, 255, 255, 0.06),
+    "glass-shadow": (0 14px 40px -12px rgba(0, 0, 0, 0.6), 0 2px 8px -2px rgba(0, 0, 0, 0.4)),
+    "glass-ambient": 16%,
+    "shadow-pop": $no-shadow,
+    "shadow-pop-hover": $no-shadow,
+    "shadow-control": $no-shadow,
+    "shadow-control-hover": $no-shadow,
     "display-shadow": none,
     "highlight": none,
     "particle-colors": $rainbow,
@@ -211,15 +231,35 @@ $token-defaults: (
     }
 }
 
+/// $color as it looks over $under. Falls back on $under for anything Sass
+/// can't work out, such as a var().
+@function -flatten($color, $under) {
+    @if meta.type-of($color) != "color" or meta.type-of($under) != "color" {
+        @return $under;
+    }
+    $alpha: color.channel($color, "alpha");
+    @return color.mix(color.change($color, $alpha: 1), $under, $alpha * 100%, $method: srgb);
+}
+
+/// The see-through colours made solid, for prefers-reduced-transparency.
+@mixin -solid($values) {
+    @media (prefers-reduced-transparency: reduce) {
+        @each $token in ("color-surface", "color-surface-hover", "color-overlay") {
+            --gm-#{$token}: #{-flatten(map.get($values, $token), map.get($values, "color-bg"))};
+        }
+    }
+}
+
 /// One colour scheme's values, merged over the defaults so every colour is
 /// declared: an element pinned to a scheme mustn't inherit any of the other's.
 @mixin scheme($scheme, $light: (), $dark: ()) {
-    color-scheme: $scheme;
+    $values: map.merge($light-defaults, $light);
     @if $scheme == dark {
-        @include properties(map.merge($dark-defaults, $dark));
-    } @else {
-        @include properties(map.merge($light-defaults, $light));
+        $values: map.merge($dark-defaults, $dark);
     }
+    color-scheme: $scheme;
+    @include properties($values);
+    @include -solid($values);
 }
 
 /// The default theme: light unless the OS prefers dark, and pinned by

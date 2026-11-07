@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, type ComponentProps, type ReactNode } from "react";
-import { cx } from "../../utils";
+import { cx, vars } from "../../utils";
 import { Button } from "../Button";
 import styles from "./Dialog.module.scss";
 
@@ -16,6 +16,8 @@ export interface DialogProps extends Omit<ComponentProps<"dialog">, "open" | "ti
   size?: "sm" | "md" | "lg";
   /** Closes on a click outside the panel. */
   dismissible?: boolean;
+  /** A colour to tint the glass with, such as the danger colour. */
+  tint?: string;
 }
 
 /**
@@ -30,7 +32,9 @@ export function Dialog({
   actions,
   size = "md",
   dismissible = true,
+  tint,
   className,
+  style,
   children,
   ...props
 }: DialogProps) {
@@ -49,6 +53,7 @@ export function Dialog({
     <dialog
       ref={ref}
       className={cx(styles.dialog, styles[size], className)}
+      style={tint ? vars({ "--frost-tint": tint }, style) : style}
       aria-labelledby={titleId}
       aria-describedby={description ? descriptionId : undefined}
       // Escape: leave closing to the parent, so `open` stays the truth

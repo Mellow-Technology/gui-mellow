@@ -1,3 +1,5 @@
+@use "../../styles/mixins" as gm;
+
 .chip {
     --gm-chip-color: var(--gm-color-primary);
 
@@ -9,6 +11,7 @@
     border: var(--gm-border-width) solid var(--gm-color-border-strong);
     border-radius: var(--gm-radius-pill);
     background: var(--gm-color-surface);
+    box-shadow: inset 0 1px 0 var(--gm-glass-highlight);
     color: var(--gm-color-text);
     font-size: var(--gm-text-sm);
     font-weight: var(--gm-weight-medium);
@@ -24,8 +27,8 @@
     }
 
     &[aria-pressed="true"] {
+        @include gm.bead(var(--gm-chip-color));
         border-color: var(--gm-chip-color);
-        background: color-mix(in srgb, var(--gm-chip-color) 16%, var(--gm-color-surface));
         color: var(--gm-color-heading);
     }
 

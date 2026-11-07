@@ -23,6 +23,7 @@ export * from "./components/Eyebrow";
 export * from "./components/FeatureGrid";
 export * from "./components/Field";
 export * from "./components/Figure";
+export * from "./components/GlowTracker";
 export * from "./components/Grid";
 export * from "./components/Hero";
 export * from "./components/LogoCloud";

@@ -151,6 +151,64 @@ surfaces and controls carry themselves. All are off in the default theme:
 | `cursor-custom`, `cursor-custom-pointer` | `cursor` values for the page, and for links and buttons | CursorEffects |
 | `cursor-effect` | Which effect CursorEffects draws: `ripple`, `fireflies`, `comic`, `reticle`, `sparkle`, `laser` or `none` | CursorEffects |
 
+**Frosted glass.** Surfaces are glass out of the box, in every palette, light
+and dark. SiteHeader, Drawer, Dialog and menus blur what's behind them, and
+Card, Stat, Field, SegmentedControl, ThemeToggle, Chip and secondary Button
+are see-through, because `color-surface` is. These tokens set the look:
+
+| Token | Does |
+| --- | --- |
+| `color-surface`, `color-surface-hover` | The see-through fill of cards and controls. Below about 78% opaque, quiet text falls under WCAG AA |
+| `color-overlay` | The fill of the site header |
+| `glass-highlight` | The bright top edge |
+| `glass-edge` | The rim, mixed with the tint |
+| `glass-sheen` | The light falling from the top edge |
+| `glass-shadow` | The shadow |
+| `glass-ambient` | The strength of the colour behind the page, below |
+
+Shadows are layered, so `shadow-pop`, `shadow-control` and `glass-shadow` can't
+be `none`: use `0 0 transparent` (`theme.$no-shadow` in a palette).
+
+Glass needs colour behind it to frost. Put `data-ambient` on `<body>` for soft
+washes of the theme's primary, accent and success, or use your own background.
+
+The mixins are there for your own components:
+
+```scss
+@use "gui-mellow/styles/mixins" as gm;
+
+.panel { @include gm.frost; }                                      // A few large surfaces
+.sheet { @include gm.frost(var(--gm-color-accent), 80%, 28px); }   // $tint, $opacity, $blur
+.row { @include gm.tile; }                                         // Repeats: no backdrop filter
+.label { @include gm.bead(var(--gm-color-success)); }              // Tinted pills
+.card { @include gm.surface; }                                     // tile, filled with color-surface
+.page { @include gm.ambient; }                                     // data-ambient, on your own element
+```
+
+Use `tile` for anything that repeats: hundreds of blur layers hurt frame rate.
+It's for colour washes and plain backgrounds, though: with no blur, a photo
+shows through sharply behind text. Over imagery, put controls on a `frost` panel
+at 85% or so, as the showcase's GlowTracker page does.
+A backdrop filter also stops anything inside the element from blurring the
+page, so don't nest `frost` in `frost`.
+
+**Tints.** Drawer's `accent` and Dialog's `tint` colour their glass. For
+anything else, set `--frost-tint` on it or an element around it:
+`<Card style={vars({ "--frost-tint": "var(--gm-color-success)" })}>`, with
+`vars` from `gui-mellow/utils`. Everything glass inside it follows.
+
+**Glow.** `<Card glow>` and `<MediaCard glow>` light up under the pointer, as
+does anything with `data-glow` and `@include gm.glow`. Render `<GlowTracker />`
+once in the root layout for the light to follow the pointer; without it, it
+stays at the top of the element.
+
+**Reduced transparency and motion.** With `prefers-reduced-transparency:
+reduce`, surfaces are solid and nothing blurs: `color-surface`,
+`color-surface-hover` and `color-overlay` are flattened onto `color-bg` when a
+theme's stylesheet is compiled. Tokens you set in plain CSS, or as a `var()`,
+can't be flattened, so override them in that media query yourself. With
+`prefers-reduced-motion: reduce`, the glow is a static wash.
+
 **Cursor effects.** Render `<CursorEffects />` once in the root layout to
 opt in. Each palette then brings its own cursor and an effect around the
 pointer:

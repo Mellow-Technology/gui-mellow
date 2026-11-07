@@ -1,3 +1,5 @@
+@use "../../styles/mixins" as gm;
+
 .combobox {
     position: relative;
 }
@@ -24,14 +26,9 @@
     padding: var(--gm-space-1);
     overflow-y: auto;
     list-style: none;
-    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    @include gm.frost($opacity: 88%);
+    @include gm.rim(var(--gm-shadow-lg));
     border-radius: var(--gm-radius-sm);
-    // The surface is see-through in some themes, so it's laid over the
-    // page's background, as the input it hangs from is
-    background:
-        linear-gradient(var(--gm-color-surface), var(--gm-color-surface)),
-        var(--gm-color-bg);
-    box-shadow: var(--gm-shadow-lg);
     color: var(--gm-color-text);
 }
 

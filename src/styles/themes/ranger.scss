@@ -49,10 +49,10 @@ $-chamfer: 7px;
         "ranger",
         $light: (
             "color-bg": #e9edf2,
-            "color-surface": #f8fafc,
-            "color-surface-hover": #ffffff,
+            "color-surface": rgba(248, 250, 252, 0.78),
+            "color-surface-hover": rgba(255, 255, 255, 0.86),
             "color-surface-sunken": rgba(13, 27, 51, 0.06),
-            "color-overlay": rgba(233, 237, 242, 0.9),
+            "color-overlay": rgba(233, 237, 242, 0.8),
 
             "color-heading": $-navy,
             "color-text": #1c2a40,
@@ -82,6 +82,9 @@ $-chamfer: 7px;
             "shadow-sm": 0 1px 0 rgba(13, 27, 51, 0.2),
             "shadow-lg": 0 16px 40px rgba(13, 27, 51, 0.18),
             "glass-highlight": rgba(255, 255, 255, 0.75),
+            "glass-edge": rgba(13, 27, 51, 0.2),
+            "glass-sheen": rgba(255, 255, 255, 0.45),
+            "glass-shadow": (0 10px 30px -12px rgba(13, 27, 51, 0.26), 0 2px 6px -2px rgba(13, 27, 51, 0.1)),
             "pattern-color": rgba(21, 70, 201, 0.1),
             "particle-colors": #{"21 70 201, 215 20 31, 230 170 0"},
 
@@ -99,10 +102,10 @@ $-chamfer: 7px;
         ),
         $dark: (
             "color-bg": $-space,
-            "color-surface": #0c1222,
-            "color-surface-hover": #121a30,
+            "color-surface": rgba(12, 18, 34, 0.78),
+            "color-surface-hover": rgba(18, 26, 48, 0.86),
             "color-surface-sunken": rgba(108, 196, 255, 0.06),
-            "color-overlay": rgba(5, 7, 15, 0.88),
+            "color-overlay": rgba(5, 7, 15, 0.78),
 
             "color-heading": #eef4ff,
             "color-text": #c9d6ec,
@@ -132,6 +135,8 @@ $-chamfer: 7px;
             "shadow-sm": 0 1px 0 rgba(0, 0, 0, 0.5),
             "shadow-lg": 0 20px 50px rgba(0, 0, 0, 0.6),
             "glass-highlight": rgba(108, 196, 255, 0.18),
+            "glass-edge": rgba(108, 196, 255, 0.2),
+            "glass-sheen": rgba(108, 196, 255, 0.05),
             "pattern-color": rgba(108, 196, 255, 0.08),
             "particle-colors": #{"56 182 255, 255 59 48, 255 196 0"},
 

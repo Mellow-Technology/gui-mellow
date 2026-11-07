@@ -52,10 +52,10 @@
 .primary,
 .secondary,
 .danger {
-    box-shadow: var(--gm-shadow-control);
+    box-shadow: var(--gm-button-edge, 0 0 transparent), var(--gm-shadow-control);
 
     &:hover:not(:disabled) {
-        box-shadow: var(--gm-shadow-control-hover);
+        box-shadow: var(--gm-button-edge, 0 0 transparent), var(--gm-shadow-control-hover);
         transform: var(--gm-lift);
     }
 
@@ -87,7 +87,9 @@
 }
 
 .secondary {
-    background: transparent;
+    --gm-button-edge: inset 0 1px 0 var(--gm-glass-highlight);
+
+    background: var(--gm-color-surface);
     color: var(--gm-color-text);
     border-color: var(--gm-color-border-strong);
 

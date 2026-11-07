@@ -15,6 +15,7 @@ import {
 } from "next/font/google";
 import { ATTRIBUTION } from "gui-mellow/Credit";
 import { CursorEffects, CursorToggle } from "gui-mellow/CursorEffects";
+import { GlowTracker } from "gui-mellow/GlowTracker";
 import { SiteFooter } from "gui-mellow/SiteFooter";
 import { SiteHeader } from "gui-mellow/SiteHeader";
 import { PaletteToggle, ThemeScript, ThemeToggle } from "gui-mellow/ThemeToggle";
@@ -66,8 +67,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <ThemeScript />
       </head>
-      <body>
+      <body data-ambient>
         <CursorEffects />
+        <GlowTracker />
         <SiteHeader
           brand={<Link href="/">GUI Mellow</Link>}
           items={[

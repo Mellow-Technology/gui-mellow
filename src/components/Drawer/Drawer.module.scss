@@ -4,7 +4,8 @@
     --gm-drawer-accent: var(--gm-color-primary);
     --gm-drawer-width: min(420px, calc(100vw - 2rem));
 
-    @include gm.glass(var(--gm-radius-lg), 82%);
+    @include gm.frost(var(--gm-drawer-accent), 86%, 28px);
+    border-radius: var(--gm-radius-lg);
     position: fixed;
     top: var(--gm-space-4);
     bottom: var(--gm-space-4);

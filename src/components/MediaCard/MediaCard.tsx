@@ -13,6 +13,8 @@ export interface MediaCardProps extends Omit<ComponentProps<"article">, "title">
   eyebrow?: ReactNode;
   /** Makes the whole card a link to here. */
   href?: string;
+  /** A soft light under the pointer. Render GlowTracker to have it follow. */
+  glow?: boolean;
   level?: HeadingLevel;
 }
 
@@ -25,6 +27,7 @@ export function MediaCard({
   mediaAlt = "",
   eyebrow,
   href,
+  glow,
   level = 3,
   className,
   children,
@@ -33,7 +36,7 @@ export function MediaCard({
   const Heading = headingTag(level);
 
   return (
-    <article className={cx(styles.card, href && styles.linked, className)} {...props}>
+    <article className={cx(styles.card, href && styles.linked, className)} data-glow={glow || undefined} {...props}>
       <div className={styles.media}>
         {typeof media === "string" ? <img src={media} alt={mediaAlt} loading="lazy" /> : media}
       </div>
