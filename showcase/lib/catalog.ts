@@ -45,6 +45,7 @@ export const demos: DemoInfo[] = [
   entry("LogoCloud", "Content", "Client and partner logos."),
   entry("Prose", "Content", "Long-form content and rendered Markdown."),
   entry("Figure", "Content", "An image with a caption."),
+  entry("ScreenFrame", "Content", "A screenshot of an app, in a window."),
   entry("Table", "Content", "Rows of data under headings."),
   entry("Terminal", "Content", "Shell commands in a window."),
   entry("CodeBlock", "Content", "Source code, with a copy button."),

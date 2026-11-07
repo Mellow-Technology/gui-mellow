@@ -30,6 +30,7 @@ export const loaders: Record<string, () => Promise<{ default: ComponentType }>> 
   LogoCloud: () => import("../demos/LogoCloud"),
   Prose: () => import("../demos/Prose"),
   Figure: () => import("../demos/Figure"),
+  ScreenFrame: () => import("../demos/ScreenFrame"),
   Table: () => import("../demos/Table"),
   Terminal: () => import("../demos/Terminal"),
   CodeBlock: () => import("../demos/CodeBlock"),

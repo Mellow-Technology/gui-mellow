@@ -35,6 +35,7 @@ export * from "./components/Pattern";
 export * from "./components/PostList";
 export * from "./components/Prose";
 export * from "./components/RepeatingField";
+export * from "./components/ScreenFrame";
 export * from "./components/Section";
 export * from "./components/SegmentedControl";
 export * from "./components/SidebarLayout";

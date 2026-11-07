@@ -1,0 +1,12 @@
+.dots {
+    display: flex;
+    flex-shrink: 0;
+    gap: 7px;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--gm-color-border-strong);
+}
