@@ -28,7 +28,6 @@ const scssWith = `// app/theme.scss, imported in place of "gui-mellow/styles.scs
   $tokens: (
     "font-display": (var(--font-display, "Inter"), sans-serif),
     "radius-md": 4px,
-    "shadow-pop": none,
   ),
 );`;
 
@@ -172,6 +171,12 @@ export default function ThemingPage() {
                 <code>highlight</code>, <code>heading-transform</code> and <code>tilt</code> set how panels and
                 buttons carry themselves. The built-in palettes use them heavily; see{" "}
                 <code>src/styles/themes</code>.
+              </li>
+              <li>
+                <strong>Glass.</strong> Keep <code>color-surface</code> see-through, at about 78%, and set{" "}
+                <code>glass-edge</code>, <code>glass-sheen</code> and <code>glass-shadow</code> to suit. For a
+                flat, printed look, make the edge your border colour and turn the shadow off with{" "}
+                <code>theme.$no-shadow</code>, as Pop does.
               </li>
               <li>
                 <strong>Cursor.</strong> <code>cursor-effect</code> picks what CursorEffects draws, and{" "}

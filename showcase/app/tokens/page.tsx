@@ -17,6 +17,8 @@ const colorGroups = {
   Borders: ["border-subtle", "border", "border-strong", "border-hover"],
 };
 
+const glassTokens = ["glass-highlight", "glass-edge", "glass-sheen"];
+
 const textSizes = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl"];
 const spaces = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const radii = ["sm", "md", "lg", "pill"];
@@ -74,6 +76,25 @@ export default function TokensPage() {
           </div>
         </Section>
       ))}
+
+      <Section
+        title="Glass"
+        description="What frosted surfaces are made of, along with surface and overlay. --gm-glass-ambient sets the strength of the colour behind the page."
+        size="wide"
+      >
+        <div className={styles.swatches}>
+          {glassTokens.map((name) => (
+            <div key={name} className={styles.swatch}>
+              <div className={styles.chip} style={{ background: `var(--gm-${name})` }} />
+              --gm-{name}
+            </div>
+          ))}
+          <div className={styles.swatch}>
+            <div className={styles.chip} style={{ boxShadow: "var(--gm-glass-shadow)" }} />
+            --gm-glass-shadow
+          </div>
+        </div>
+      </Section>
 
       <Section title="Type" size="wide">
         {textSizes.map((size) => (

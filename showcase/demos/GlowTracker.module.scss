@@ -1,0 +1,40 @@
+@use "gui-mellow/styles/mixins" as gm;
+
+// A picture for the glass to frost
+.scene {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--gm-space-5);
+    padding: var(--gm-space-6);
+    background-size: cover;
+    background-position: center;
+}
+
+.frost,
+.tile,
+.tinted,
+.panel {
+    display: grid;
+    gap: var(--gm-space-2);
+    padding: var(--gm-space-5);
+    border-radius: var(--gm-radius-lg);
+    color: var(--gm-color-text);
+}
+
+.frost {
+    @include gm.frost($opacity: 78%);
+}
+
+// Opaque enough to read small, coloured text on, over any picture
+.panel {
+    @include gm.frost($opacity: 86%, $blur: 28px);
+    gap: var(--gm-space-4);
+}
+
+.tile {
+    @include gm.tile;
+}
+
+.tinted {
+    @include gm.frost(var(--gm-color-accent), 78%);
+}

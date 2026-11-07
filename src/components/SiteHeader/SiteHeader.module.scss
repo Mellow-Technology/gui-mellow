@@ -4,10 +4,18 @@
     position: sticky;
     top: 0;
     z-index: var(--gm-z-header);
-    border-bottom: var(--gm-border-width) solid var(--gm-color-border-subtle);
-    background: var(--gm-color-overlay);
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
+
+    // The glass sits on a layer of its own: a backdrop filter on the header
+    // itself would stop its menu, inside it, from frosting the page
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        @include gm.frost;
+        border-width: 0 0 var(--gm-border-width);
+        background-color: var(--gm-color-overlay);
+    }
 }
 
 .inner {
@@ -106,9 +114,8 @@
         display: none;
         flex-direction: column;
         padding: var(--gm-space-4) var(--gm-gutter) var(--gm-space-6);
-        border-bottom: var(--gm-border-width) solid var(--gm-color-border-subtle);
-        background: var(--gm-color-bg);
-        box-shadow: var(--gm-shadow-lg);
+        @include gm.frost($opacity: 88%);
+        border-width: 0 0 var(--gm-border-width);
         font-family: var(--gm-font-display);
         font-size: var(--gm-text-2xl);
     }

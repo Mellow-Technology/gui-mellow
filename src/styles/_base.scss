@@ -1,6 +1,8 @@
 // A small reset and element defaults. Layered, so any unlayered style in the
 // app, including the components' own modules, takes precedence.
 
+@use "mixins" as gm;
+
 *,
 *::before,
 *::after {
@@ -33,6 +35,11 @@ body {
 [data-palette]:not(:root) {
     background-color: var(--gm-color-bg);
     color: var(--gm-color-text);
+}
+
+// Colour behind the page, for frosted glass to frost; opt in on <body>
+body[data-ambient] {
+    @include gm.ambient;
 }
 
 // The theme's cursors, while CursorEffects runs

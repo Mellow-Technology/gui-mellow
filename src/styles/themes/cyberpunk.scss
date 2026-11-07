@@ -40,10 +40,10 @@ $-brackets: "<circle cx='16' cy='16' r='4.5'/><path d='M16 6v5M16 21v5M6 16h5M21
         "cyberpunk",
         $light: (
             "color-bg": #f4e81c,
-            "color-surface": #fbf27a,
-            "color-surface-hover": #fff8a8,
+            "color-surface": rgba(251, 242, 122, 0.78),
+            "color-surface-hover": rgba(255, 248, 168, 0.86),
             "color-surface-sunken": rgba(7, 7, 13, 0.07),
-            "color-overlay": rgba(244, 232, 28, 0.9),
+            "color-overlay": rgba(244, 232, 28, 0.8),
 
             "color-heading": $-night,
             "color-text": #15151d,
@@ -73,6 +73,9 @@ $-brackets: "<circle cx='16' cy='16' r='4.5'/><path d='M16 6v5M16 21v5M6 16h5M21
             "shadow-sm": 2px 2px 0 rgba(7, 7, 13, 0.4),
             "shadow-lg": 6px 6px 0 $-night,
             "glass-highlight": rgba(255, 255, 255, 0.4),
+            "glass-edge": rgba(7, 7, 13, 0.4),
+            "glass-sheen": rgba(255, 255, 255, 0.3),
+            "glass-shadow": theme.$no-shadow,
             "pattern-color": rgba(7, 7, 13, 0.11),
             "particle-colors": #{"7 7 13, 196 0 74, 0 92 122"},
 
@@ -83,10 +86,10 @@ $-brackets: "<circle cx='16' cy='16' r='4.5'/><path d='M16 6v5M16 21v5M6 16h5M21
         ),
         $dark: (
             "color-bg": $-night,
-            "color-surface": rgba(0, 240, 255, 0.035),
-            "color-surface-hover": rgba(0, 240, 255, 0.07),
+            "color-surface": rgba(11, 20, 28, 0.78),
+            "color-surface-hover": rgba(14, 32, 42, 0.86),
             "color-surface-sunken": rgba(0, 240, 255, 0.06),
-            "color-overlay": rgba(7, 7, 13, 0.86),
+            "color-overlay": rgba(7, 7, 13, 0.78),
 
             "color-heading": #f2fdff,
             "color-text": #c8eef4,
@@ -116,6 +119,9 @@ $-brackets: "<circle cx='16' cy='16' r='4.5'/><path d='M16 6v5M16 21v5M6 16h5M21
             "shadow-sm": 0 0 6px rgba(0, 240, 255, 0.2),
             "shadow-lg": 0 0 32px rgba(0, 240, 255, 0.18),
             "glass-highlight": rgba(0, 240, 255, 0.2),
+            "glass-edge": rgba(0, 240, 255, 0.22),
+            "glass-sheen": rgba(0, 240, 255, 0.05),
+            "glass-shadow": (0 14px 40px -12px rgba(0, 240, 255, 0.16), 0 2px 8px -2px rgba(0, 0, 0, 0.4)),
             "pattern-color": rgba(0, 240, 255, 0.08),
             "particle-colors": #{"0 240 255, 255 42 109, 252 238 10, 140 80 255"},
 

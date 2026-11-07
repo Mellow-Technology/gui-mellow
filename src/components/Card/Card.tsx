@@ -9,6 +9,8 @@ export interface CardProps extends Omit<ComponentProps<"div">, "title"> {
   icon?: ReactNode;
   /** Makes the whole card a link to here. */
   href?: string;
+  /** A soft light under the pointer. Render GlowTracker to have it follow. */
+  glow?: boolean;
   /** Closing line, such as "Read more →". */
   footer?: ReactNode;
   level?: HeadingLevel;
@@ -22,6 +24,7 @@ export function Card({
   icon,
   href,
   footer,
+  glow,
   level = 3,
   className,
   children,
@@ -30,7 +33,7 @@ export function Card({
   const Heading = headingTag(level);
 
   return (
-    <div className={cx(styles.card, href && styles.linked, className)} {...props}>
+    <div className={cx(styles.card, href && styles.linked, className)} data-glow={glow || undefined} {...props}>
       {icon && <div className={styles.icon}>{icon}</div>}
       {title && (
         <Heading className={styles.title}>

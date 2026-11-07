@@ -8,6 +8,7 @@
     border: var(--gm-border-width) solid var(--gm-color-border-strong);
     border-radius: var(--gm-radius-pill);
     background: var(--gm-color-surface);
+    box-shadow: inset 0 1px 0 var(--gm-glass-highlight);
     min-width: 0;
     // Scrolls sideways rather than overflowing a narrow screen
     max-width: 100%;

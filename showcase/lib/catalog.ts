@@ -74,6 +74,7 @@ export const demos: DemoInfo[] = [
   entry("ParticleField", "Effects", "A drifting particle background."),
   entry("Pattern", "Effects", "Background textures that follow the theme."),
   entry("CursorEffects", "Effects", "Themed cursors, and an effect around the pointer."),
+  entry("GlowTracker", "Effects", "Frosted glass, and a light that follows the pointer."),
 ];
 
 export const firstDemo = demos[0]!;

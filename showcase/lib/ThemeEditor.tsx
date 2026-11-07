@@ -59,6 +59,9 @@ const px = (token: string, label: string, max = 32, step = 1): Control => ({
   unit: "px",
 });
 
+/** Shadows here layer with others, so "none" has to be a valid shadow. */
+const noShadow = "0 0 transparent";
+
 const groups: { title: string; scheme?: boolean; controls: Control[] }[] = [
   {
     title: "Colours",
@@ -77,6 +80,34 @@ const groups: { title: string; scheme?: boolean; controls: Control[] }[] = [
       ["color-border-strong", "Strong border"],
       ["pattern-color", "Pattern"],
     ].map(([token, label]) => ({ kind: "color", token: token!, label: label! })),
+  },
+  {
+    title: "Glass",
+    scheme: true,
+    controls: [
+      ...[
+        ["color-overlay", "Header fill"],
+        ["glass-highlight", "Top edge"],
+        ["glass-edge", "Rim"],
+        ["glass-sheen", "Sheen"],
+      ].map(([token, label]): Control => ({ kind: "color", token: token!, label: label! })),
+      {
+        kind: "preset",
+        label: "Glass shadow",
+        options: [
+          { label: "None", values: { "glass-shadow": noShadow } },
+          {
+            label: "Soft",
+            values: { "glass-shadow": "0 10px 30px -12px rgb(0 0 0 / 0.22), 0 2px 6px -2px rgb(0 0 0 / 0.08)" },
+          },
+          {
+            label: "Deep",
+            values: { "glass-shadow": "0 24px 60px -16px rgb(0 0 0 / 0.5), 0 4px 12px -2px rgb(0 0 0 / 0.25)" },
+          },
+        ],
+      },
+      { kind: "range", token: "glass-ambient", label: "Ambient colour", min: 0, max: 50, step: 1, unit: "%" },
+    ],
   },
   {
     title: "Type",
@@ -127,7 +158,7 @@ const groups: { title: string; scheme?: boolean; controls: Control[] }[] = [
         kind: "preset",
         label: "Panel shadow",
         options: [
-          { label: "None", values: { "shadow-pop": "none", "shadow-pop-hover": "none" } },
+          { label: "None", values: { "shadow-pop": noShadow, "shadow-pop-hover": noShadow } },
           {
             label: "Soft",
             values: {
@@ -152,7 +183,7 @@ const groups: { title: string; scheme?: boolean; controls: Control[] }[] = [
           {
             label: "Glow",
             values: {
-              "shadow-pop": "none",
+              "shadow-pop": noShadow,
               "shadow-pop-hover":
                 "0 0 0 1px var(--gm-color-primary), 0 0 28px color-mix(in srgb, var(--gm-color-primary) 35%, transparent)",
             },
@@ -163,7 +194,7 @@ const groups: { title: string; scheme?: boolean; controls: Control[] }[] = [
         kind: "preset",
         label: "Button shadow",
         options: [
-          { label: "None", values: { "shadow-control": "none", "shadow-control-hover": "none" } },
+          { label: "None", values: { "shadow-control": noShadow, "shadow-control-hover": noShadow } },
           {
             label: "Offset ink",
             values: {

@@ -8,6 +8,10 @@
     padding: 1.75rem 1.5rem 1.6rem;
 }
 
+.card[data-glow] {
+    @include gm.glow;
+}
+
 .linked:hover {
     @include gm.surface-hover;
 }

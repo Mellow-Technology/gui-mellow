@@ -1,5 +1,6 @@
 import { Card } from "gui-mellow/Card";
 import { Grid } from "gui-mellow/Grid";
+import { vars } from "gui-mellow/utils";
 import { Example } from "../lib/Example";
 import { asset } from "../lib/asset";
 
@@ -16,6 +17,16 @@ export default function CardDemo() {
           </Card>
           <Card title="Bare metal" icon={<img src={asset("/metal.png")} alt="" />}>
             Your hardware, at full speed.
+          </Card>
+        </Grid>
+      </Example>
+      <Example title="Glow" description="A light that follows the pointer, with GlowTracker on the page.">
+        <Grid min="220px" gap={5}>
+          <Card title="Follow me" glow>
+            Move the pointer across this card.
+          </Card>
+          <Card title="Tinted" glow style={vars({ "--frost-tint": "var(--gm-color-accent)" })}>
+            The glow takes the card&rsquo;s tint.
           </Card>
         </Grid>
       </Example>

@@ -38,24 +38,164 @@ $breakpoints: (
     line-height: 1.4;
 }
 
-/// The corner notch, a triangle of --gm-notch in the top right. Nothing
-/// shows while the token is 0.
-@mixin notch {
-    background-image: linear-gradient(
+@function -notch-image() {
+    @return linear-gradient(
         225deg,
         var(--gm-color-primary) calc(var(--gm-notch) * 0.7071),
         transparent 0
     );
+}
+
+/// The corner notch, a triangle of --gm-notch in the top right. Nothing
+/// shows while the token is 0.
+@mixin notch {
+    background-image: -notch-image();
     background-repeat: no-repeat;
 }
 
-/// A bordered panel, carrying the theme's pop shadow and notch.
-@mixin surface($radius: var(--gm-radius-lg)) {
-    @include notch;
-    border: var(--gm-border-width) solid var(--gm-color-border);
+// Frosted glass.
+//
+// `frost` is the whole effect: a blurred, saturated backdrop under a tinted
+// sheen from the top left, a light sheen from the top edge, a bright top edge
+// and a tinted rim and shadow. `tile` looks the same without the backdrop
+// filter, for things that repeat (cards, list rows), where hundreds of blur
+// layers cost frame rate. `surface` is a tile filled with --gm-color-surface.
+//
+// $tint is the highlight colour. Setting --frost-tint on an element, or
+// anything around it, overrides it from outside. The resolved colour is
+// exposed as --gm-frost, for `glow` and for children to pick up.
+//
+// The look comes from the --gm-glass-* tokens, which differ by theme.
+
+/// The sheens, as a list of background images.
+@function -sheens() {
+    @return (
+        radial-gradient(130% 90% at 0% 0%, color-mix(in srgb, var(--gm-frost) 10%, transparent), transparent 55%),
+        linear-gradient(180deg, var(--gm-glass-sheen), transparent 42%)
+    );
+}
+
+@mixin -pane($tint) {
+    --gm-frost: var(--frost-tint, #{$tint});
+    background-image: -sheens();
+    border: var(--gm-border-width) solid color-mix(in srgb, var(--gm-frost) 22%, var(--gm-glass-edge));
+}
+
+/// A pane's bright top edge, inner rim and shadow, with $shadow beneath them:
+/// a theme's pop shadow, say. Those are lists of shadows, so $shadow can't be
+/// `none`, which is why the theme's "off" shadows are transparent ones.
+@mixin rim($shadow: var(--gm-glass-shadow)) {
+    box-shadow:
+        inset 0 1px 0 var(--gm-glass-highlight),
+        inset 0 -1px 0 color-mix(in srgb, var(--gm-frost) 12%, transparent),
+        $shadow;
+}
+
+/// Blurs and saturates what's behind an element. It makes the element a
+/// backdrop root, so nothing inside it can blur the page: see SiteHeader,
+/// which puts this on a pseudo-element to let its menu frost too.
+@mixin backdrop-blur($blur: 22px) {
+    -webkit-backdrop-filter: blur($blur) saturate(180%);
+    backdrop-filter: blur($blur) saturate(180%);
+
+    @media (prefers-reduced-transparency: reduce) {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+}
+
+/// Frosted glass without the blur, for elements that repeat many times.
+@mixin tile($tint: var(--gm-color-primary), $opacity: 78%) {
+    @include -pane($tint);
+    @include rim;
+    background-color: color-mix(in srgb, var(--gm-color-bg) $opacity, transparent);
+
+    @media (prefers-reduced-transparency: reduce) {
+        background-color: var(--gm-color-bg);
+    }
+}
+
+/// Frosted glass, for the few large surfaces floating over the page.
+@mixin frost($tint: var(--gm-color-primary), $opacity: 62%, $blur: 22px) {
+    @include tile($tint, $opacity);
+    @include backdrop-blur($blur);
+}
+
+/// A little glass bead, for tinted pills.
+@mixin bead($color) {
+    border: var(--gm-border-width) solid color-mix(in srgb, #{$color} 40%, transparent);
+    background-color: color-mix(in srgb, #{$color} 10%, transparent);
+    background-image: linear-gradient(180deg, var(--gm-glass-sheen), transparent 70%);
+    box-shadow: inset 0 1px 0 var(--gm-glass-highlight);
+
+    @media (prefers-reduced-transparency: reduce) {
+        background-color: color-mix(in srgb, #{$color} 10%, var(--gm-color-bg));
+    }
+}
+
+/// A soft light that follows the pointer while hovering. Without GlowTracker
+/// on the page, it stays at the top of the element. Puts a stacking context on
+/// the element and uses its ::after.
+@mixin glow($size: 16rem) {
+    position: relative;
+    isolation: isolate;
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: radial-gradient(
+            $size circle at var(--mx, 50%) var(--my, 0%),
+            color-mix(in srgb, var(--gm-frost, var(--gm-color-primary)) 22%, transparent),
+            transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s var(--gm-ease);
+        pointer-events: none;
+    }
+
+    @media (hover: hover) {
+        &:hover::after {
+            opacity: 1;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &::after {
+            background: color-mix(in srgb, var(--gm-frost, var(--gm-color-primary)) 10%, transparent);
+        }
+    }
+}
+
+/// Soft washes of the theme's colours, fixed behind the page, for glass to
+/// frost: on a flat background it has nothing to show. Goes on an element
+/// with no stacking context of its own, usually `body`; `data-ambient` on
+/// <body> does it for you. They're a fixed layer because
+/// `background-attachment: fixed` repaints the page on every scroll frame.
+@mixin ambient {
+    &::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background:
+            radial-gradient(55rem 38rem at 8% -8%, color-mix(in srgb, var(--gm-color-primary) var(--gm-glass-ambient), transparent), transparent 70%),
+            radial-gradient(48rem 36rem at 102% 4%, color-mix(in srgb, var(--gm-color-accent) var(--gm-glass-ambient), transparent), transparent 70%),
+            radial-gradient(60rem 40rem at 60% 115%, color-mix(in srgb, var(--gm-color-success) calc(var(--gm-glass-ambient) * 0.6), transparent), transparent 70%);
+        pointer-events: none;
+    }
+}
+
+/// A bordered glass panel, carrying the theme's pop shadow and notch.
+@mixin surface($radius: var(--gm-radius-lg), $tint: var(--gm-color-primary)) {
+    @include -pane($tint);
+    @include rim((var(--gm-shadow-pop), var(--gm-glass-shadow)));
     border-radius: $radius;
     background-color: var(--gm-color-surface);
-    box-shadow: var(--gm-shadow-pop);
+    background-image: -notch-image(), -sheens();
+    background-repeat: no-repeat;
     transition:
         border-color var(--gm-duration) var(--gm-ease),
         background-color var(--gm-duration) var(--gm-ease),
@@ -67,21 +207,15 @@ $breakpoints: (
 @mixin surface-hover {
     border-color: var(--gm-color-border-hover);
     background-color: var(--gm-color-surface-hover);
-    box-shadow: var(--gm-shadow-pop-hover);
+    @include rim((var(--gm-shadow-pop-hover), var(--gm-glass-shadow)));
     transform: var(--gm-lift);
 }
 
 /// Smoked glass, for controls floating over imagery or maps. Positions
 /// nothing: callers set their own `position`.
 @mixin glass($radius: var(--gm-radius-lg), $opacity: 58%) {
+    @include frost($opacity: $opacity);
     border-radius: $radius;
-    background-color: color-mix(in srgb, var(--gm-color-bg) $opacity, transparent);
-    -webkit-backdrop-filter: blur(22px) saturate(145%);
-    backdrop-filter: blur(22px) saturate(145%);
-    border: var(--gm-border-width) solid var(--gm-color-border-strong);
-    box-shadow:
-        var(--gm-shadow-lg),
-        inset 0 1px 0 var(--gm-glass-highlight);
 }
 
 /// Hidden visually but still read by assistive technology.

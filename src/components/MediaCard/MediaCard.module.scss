@@ -8,6 +8,10 @@
     overflow: hidden;
 }
 
+.card[data-glow] {
+    @include gm.glow;
+}
+
 .linked:hover {
     @include gm.surface-hover;
 

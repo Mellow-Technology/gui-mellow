@@ -34,6 +34,7 @@ export default function DialogDemo() {
           onClose={() => setEditing(false)}
           title="Rename project"
           description="The new name shows everywhere the project appears."
+          tint="var(--gm-color-accent)"
           actions={
             <>
               <Button variant="secondary" onClick={() => setEditing(false)}>
