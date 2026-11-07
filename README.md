@@ -143,7 +143,7 @@ surfaces and controls carry themselves. All are off in the default theme:
 | `shadow-control`, `shadow-control-hover` | The same for buttons | Button, Pager |
 | `lift`, `press` | Transforms on hover and on click | Surfaces, buttons |
 | `clip-control` | A `clip-path` for buttons, such as cut corners | Button |
-| `notch` | The size of a triangle of primary colour in a panel's top right | Surfaces, Terminal, CodeBlock, Dialog |
+| `notch` | The size of a triangle of primary colour in a panel's top right | Surfaces, Terminal, ScreenFrame, CodeBlock, Dialog |
 | `display-shadow`, `highlight` | A text shadow on hero and banner titles, and a background behind their `<em>` | Hero, CtaBanner |
 | `weight-heading`, `heading-transform` | Heading weight and case | All headings |
 | `tilt` | A rotation, for a stuck-on look | Badge |
@@ -218,7 +218,7 @@ the server.
 | --- | --- | --- |
 | Layout | Container, Stack, Grid, Section, Split, SidebarLayout ● (toggle only) | community-cloud-hq, code-hq, stl-urgent-dental |
 | Page | Hero, PageHeader, CtaBanner, Announcement, Alert, SiteHeader ● (nav only), SiteFooter, Credit | community-cloud-hq, code-hq, stl-urgent-dental |
-| Content | Card, MediaCard, FeatureGrid/Feature, Steps, PairList, DetailList, PostList, Accordion/Disclosure, Testimonial, LogoCloud, Prose, Figure, Table ● (when sortable), Terminal, CodeBlock ● (copy button only), Tabs ● | all four |
+| Content | Card, MediaCard, FeatureGrid/Feature, Steps, PairList, DetailList, PostList, Accordion/Disclosure, Testimonial, LogoCloud, Prose, Figure, ScreenFrame, Table ● (when sortable), Terminal, CodeBlock ● (copy button only), Tabs ● | all four |
 | Indicators | Badge, Tag/TagList, StatusDot, Stat/Meter, Avatar, Eyebrow | community-cloud-hq, code-hq |
 | Controls | Button, Chip, SegmentedControl, Field (TextField, SelectField), ComboboxField ●, RepeatingField ● (ListField, KeyValueField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
 | Navigation | TableOfContents ●, Pager, Drawer ●, Dialog/ConfirmDialog ● | community-cloud-hq, a-bright-blue-dot |
@@ -257,6 +257,10 @@ A few details worth knowing:
 - **Tabs** render every panel into the HTML, hidden until chosen, and their
   row scrolls sideways on narrow screens. SegmentedControl scrolls too,
   though Tabs suit more than three or four options.
+- **ScreenFrame** shows `media`, an image URL or any element, in a window
+  with `host` and `path` in an address pill and `brand` at the right of the
+  title bar, all optional. On narrow screens a `<span>` directly inside
+  `brand` is hidden, so wrap the name in one and the logo stays.
 - **CodeBlock** brings no highlighter. Pass `html` from one that runs at
   build time, such as Shiki, and keep `code` for copying.
 

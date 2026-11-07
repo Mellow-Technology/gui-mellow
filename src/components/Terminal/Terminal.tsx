@@ -1,6 +1,7 @@
 import type { ComponentProps } from "react";
 import { cx } from "../../utils";
 import styles from "./Terminal.module.scss";
+import { WindowDots } from "./WindowDots";
 
 export interface TerminalProps extends ComponentProps<"div"> {
   /** Commands, one per line. Lines starting with `#` are comments. */
@@ -25,9 +26,7 @@ export function Terminal({ lines, label, prompt = "$", className, ...props }: Te
   return (
     <div className={cx(styles.terminal, className)} {...props}>
       <div className={styles.titleBar} aria-hidden={!label}>
-        <span className={styles.light} />
-        <span className={styles.light} />
-        <span className={styles.light} />
+        <WindowDots />
         {label && <span className={styles.label}>{label}</span>}
       </div>
       <pre className={styles.body}>
