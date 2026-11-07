@@ -1,6 +1,10 @@
 // Everything, for convenience. For the smallest pages, import components from
 // their own entry points instead, e.g. `import { Button } from "gui-mellow/Button"`,
 // or list "gui-mellow" in next.config's experimental.optimizePackageImports.
+//
+// RichText and RichTextEditor are the exception, only available from their
+// own entry points: TipTap is an optional peer, and an import from here would
+// have to resolve it in every app.
 
 export * from "./components/Accordion";
 export * from "./components/Alert";

@@ -14,6 +14,7 @@
     "./styles/*": "./src/styles/*",
     "./theme": "./src/theme.ts",
     "./utils": "./src/utils/index.ts",
+    "./rich-text-schema": "./src/richTextSchema.ts",
     "./*": "./src/components/*/index.ts"
   },
   "files": [
@@ -28,12 +29,49 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
+    "@tiptap/core": "^3",
+    "@tiptap/extension-link": "^3",
+    "@tiptap/extensions": "^3",
+    "@tiptap/pm": "^3",
+    "@tiptap/react": "^3",
+    "@tiptap/starter-kit": "^3",
+    "@tiptap/static-renderer": "^3",
     "next": ">=15",
     "react": ">=19",
     "react-dom": ">=19",
     "sass": ">=1.80"
   },
+  "peerDependenciesMeta": {
+    "@tiptap/core": {
+      "optional": true
+    },
+    "@tiptap/extension-link": {
+      "optional": true
+    },
+    "@tiptap/extensions": {
+      "optional": true
+    },
+    "@tiptap/pm": {
+      "optional": true
+    },
+    "@tiptap/react": {
+      "optional": true
+    },
+    "@tiptap/starter-kit": {
+      "optional": true
+    },
+    "@tiptap/static-renderer": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@tiptap/core": "^3.33.0",
+    "@tiptap/extension-link": "^3.33.0",
+    "@tiptap/extensions": "^3.33.0",
+    "@tiptap/pm": "^3.33.0",
+    "@tiptap/react": "^3.33.0",
+    "@tiptap/starter-kit": "^3.33.0",
+    "@tiptap/static-renderer": "^3.33.0",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
