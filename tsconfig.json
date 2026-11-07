@@ -16,6 +16,7 @@
       "gui-mellow": ["./src/index.ts"],
       "gui-mellow/styles.scss": ["./src/styles/global.scss"],
       "gui-mellow/theme": ["./src/theme.ts"],
+      "gui-mellow/rich-text-schema": ["./src/richTextSchema.ts"],
       "gui-mellow/*": ["./src/components/*/index.ts"]
     }
   },

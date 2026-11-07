@@ -1,4 +1,4 @@
-import { useId, type ComponentProps, type ReactNode } from "react";
+import { useId, type ComponentProps, type MouseEventHandler, type ReactNode } from "react";
 import { cx } from "../../utils";
 import styles from "./Field.module.scss";
 
@@ -28,6 +28,13 @@ export interface FieldProps extends FieldOwnProps {
   required?: boolean;
   /** The id for the hint or error, to point the control's aria-describedby at. */
   messageId?: string;
+  /**
+   * An id for the label. A label only reaches form elements, so a control of
+   * another kind points aria-labelledby at this and focuses itself in
+   * `onLabelClick`.
+   */
+  labelId?: string;
+  onLabelClick?: MouseEventHandler<HTMLLabelElement>;
   children: ReactNode;
 }
 
@@ -43,6 +50,8 @@ export function Field({
   required,
   htmlFor,
   messageId,
+  labelId,
+  onLabelClick,
   className,
   children,
 }: FieldProps) {
@@ -50,7 +59,12 @@ export function Field({
 
   return (
     <div className={cx(styles.field, className)}>
-      <label className={cx(styles.label, hideLabel && styles.hidden)} htmlFor={htmlFor}>
+      <label
+        id={labelId}
+        className={cx(styles.label, hideLabel && styles.hidden)}
+        htmlFor={htmlFor}
+        onClick={onLabelClick}
+      >
         {label}
         {required && (
           <span className={styles.required} aria-hidden>

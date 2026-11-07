@@ -220,7 +220,7 @@ the server.
 | Page | Hero, PageHeader, CtaBanner, Announcement, Alert, SiteHeader ● (nav only), SiteFooter, Credit | community-cloud-hq, code-hq, stl-urgent-dental |
 | Content | Card, MediaCard, FeatureGrid/Feature, Steps, PairList, DetailList, PostList, Accordion/Disclosure, Testimonial, LogoCloud, Prose, Figure, Table ● (when sortable), Terminal, CodeBlock ● (copy button only), Tabs ● | all four |
 | Indicators | Badge, Tag/TagList, StatusDot, Stat/Meter, Avatar, Eyebrow | community-cloud-hq, code-hq |
-| Controls | Button, Chip, SegmentedControl, Field (TextField, SelectField), ComboboxField ●, RepeatingField ● (ListField, KeyValueField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
+| Controls | Button, Chip, SegmentedControl, Field (TextField, SelectField), ComboboxField ●, RichTextEditor ●, RepeatingField ● (ListField, KeyValueField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
 | Navigation | TableOfContents ●, Pager, Drawer ●, Dialog/ConfirmDialog ● | community-cloud-hq, a-bright-blue-dot |
 | Effects | ParticleField ●, Pattern, CursorEffects ●, CursorToggle ● | community-cloud-hq |
 
@@ -243,6 +243,39 @@ A few details worth knowing:
   value is submitted as its own hidden input. The list opens in the top
   layer (as a popover), so containers that clip their overflow, and
   dialogs, don't cut it off.
+- **RichTextEditor and RichText** are for formatted writing, on
+  [TipTap](https://tiptap.dev). Install TipTap to use them; it's an optional
+  peer, so they're only available from their own entry points, not the
+  package root:
+
+  ```sh
+  bun add @tiptap/core @tiptap/pm @tiptap/react @tiptap/starter-kit \
+    @tiptap/extension-link @tiptap/extensions @tiptap/static-renderer
+  ```
+
+  The value is TipTap's JSON document, not HTML, with `null` for empty: store
+  that, and show it with RichText, which renders on the server without an
+  editor or `dangerouslySetInnerHTML`.
+
+  ```tsx
+  import { RichText } from "gui-mellow/RichText";
+  import { RichTextEditor, type RichTextDocument } from "gui-mellow/RichTextEditor";
+
+  const [document, setDocument] = useState<RichTextDocument | null>(null);
+
+  <RichTextEditor label="Comment" value={document} onChange={setDocument} onSubmit={send} />
+  <RichText value={document} />
+  ```
+
+  `tools` picks the toolbar's tools and their order, and a `ref` gives
+  `focus()`, `clear()` and `getJSON()`. Only http, https and mailto links are
+  accepted, and links keep nothing but their address. Pasted content is reduced
+  to the schema, with headings moved to the nearest of the two levels. Extra
+  TipTap extensions, such as mentions, go in `extensions` on both components.
+  `gui-mellow/rich-text-schema` has `richTextExtensions`, `richTextSchema`,
+  `richTextNodes` and `richTextMarks` with no React or styles, to validate
+  documents on a server; if you check them in another language, as Methods
+  does, allow the same names.
 - **RepeatingField** is controlled: pass `rows` and `onChange`. ListField
   and KeyValueField cover lists of values and key/value pairs; for other
   rows, pass `newRow` and `renderRow`. `reorderable` adds move buttons.
