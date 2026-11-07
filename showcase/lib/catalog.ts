@@ -70,6 +70,7 @@ export const demos: DemoInfo[] = [
   entry("Pager", "Navigation", "Previous and next pages."),
   entry("Drawer", "Navigation", "A panel sliding in from the side."),
   entry("Dialog", "Navigation", "A modal, and a confirmation."),
+  entry("Popover", "Navigation", "A small floating panel anchored to an element."),
 
   entry("ParticleField", "Effects", "A drifting particle background."),
   entry("Pattern", "Effects", "Background textures that follow the theme."),

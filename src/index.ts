@@ -33,6 +33,7 @@ export * from "./components/PairList";
 export * from "./components/ParticleField";
 export * from "./components/Pattern";
 export * from "./components/PostList";
+export * from "./components/Popover";
 export * from "./components/Prose";
 export * from "./components/RepeatingField";
 export * from "./components/Section";

@@ -52,6 +52,7 @@ export const loaders: Record<string, () => Promise<{ default: ComponentType }>> 
   Pager: () => import("../demos/Pager"),
   Drawer: () => import("../demos/Drawer"),
   Dialog: () => import("../demos/Dialog"),
+  Popover: () => import("../demos/Popover"),
   ParticleField: () => import("../demos/ParticleField"),
   Pattern: () => import("../demos/Pattern"),
   CursorEffects: () => import("../demos/CursorEffects"),

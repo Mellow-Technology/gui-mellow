@@ -1,5 +1,6 @@
 import { Grid } from "gui-mellow/Grid";
-import { Meter, Stat } from "gui-mellow/Stat";
+import { Meter, StackedMeter, Stat } from "gui-mellow/Stat";
+import { toneColor } from "gui-mellow/utils";
 import { Example } from "../lib/Example";
 
 export default function StatDemo() {
@@ -20,6 +21,19 @@ export default function StatDemo() {
       </Example>
       <Example title="Meter alone">
         <Meter value={0.62} label="Disk used" />
+      </Example>
+      <Example
+        title="Stacked"
+        description="Hover, focus or tap a segment for its label, count and share. The arrow keys step through them."
+      >
+        <StackedMeter
+          label="Issues by state"
+          segments={[
+            { label: "Done", value: 5, color: toneColor("success") },
+            { label: "In Progress", value: 3, color: toneColor("primary") },
+            { label: "To Do", value: 3, color: toneColor("accent") },
+          ]}
+        />
       </Example>
     </>
   );

@@ -1,0 +1,173 @@
+@use "sass:list";
+@use "sass:map";
+@use "../../styles/mixins" as gm;
+
+// Tokens are read here with their defaults, rather than declared with the
+// theme, so that they follow a `data-theme` or `data-palette` around them
+
+// The space kept from the trigger; GAP_PX in Popover.tsx is the same
+$gap: 8px;
+$arrow: 10px;
+
+$areas: (
+    "top": top,
+    "top-start": top span-right,
+    "top-end": top span-left,
+    "bottom": bottom,
+    "bottom-start": bottom span-right,
+    "bottom-end": bottom span-left,
+    "left": left,
+    "left-start": left span-bottom,
+    "left-end": left span-top,
+    "right": right,
+    "right-start": right span-bottom,
+    "right-end": right span-top,
+);
+
+$opposites: (
+    "top": bottom,
+    "bottom": top,
+    "left": right,
+    "right": left,
+);
+
+.popover {
+    @include gm.glass(var(--gm-popover-radius, var(--gm-radius-md)), 80%);
+
+    // Placed by the component, unless anchor positioning takes over below.
+    // `max-content`, as `fit-content` would squeeze the popover to fit
+    // beside its trigger and it would never flip.
+    position: fixed;
+    inset: auto;
+    width: max-content;
+    max-width: min(var(--gm-popover-width, 20rem), 100vw - 16px);
+    margin: 0;
+    padding: 0;
+    // The body scrolls instead, leaving the arrow outside
+    overflow: visible;
+    // The tint: a wash from the corner and a stained rim, which show nothing
+    // unless --frost-tint is set
+    background-image: radial-gradient(
+        130% 90% at 0% 0%,
+        color-mix(in srgb, var(--frost-tint, transparent) 16%, transparent),
+        transparent 60%
+    );
+    border-color: color-mix(in srgb, var(--frost-tint, var(--gm-color-border-strong)) 45%, var(--gm-color-border-strong));
+    box-shadow:
+        var(--gm-popover-shadow, var(--gm-shadow-lg)),
+        inset 0 1px 0 var(--gm-glass-highlight);
+    color: var(--gm-color-text);
+    font-size: var(--gm-text-sm);
+    line-height: var(--gm-leading-snug);
+
+    &:focus-visible {
+        outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-transparency: reduce) {
+        background-color: var(--gm-color-bg);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    // Fades and scales in where supported
+    transition:
+        opacity var(--gm-duration) var(--gm-ease),
+        scale var(--gm-duration) var(--gm-ease),
+        overlay var(--gm-duration) allow-discrete,
+        display var(--gm-duration) allow-discrete;
+
+    &:not(:popover-open) {
+        opacity: 0;
+        scale: 0.97;
+    }
+
+    @starting-style {
+        &:popover-open {
+            opacity: 0;
+            scale: 0.97;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+        scale: none;
+
+        &:not(:popover-open) {
+            scale: none;
+        }
+
+        @starting-style {
+            &:popover-open {
+                opacity: 1;
+                scale: none;
+            }
+        }
+    }
+}
+
+@supports (position-area: top) and (position-try-fallbacks: flip-block) {
+    @each $placement, $area in $areas {
+        $side: list.nth($area, 1);
+
+        .popover[data-placement="#{$placement}"] {
+            position-area: $area;
+            // First the flip that keeps it on the same axis
+            @if $side == top or $side == bottom {
+                position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+            } @else {
+                position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
+            }
+            // On the side facing the trigger; a flip swaps it over
+            margin-#{map.get($opposites, "#{$side}")}: $gap;
+        }
+    }
+}
+
+.body {
+    display: block;
+    max-height: min(var(--gm-popover-height, 24rem), 100vh - 16px);
+    padding: var(--gm-popover-padding, var(--gm-space-3));
+    overflow: auto;
+    border-radius: inherit;
+}
+
+// A square turned on its corner, half out of the side facing the trigger,
+// with its two outward edges bordered
+.arrow {
+    position: absolute;
+    width: $arrow;
+    height: $arrow;
+    // Solid, as a backdrop filter inside the popover can't reach the page
+    background: var(--gm-color-bg);
+    border: 0 solid var(--gm-color-border-strong);
+    rotate: 45deg;
+
+    [data-side="top"] > & {
+        bottom: calc($arrow / -2);
+        left: var(--arrow-x);
+        translate: -50% 0;
+        border-width: 0 var(--gm-border-width) var(--gm-border-width) 0;
+    }
+
+    [data-side="bottom"] > & {
+        top: calc($arrow / -2);
+        left: var(--arrow-x);
+        translate: -50% 0;
+        border-width: var(--gm-border-width) 0 0 var(--gm-border-width);
+    }
+
+    [data-side="left"] > & {
+        right: calc($arrow / -2);
+        top: var(--arrow-y);
+        translate: 0 -50%;
+        border-width: var(--gm-border-width) var(--gm-border-width) 0 0;
+    }
+
+    [data-side="right"] > & {
+        left: calc($arrow / -2);
+        top: var(--arrow-y);
+        translate: 0 -50%;
+        border-width: 0 0 var(--gm-border-width) var(--gm-border-width);
+    }
+}

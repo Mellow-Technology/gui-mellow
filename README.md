@@ -219,9 +219,9 @@ the server.
 | Layout | Container, Stack, Grid, Section, Split, SidebarLayout ● (toggle only) | community-cloud-hq, code-hq, stl-urgent-dental |
 | Page | Hero, PageHeader, CtaBanner, Announcement, Alert, SiteHeader ● (nav only), SiteFooter, Credit | community-cloud-hq, code-hq, stl-urgent-dental |
 | Content | Card, MediaCard, FeatureGrid/Feature, Steps, PairList, DetailList, PostList, Accordion/Disclosure, Testimonial, LogoCloud, Prose, Figure, Table ● (when sortable), Terminal, CodeBlock ● (copy button only), Tabs ● | all four |
-| Indicators | Badge, Tag/TagList, StatusDot, Stat/Meter, Avatar, Eyebrow | community-cloud-hq, code-hq |
+| Indicators | Badge, Tag/TagList, StatusDot, Stat/Meter, StackedMeter ●, Avatar, Eyebrow | community-cloud-hq, code-hq |
 | Controls | Button, Chip, SegmentedControl, Field (TextField, SelectField), ComboboxField ●, RepeatingField ● (ListField, KeyValueField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
-| Navigation | TableOfContents ●, Pager, Drawer ●, Dialog/ConfirmDialog ● | community-cloud-hq, a-bright-blue-dot |
+| Navigation | TableOfContents ●, Pager, Drawer ●, Dialog/ConfirmDialog ●, Popover ● | community-cloud-hq, a-bright-blue-dot |
 | Effects | ParticleField ●, Pattern, CursorEffects ●, CursorToggle ● | community-cloud-hq |
 
 A few details worth knowing:
@@ -254,6 +254,20 @@ A few details worth knowing:
 - **Dialog** is the native `<dialog>`, so focus trapping, the inert page and
   Escape come from the browser. **ConfirmDialog** replaces `window.confirm`,
   with `destructive` and `busy` states.
+- **Popover** wraps one trigger element, which must pass its props on to
+  the DOM and be able to take focus: `<Popover content="…"><Button>…</Button></Popover>`.
+  It's built on the native `popover` attribute and CSS anchor positioning,
+  with a JavaScript fallback where that isn't supported. `placement` is a
+  side, optionally with `-start` or `-end`, and it flips near the window's
+  edge. `trigger` is `hover` (also keyboard focus and a tap), `click` or
+  `manual`; `open` and `onOpenChange` control it. Hover popovers describe
+  their trigger with `aria-describedby`; `interactive` ones, the default for
+  `click` and `manual`, get `aria-expanded` and `aria-controls`, and take
+  focus. `tint` colours the glass. `--gm-popover-radius`, `-shadow`,
+  `-padding`, `-width` and `-height` restyle it, in CSS or through `$tokens`.
+- **StackedMeter** (from `gui-mellow/Stat`) splits a bar into `segments`, each
+  opening a popover with its label, count and share. The bar is one Tab stop,
+  and the arrow keys step through it.
 - **Tabs** render every panel into the HTML, hidden until chosen, and their
   row scrolls sideways on narrow screens. SegmentedControl scrolls too,
   though Tabs suit more than three or four options.
