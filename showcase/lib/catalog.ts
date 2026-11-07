@@ -60,6 +60,7 @@ export const demos: DemoInfo[] = [
   entry("Button", "Controls", "Buttons, and links styled as them."),
   entry("Chip", "Controls", "Compact toggles, for filters."),
   entry("SegmentedControl", "Controls", "One of a few options."),
+  entry("ButtonGroup", "Controls", "A row of related actions."),
   entry("Field", "Controls", "Labelled inputs, textareas and selects."),
   entry("Combobox", "Controls", "A text input that suggests options as you type."),
   entry("RepeatingField", "Controls", "Rows of fields to add, remove and reorder."),

@@ -1,0 +1,44 @@
+@use "../../styles/mixins" as gm;
+
+.group {
+    @include gm.pill-tray;
+}
+
+.item {
+    @include gm.pill;
+    border: 0;
+    background: transparent;
+
+    // Nothing stays selected, so the fill only shows while pointing at one
+    &:hover:not(:disabled) {
+        background: var(--gm-color-primary);
+        color: var(--gm-color-on-primary);
+    }
+
+    &:focus-visible {
+        @include gm.pill-focus;
+    }
+
+    &:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+}
+
+// For actions that destroy something, such as Delete
+.danger {
+    color: var(--gm-color-danger);
+
+    &:hover:not(:disabled) {
+        background: var(--gm-color-danger);
+        color: #ffffff;
+    }
+}
+
+.sm .item {
+    @include gm.pill-size(sm);
+}
+
+.md .item {
+    @include gm.pill-size(md);
+}

@@ -23,6 +23,10 @@ export interface SegmentedControlProps<T extends string>
 /**
  * Pick one of a few options, shown side by side. Native radio buttons, so
  * it's keyboard accessible and works in forms without JavaScript.
+ *
+ * Exactly one option is selected, and arrow keys change it, firing `onChange`
+ * at each step. That's safe for switching between options, such as views.
+ * For actions, which shouldn't fire on the way past, use ButtonGroup.
  */
 export function SegmentedControl<T extends string>({
   options,

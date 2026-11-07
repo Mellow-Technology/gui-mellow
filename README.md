@@ -220,7 +220,7 @@ the server.
 | Page | Hero, PageHeader, CtaBanner, Announcement, Alert, SiteHeader ● (nav only), SiteFooter, Credit | community-cloud-hq, code-hq, stl-urgent-dental |
 | Content | Card, MediaCard, FeatureGrid/Feature, Steps, PairList, DetailList, PostList, Accordion/Disclosure, Testimonial, LogoCloud, Prose, Figure, Table ● (when sortable), Terminal, CodeBlock ● (copy button only), Tabs ● | all four |
 | Indicators | Badge, Tag/TagList, StatusDot, Stat/Meter, Avatar, Eyebrow | community-cloud-hq, code-hq |
-| Controls | Button, Chip, SegmentedControl, Field (TextField, SelectField), ComboboxField ●, RepeatingField ● (ListField, KeyValueField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
+| Controls | Button, ButtonGroup, Chip, SegmentedControl, Field (TextField, SelectField), ComboboxField ●, RepeatingField ● (ListField, KeyValueField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
 | Navigation | TableOfContents ●, Pager, Drawer ●, Dialog/ConfirmDialog ● | community-cloud-hq, a-bright-blue-dot |
 | Effects | ParticleField ●, Pattern, CursorEffects ●, CursorToggle ● | community-cloud-hq |
 
@@ -257,6 +257,15 @@ A few details worth knowing:
 - **Tabs** render every panel into the HTML, hidden until chosen, and their
   row scrolls sideways on narrow screens. SegmentedControl scrolls too,
   though Tabs suit more than three or four options.
+- **ButtonGroup and SegmentedControl** look alike and do different things.
+  ButtonGroup is a collection of related _actions_: each one does something
+  when pressed (navigate, open a dialog, run a command), and nothing is
+  current, like Open, Edit and Delete on an application. Each item is a link
+  or a button with its own Tab stop. SegmentedControl switches between
+  _options_: exactly one is selected, the choice persists, and moving between
+  them, including with arrow keys, is safe, like picking an image source or
+  switching views. If picking an item again does nothing new, and something
+  is always selected, it's a SegmentedControl; otherwise it's a ButtonGroup.
 - **CodeBlock** brings no highlighter. Pass `html` from one that runs at
   build time, such as Shiki, and keep `code` for copying.
 

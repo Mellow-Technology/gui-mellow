@@ -43,6 +43,7 @@ export const loaders: Record<string, () => Promise<{ default: ComponentType }>> 
   Button: () => import("../demos/Button"),
   Chip: () => import("../demos/Chip"),
   SegmentedControl: () => import("../demos/SegmentedControl"),
+  ButtonGroup: () => import("../demos/ButtonGroup"),
   Field: () => import("../demos/Field"),
   RepeatingField: () => import("../demos/RepeatingField"),
   Combobox: () => import("../demos/Combobox"),

@@ -107,3 +107,52 @@ $breakpoints: (
         border-radius: inherit;
     }
 }
+
+/// The rounded tray that SegmentedControl and ButtonGroup set their pills in.
+/// Scrolls sideways rather than overflowing a narrow screen.
+@mixin pill-tray {
+    display: inline-flex;
+    gap: 2px;
+    margin: 0;
+    padding: 3px;
+    border: var(--gm-border-width) solid var(--gm-color-border-strong);
+    border-radius: var(--gm-radius-pill);
+    background: var(--gm-color-surface);
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+/// One pill in a tray, at rest. What hovering and pressing do is up to the
+/// component, since a selected option and an action behave differently.
+@mixin pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gm-space-2);
+    border-radius: var(--gm-radius-pill);
+    color: var(--gm-color-text-subtle);
+    font-weight: var(--gm-weight-medium);
+    white-space: nowrap;
+    cursor: var(--gm-cursor-pointer);
+    transition:
+        background-color var(--gm-duration) var(--gm-ease),
+        color var(--gm-duration) var(--gm-ease);
+}
+
+/// The focus ring on a pill.
+@mixin pill-focus {
+    outline: 2px solid var(--gm-color-focus);
+    outline-offset: 1px;
+}
+
+/// A pill's size: `sm` or `md`.
+@mixin pill-size($size) {
+    @if $size == sm {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.8rem;
+    } @else {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.875rem;
+    }
+}

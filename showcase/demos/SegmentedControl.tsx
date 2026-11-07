@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { SegmentedControl } from "gui-mellow/SegmentedControl";
 import { Example } from "../lib/Example";
+import { PillGuidance } from "../lib/PillGuidance";
 
 type Period = "day" | "week" | "month";
 
@@ -11,6 +12,7 @@ export default function SegmentedControlDemo() {
 
   return (
     <>
+      <PillGuidance current="SegmentedControl" />
       <Example title="Controlled" description={`Selected: ${period}`}>
         <SegmentedControl<Period>
           label="Period"
