@@ -53,7 +53,7 @@ export const demos: DemoInfo[] = [
   entry("Badge", "Indicators", "A short, prominent status."),
   entry("Tag", "Indicators", "Topics and features."),
   entry("StatusDot", "Indicators", "A coloured status with a message."),
-  entry("Stat", "Indicators", "A figure, optionally against a total."),
+  entry("Stat", "Indicators", "A figure, optionally against a total or split into segments."),
   entry("Avatar", "Indicators", "A portrait, or initials."),
   entry("Eyebrow", "Indicators", "The label above a heading."),
 

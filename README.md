@@ -219,7 +219,7 @@ the server.
 | Layout | Container, Stack, Grid, Section, Split, SidebarLayout ● (toggle only) | community-cloud-hq, code-hq, stl-urgent-dental |
 | Page | Hero, PageHeader, CtaBanner, Announcement, Alert, SiteHeader ● (nav only), SiteFooter, Credit | community-cloud-hq, code-hq, stl-urgent-dental |
 | Content | Card, MediaCard, FeatureGrid/Feature, Steps, PairList, DetailList, PostList, Accordion/Disclosure, Testimonial, LogoCloud, Prose, Figure, Table ● (when sortable), Terminal, CodeBlock ● (copy button only), Tabs ● | all four |
-| Indicators | Badge, Tag/TagList, StatusDot, Stat/Meter, Avatar, Eyebrow | community-cloud-hq, code-hq |
+| Indicators | Badge, Tag/TagList, StatusDot, Stat/Meter ● (when segmented), Avatar, Eyebrow | community-cloud-hq, code-hq |
 | Controls | Button, Chip, SegmentedControl, Field (TextField, SelectField), ComboboxField ●, RepeatingField ● (ListField, KeyValueField), Switch, ThemeToggle ●, PaletteToggle ● | all four |
 | Navigation | TableOfContents ●, Pager, Drawer ●, Dialog/ConfirmDialog ● | community-cloud-hq, a-bright-blue-dot |
 | Effects | ParticleField ●, Pattern, CursorEffects ●, CursorToggle ● | community-cloud-hq |
@@ -233,6 +233,12 @@ A few details worth knowing:
   server.
 - **TextField and SelectField** take `className` for the whole field and
   `controlClassName` for just the input, textarea or select.
+- **Meter** and **Stat** take `segments` to show a breakdown: one bar split
+  into coloured shares of a whole, each with a popover giving its label, count
+  and share by hover, tap or keyboard (`popover={false}` turns that off, and
+  `legend` adds a key under the bar). Inside a link the bar takes no focus and
+  reads as one summary, and a first tap shows the popover rather than following
+  the link. Without `segments`, both stay server components.
 - **ComboboxField** suggests options as you type and chooses one, with the
   arrow keys, Enter and Escape. It filters `options` itself; for a search
   that happens elsewhere, pass `onInputChange`, `filter={false}` and the

@@ -48,10 +48,10 @@
 }
 
 .meter {
-    height: 4px;
+    height: var(--gm-meter-height, 4px);
     width: 100%;
     overflow: hidden;
-    border-radius: 2px;
+    border-radius: var(--gm-radius-pill);
     background: var(--gm-color-border);
 }
 
@@ -63,4 +63,118 @@
     height: 100%;
     background: var(--gm-color-primary);
     transition: width 0.4s var(--gm-ease);
+}
+
+// Segments sit flush, so only the bar's two outer ends are rounded. Zero
+// segments render nothing, so first and last are always the visible ends.
+// The track doesn't clip them, as a raised segment and its hit area stand
+// clear of it.
+.track {
+    display: flex;
+    overflow: visible;
+}
+
+.segment {
+    position: relative;
+    flex: 0 1 auto;
+    // Keeps a tiny share visible; its neighbours shrink to make room
+    min-width: 4px;
+    background: var(--gm-meter-color);
+    transition:
+        flex-basis 0.4s var(--gm-ease),
+        transform var(--gm-duration) var(--gm-ease);
+
+    &:first-child {
+        border-start-start-radius: var(--gm-radius-pill);
+        border-end-start-radius: var(--gm-radius-pill);
+    }
+
+    &:last-child {
+        border-start-end-radius: var(--gm-radius-pill);
+        border-end-end-radius: var(--gm-radius-pill);
+    }
+
+    // A few pixels of bar is too little to aim at
+    &::before {
+        content: "";
+        position: absolute;
+        inset: -0.5rem 0;
+    }
+
+    &[data-active] {
+        z-index: 1;
+        transform: scaleY(1.5);
+    }
+}
+
+// In the top layer, as a popover, so the overflow of a card around the bar
+// can't cut it off. Placed by the component against the window.
+.popover {
+    @include gm.glass(var(--gm-radius-sm), 78%);
+    position: fixed;
+    inset: auto;
+    width: max-content;
+    max-width: calc(100vw - 1rem);
+    margin: 0;
+    padding: var(--gm-space-1) var(--gm-space-3);
+    color: var(--gm-color-text);
+    font-size: var(--gm-text-sm);
+    transition: opacity var(--gm-duration) var(--gm-ease);
+
+    &:popover-open {
+        display: flex;
+        align-items: center;
+        gap: var(--gm-space-2);
+
+        @starting-style {
+            opacity: 0;
+        }
+    }
+}
+
+// Moving from one segment to the next
+.following {
+    transition:
+        left var(--gm-duration) var(--gm-ease),
+        top var(--gm-duration) var(--gm-ease);
+}
+
+.swatch {
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--gm-meter-color);
+}
+
+.popoverLabel {
+    color: var(--gm-color-text-muted);
+}
+
+.count {
+    font-variant-numeric: tabular-nums;
+    color: var(--gm-color-text);
+}
+
+.share {
+    font-size: var(--gm-text-xs);
+    font-variant-numeric: tabular-nums;
+    color: var(--gm-color-text-faint);
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gm-space-1) var(--gm-space-4);
+    margin: var(--gm-space-3) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--gm-text-xs);
+    color: var(--gm-color-text-muted);
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: var(--gm-space-2);
 }
