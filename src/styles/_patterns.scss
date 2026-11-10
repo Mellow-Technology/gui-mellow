@@ -8,6 +8,7 @@
 //     .texture { @include patterns.apply(patterns.$hex); }
 
 @use "sass:map";
+@use "sass:math";
 @use "sass:string";
 
 @function -replace($text, $find, $with) {
@@ -112,7 +113,10 @@ $petals: (
 $-bolt: "<path d='M7 0h10l-5 9h7L5 26l3.5-12H2z'/>";
 
 @function -bolt($x, $y, $turn, $scale: 1, $outline: false) {
-    $paint: if($outline, " fill='none' stroke='black' stroke-width='#{1.5 / $scale}' stroke-linejoin='round'", "");
+    $paint: "";
+    @if $outline {
+        $paint: " fill='none' stroke='black' stroke-width='#{math.div(1.5, $scale)}' stroke-linejoin='round'";
+    }
     @return "<g transform='translate(#{$x} #{$y}) rotate(#{$turn}) scale(#{$scale})'#{$paint}>#{$-bolt}</g>";
 }
 
